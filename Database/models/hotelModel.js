@@ -2,12 +2,13 @@ const Sequelize = require('sequelize')
 const db = require('../config')
 
 const Hotel = db.define('hotel',{
-  ID: Sequelize.INTEGER,
-  H_NAME: Sequelize.string[],
-  H_Count: Sequelize.integer[],
-  P_ID: Sequelize.string
+  hotelName: Sequelize.ARRAY(Sequelize.STRING),
+  hotelVoteCount: Sequelize.ARRAY(Sequelize.INTEGER),
+  timestamps: false
 })
 
 Hotel.sync()
+
+// Hotel.sync({ force: true })
 
 module.exports = Hotel

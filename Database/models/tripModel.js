@@ -7,16 +7,19 @@ const Trips = db.define('trips',{
   ID: Sequelize.INTEGER,
   USER_ID:Sequelize.INTEGER,
   USER_ID_VOTERS: Sequelize.INTEGER[][],
-  TITLE: Sequelize.STRING,
-  DESTINATION: Sequelize.STRING,
-  HOTELS: Sequelize.STRING[][],
-  ACTIVITIES: Sequelize.STRING[],
-  START_DATE: Sequelize.DATE,
-  END_DATE: Sequelize.DATE,
-  IS_COMPLETED: Sequelize.BOOLEAN
+  title: Sequelize.STRING,
+  destination: Sequelize.STRING,
+  hotels: Sequelize.ARRAY(Sequelize.STRING),
+  activities: Sequelize.ARRAY(Sequelize.STRING),
+  startDate: Sequelize.DATEONLY,
+  endDate: Sequelize.DATEONLY,
+  isCompleted: Sequelize.BOOLEAN,
+  timestamps: false
 })
 
 Trips.sync()
+
+// Trips.sync({ force: true})
 
 module.exports = Trips
 

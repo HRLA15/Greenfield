@@ -12,9 +12,8 @@ module.exports = {
   },
   addHotel : (req, res) => {
     Hotel.create({
-      ID: req.body.ID,
-      H_NAME: req.body.H_NAME,
-      H_Count: req.body.H_Count,
+      hotelName: req.body.hotelName,
+      hotelVoteCount: req.body.hotelVoteCount,
       P_ID: req.body.P_ID
     })
   }
