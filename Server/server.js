@@ -16,3 +16,5 @@ app.listen(PORT, err=>{
   }
   console.log(`Server successfully connected on PORT : ${PORT}`)
 })
+
+console.log('test')
