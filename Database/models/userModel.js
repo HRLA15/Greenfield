@@ -7,7 +7,7 @@ const Users = db.define('users',{
   email: Sequelize.STRING,
   proPicC: Sequelize.STRING,
   upcomingTrips: Sequelize.ARRAY(Sequelize.STRING),
-  resolvedTrips: Sequelize.ARRAY(Sequlize.STRING),
+  resolvedTrips: Sequelize.ARRAY(Sequelize.STRING),
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
   friends:Sequelize.ARRAY(Sequelize.STRING),

@@ -4,12 +4,9 @@ const db = require('../config.js')
 
 
 const Trips = db.define('trips',{
-  ID: Sequelize.INTEGER,
-  USER_ID:Sequelize.INTEGER,
-  USER_ID_VOTERS: Sequelize.INTEGER[][],
   title: Sequelize.STRING,
   destination: Sequelize.STRING,
-  hotels: Sequelize.ARRAY(Sequelize.STRING),
+  hotelTrips: Sequelize.ARRAY(Sequelize.STRING),
   activities: Sequelize.ARRAY(Sequelize.STRING),
   startDate: Sequelize.DATEONLY,
   endDate: Sequelize.DATEONLY,
