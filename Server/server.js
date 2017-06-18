@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var morgan = require('morgan')
 const PORT = process.env.PORT || 8080;
 const db = require('../Database/config')
+const models = require('../Database/models/models');
 
 var app = express()
   .use(bodyParser.json())
