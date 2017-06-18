@@ -24935,7 +24935,11 @@ var Home = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'container' },
-        isAuthenticated() && _react2.default.createElement(
+        isAuthenticated() &&
+        /*<h4>
+          You are logged in!
+        </h4>*/
+        _react2.default.createElement(
           'div',
           null,
           _react2.default.createElement(_UserHome2.default, null)
