@@ -10,13 +10,13 @@ import UserHome from './src/userHomePageComponent/UserHome'
 const routes = makeMainRoutes();
 
 //DELETE THIS ONCE AUTHO WORKS AND UNCOMMENT BELOW
-ReactDOM.render(
-  <UserHome />,
-  document.getElementById('root')
-);
-
-// USE THIS ONCE AUTHO WORKS
 // ReactDOM.render(
-//   routes,
+//   <UserHome />,
 //   document.getElementById('root')
 // );
+
+// USE THIS ONCE AUTHO WORKS
+ReactDOM.render(
+  routes,
+  document.getElementById('root')
+);
