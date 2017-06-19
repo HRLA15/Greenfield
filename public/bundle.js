@@ -23062,7 +23062,7 @@ var makeMainRoutes = exports.makeMainRoutes = function makeMainRoutes() {
         } }),
       _react2.default.createElement(_reactRouterDom.Route, { path: '/callback', render: function render(props) {
           handleAuthentication(props);
-          return _react2.default.createElement(_Callback2.default, props);
+          return _react2.default.createElement(_Home2.default, _extends({ auth: auth }, props));
         } })
     )
   );
@@ -26362,7 +26362,7 @@ Object.defineProperty(exports, "__esModule", {
 var AUTH_CONFIG = exports.AUTH_CONFIG = {
   domain: 'michaelhappycheng.auth0.com',
   clientId: 'UYaVFoBomqw7X7hyesh2Tyn52PKW9Zi4',
-  callbackUrl: 'http://localhost:8080/callback'
+  callbackUrl: 'http://localhost:3000/callback'
 };
 
 /***/ }),
@@ -26395,16 +26395,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var routes = (0, _routes.makeMainRoutes)();
 
 //DELETE THIS ONCE AUTHO WORKS AND UNCOMMENT BELOW
+// ReactDOM.render(
+//   <UserHome />,
+//   document.getElementById('root')
+// );
+
+// USE THIS ONCE AUTHO WORKS
 
 
 //delete this after AUTHO WORKS
-_reactDom2.default.render(_react2.default.createElement(_UserHome2.default, null), document.getElementById('root'));
-
-// USE THIS ONCE AUTHO WORKS
-// ReactDOM.render(
-//   routes,
-//   document.getElementById('root')
-// );
+_reactDom2.default.render(routes, document.getElementById('root'));
 
 /***/ }),
 /* 292 */
@@ -26573,14 +26573,10 @@ var Home = function (_Component) {
         'div',
         { className: 'container' },
         isAuthenticated() && _react2.default.createElement(
-          'h4',
+          'div',
           null,
-          'You are logged in!'
-        )
-        /*<div>
-          <UserHome />
-        </div>*/
-        ,
+          _react2.default.createElement(_UserHome2.default, null)
+        ),
         !isAuthenticated() && _react2.default.createElement(
           'h4',
           null,
