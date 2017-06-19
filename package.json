@@ -29,6 +29,7 @@
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
+    "react-dropzone": "^3.13.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "sequelize": "^4.0.0",
