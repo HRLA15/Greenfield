@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import Create from '../createTripPageComponent/Create'
 import CreateTripButton from './CreateTripButton'
+import UserUpcomingTripsList from './UserUpcomingTripsList'
+import UserPendingTripsList from './UserPendingTripsList'
+import UserPreviousTripsList from './UserPreviousTripsList'
+import UserProfile from './UserProfile'
 
 class UserHome extends Component {
   constructor(props) {
@@ -26,7 +30,15 @@ class UserHome extends Component {
     if(clicked) {
       redirect = <Create />
     } else {
-      redirect = <CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick} />
+      redirect = (
+        <div>
+          <UserProfile />
+          <UserUpcomingTripsList />
+          <UserPreviousTripsList />
+          <UserPendingTripsList />
+          <CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick} />
+        </div>
+      )
     }
 
     return (
