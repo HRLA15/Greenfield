@@ -7,6 +7,8 @@ class Create extends Component {
     super()
     this.state = {
 
+      showInvite: true,
+
       friends: [],
 
       display: false,
@@ -21,6 +23,7 @@ class Create extends Component {
     }
     
     this.inviteFriends = this.inviteFriends.bind(this)
+    this.uninviteFriend = this.uninviteFriend.bind(this)
     this.invite = this.invite.bind(this)
     this.done = this.done.bind(this)
   }
@@ -29,6 +32,18 @@ class Create extends Component {
   inviteFriends(){
     this.setState({display: true})
     console.log('clicked')
+  }
+
+//Uninvite Friends button
+  uninviteFriend(friend){
+    for(var i = 0; i < this.state.friends.length; i++) {
+      if(friend === this.state.friends[i]) {
+        this.state.friends.splice(i, 1)
+        this.setState({friends: this.state.friends})
+      }
+    }
+    console.log(this.state.friends)
+    console.log(friend + ' was uninvited')
   }
 
 //Invite friends list invite button
@@ -83,9 +98,10 @@ class Create extends Component {
             <br></br>
             <button className="finishedMakingTrip">Finalize Trip</button>
           </div>
+
           {/*Render Invited Friends*/}
           <div id="invitedFriends">
-            <Friends friends={this.state.friends} />
+            <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
           </div>
 
         </div>
@@ -93,10 +109,14 @@ class Create extends Component {
   }
 }
 
-const Friends = ({friends}) => (
+const Friends = ({friends, uninviteFriend}) => (
   <div>
-  {friends.map(friend => {
-    return <li>{friend}</li>
+  {friends.map((friend, key) => {
+    return <div>
+    <li>{friend}
+    <button className="uninvite" onClick={() => {uninviteFriend(friend)}}>Uninvite</button>
+    </li>
+    </div>
   })
   }
   </div>
