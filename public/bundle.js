@@ -13051,7 +13051,9 @@ var Create = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).call(this));
 
     _this.state = {
+
       friends: [],
+
       display: false,
 
       dummyData: [{
@@ -13069,12 +13071,18 @@ var Create = function (_Component) {
     return _this;
   }
 
+  //Invite Frinends Button
+
+
   _createClass(Create, [{
     key: 'inviteFriends',
     value: function inviteFriends() {
       this.setState({ display: true });
       console.log('clicked');
     }
+
+    //Invite friends list invite button
+
   }, {
     key: 'invite',
     value: function invite(friend) {
@@ -13085,6 +13093,9 @@ var Create = function (_Component) {
         friends: this.state.friends
       });
     }
+
+    //When finished inviting friends Button
+
   }, {
     key: 'done',
     value: function done() {
@@ -13095,6 +13106,7 @@ var Create = function (_Component) {
     key: 'render',
     value: function render() {
 
+      //Invite Friends List on "Invite Friends" click
       if (this.state.display === true) {
         return _react2.default.createElement(
           'div',
@@ -13151,9 +13163,14 @@ var Create = function (_Component) {
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',
-            { className: 'donebtn' },
-            'Done'
+            { className: 'finishedMakingTrip' },
+            'Finalize Trip'
           )
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'invitedFriends' },
+          _react2.default.createElement(Friends, { friends: this.state.friends })
         )
       );
     }
@@ -13161,6 +13178,21 @@ var Create = function (_Component) {
 
   return Create;
 }(_react.Component);
+
+var Friends = function Friends(_ref) {
+  var friends = _ref.friends;
+  return _react2.default.createElement(
+    'div',
+    null,
+    friends.map(function (friend) {
+      return _react2.default.createElement(
+        'li',
+        null,
+        friend
+      );
+    })
+  );
+};
 
 exports.default = Create;
 

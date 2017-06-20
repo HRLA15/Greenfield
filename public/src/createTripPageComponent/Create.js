@@ -6,7 +6,9 @@ class Create extends Component {
   constructor(){
     super()
     this.state = {
+
       friends: [],
+
       display: false,
 
       dummyData: [{
@@ -23,11 +25,13 @@ class Create extends Component {
     this.done = this.done.bind(this)
   }
 
+//Invite Frinends Button
   inviteFriends(){
     this.setState({display: true})
     console.log('clicked')
   }
 
+//Invite friends list invite button
   invite(friend){
     console.log('Clicked on friend')
     console.log(friend)
@@ -37,6 +41,7 @@ class Create extends Component {
     })
   }
 
+//When finished inviting friends Button
   done(){
     this.setState({display: false})
     console.log(this.state.friends)
@@ -44,6 +49,7 @@ class Create extends Component {
 
   render() {
 
+//Invite Friends List on "Invite Friends" click
     if (this.state.display === true) {
       return (
       <div>
@@ -56,6 +62,7 @@ class Create extends Component {
       </div>
       )
   }
+
 
     return (
         <div>
@@ -74,11 +81,25 @@ class Create extends Component {
             <br></br>
             <button className="btn" onClick={this.inviteFriends}>Invite Friends</button>
             <br></br>
-            <button className="donebtn">Done</button>
+            <button className="finishedMakingTrip">Finalize Trip</button>
           </div>
+          {/*Render Invited Friends*/}
+          <div id="invitedFriends">
+            <Friends friends={this.state.friends} />
+          </div>
+
         </div>
     )
   }
 }
+
+const Friends = ({friends}) => (
+  <div>
+  {friends.map(friend => {
+    return <li>{friend}</li>
+  })
+  }
+  </div>
+)
 
 export default Create
