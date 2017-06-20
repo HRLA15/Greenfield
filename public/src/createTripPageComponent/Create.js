@@ -6,7 +6,11 @@ class Create extends Component {
   constructor(){
     super()
     this.state = {
+
+      showInvite: true,
+
       friends: [],
+
       display: false,
 
       dummyData: [{
@@ -19,15 +23,30 @@ class Create extends Component {
     }
     
     this.inviteFriends = this.inviteFriends.bind(this)
+    this.uninviteFriend = this.uninviteFriend.bind(this)
     this.invite = this.invite.bind(this)
     this.done = this.done.bind(this)
   }
 
+//Invite Frinends Button
   inviteFriends(){
     this.setState({display: true})
     console.log('clicked')
   }
 
+//Uninvite Friends button
+  uninviteFriend(friend){
+    for(var i = 0; i < this.state.friends.length; i++) {
+      if(friend === this.state.friends[i]) {
+        this.state.friends.splice(i, 1)
+        this.setState({friends: this.state.friends})
+      }
+    }
+    console.log(this.state.friends)
+    console.log(friend + ' was uninvited')
+  }
+
+//Invite friends list invite button
   invite(friend){
     console.log('Clicked on friend')
     console.log(friend)
@@ -37,6 +56,7 @@ class Create extends Component {
     })
   }
 
+//When finished inviting friends Button
   done(){
     this.setState({display: false})
     console.log(this.state.friends)
@@ -44,6 +64,7 @@ class Create extends Component {
 
   render() {
 
+//Invite Friends List on "Invite Friends" click
     if (this.state.display === true) {
       return (
       <div>
@@ -56,6 +77,7 @@ class Create extends Component {
       </div>
       )
   }
+
 
     return (
         <div>
@@ -74,11 +96,30 @@ class Create extends Component {
             <br></br>
             <button className="btn" onClick={this.inviteFriends}>Invite Friends</button>
             <br></br>
-            <button className="donebtn">Done</button>
+            <button className="finishedMakingTrip">Finalize Trip</button>
           </div>
+
+          {/*Render Invited Friends*/}
+          <div id="invitedFriends">
+            <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
+          </div>
+
         </div>
     )
   }
 }
+
+const Friends = ({friends, uninviteFriend}) => (
+  <div>
+  {friends.map((friend, key) => {
+    return <div>
+    <li>{friend}
+    <button className="uninvite" onClick={() => {uninviteFriend(friend)}}>Uninvite</button>
+    </li>
+    </div>
+  })
+  }
+  </div>
+)
 
 export default Create

@@ -13051,7 +13051,11 @@ var Create = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).call(this));
 
     _this.state = {
+
+      showInvite: true,
+
       friends: [],
+
       display: false,
 
       dummyData: [{
@@ -13064,10 +13068,14 @@ var Create = function (_Component) {
     };
 
     _this.inviteFriends = _this.inviteFriends.bind(_this);
+    _this.uninviteFriend = _this.uninviteFriend.bind(_this);
     _this.invite = _this.invite.bind(_this);
     _this.done = _this.done.bind(_this);
     return _this;
   }
+
+  //Invite Frinends Button
+
 
   _createClass(Create, [{
     key: 'inviteFriends',
@@ -13075,6 +13083,24 @@ var Create = function (_Component) {
       this.setState({ display: true });
       console.log('clicked');
     }
+
+    //Uninvite Friends button
+
+  }, {
+    key: 'uninviteFriend',
+    value: function uninviteFriend(friend) {
+      for (var i = 0; i < this.state.friends.length; i++) {
+        if (friend === this.state.friends[i]) {
+          this.state.friends.splice(i, 1);
+          this.setState({ friends: this.state.friends });
+        }
+      }
+      console.log(this.state.friends);
+      console.log(friend + ' was uninvited');
+    }
+
+    //Invite friends list invite button
+
   }, {
     key: 'invite',
     value: function invite(friend) {
@@ -13085,6 +13111,9 @@ var Create = function (_Component) {
         friends: this.state.friends
       });
     }
+
+    //When finished inviting friends Button
+
   }, {
     key: 'done',
     value: function done() {
@@ -13095,6 +13124,7 @@ var Create = function (_Component) {
     key: 'render',
     value: function render() {
 
+      //Invite Friends List on "Invite Friends" click
       if (this.state.display === true) {
         return _react2.default.createElement(
           'div',
@@ -13151,9 +13181,14 @@ var Create = function (_Component) {
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',
-            { className: 'donebtn' },
-            'Done'
+            { className: 'finishedMakingTrip' },
+            'Finalize Trip'
           )
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'invitedFriends' },
+          _react2.default.createElement(Friends, { friends: this.state.friends, uninviteFriend: this.uninviteFriend })
         )
       );
     }
@@ -13161,6 +13196,33 @@ var Create = function (_Component) {
 
   return Create;
 }(_react.Component);
+
+var Friends = function Friends(_ref) {
+  var friends = _ref.friends,
+      uninviteFriend = _ref.uninviteFriend;
+  return _react2.default.createElement(
+    'div',
+    null,
+    friends.map(function (friend, key) {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'li',
+          null,
+          friend,
+          _react2.default.createElement(
+            'button',
+            { className: 'uninvite', onClick: function onClick() {
+                uninviteFriend(friend);
+              } },
+            'Uninvite'
+          )
+        )
+      );
+    })
+  );
+};
 
 exports.default = Create;
 
