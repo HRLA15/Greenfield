@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import FriendsList from './FriendsList'
+import EventPage from '../EventPageComponent/EventPage'
 
 class Create extends Component {
   constructor(){
@@ -12,10 +13,18 @@ class Create extends Component {
       toDate: '',
 
       showInvite: true,
-
+//Invited Friends storage
       friends: [],
 
       display: false,
+
+      displayEventPage: false,
+//Trip info
+      tripName: '',
+
+      locationName: '',
+
+      description: '',
 
       dummyData: [{
         name: "Jose"
@@ -32,6 +41,10 @@ class Create extends Component {
     this.done = this.done.bind(this)
     this.eventFromDate = this.eventFromDate.bind(this)
     this.eventToDate = this.eventToDate.bind(this)
+    this.finalize = this.finalize.bind(this)
+    this.tripNameData = this.tripNameData.bind(this)
+    this.locationNameData = this.locationNameData.bind(this)
+    this.descriptionData = this.descriptionData.bind(this)
   }
 
 //Invite Frinends Button
@@ -78,6 +91,25 @@ class Create extends Component {
     console.log(this.state.toDate)
   }
 
+  finalize() {
+    this.setState({displayEventPage: true})
+  }
+
+  tripNameData(events) {
+    this.setState({tripName: events.target.value})
+    console.log(events.target.value)
+  }
+
+  locationNameData(events) {
+    this.setState({location: events.target.value})
+    console.log(events.target.value)
+  }
+
+  descriptionData(events) {
+    this.setState({description: events.target.value})
+    console.log(events.target.value)
+  }
+
   render() {
 
 //Invite Friends List on "Invite Friends" click
@@ -94,16 +126,24 @@ class Create extends Component {
       )
   }
 
+  if (this.state.displayEventPage === true) {
+    return (
+      <div>
+        <EventPage />
+      </div>
+    )
+  }
+
 
     return (
         <div>
           <div id="topHalf">
             <h2>Create Trip</h2>
-            <input id="tripName" type = 'text' placeholder = "Trip name"></input>
+            <input id="tripName" type = 'text' placeholder = "Trip name" onChange={this.tripNameData}></input>
           <br></br>
-            <input id="location" type = 'text' placeholder = 'Location/Address'></input>
+            <input id="location" type = 'text' placeholder = 'Location/Address' onChange={this.locationNameData}></input>
           <br></br>
-            <textarea name="description" placeholder ="Description Details"></textarea>
+            <textarea name="description" placeholder ="Description Details" onChange={this.descriptionData}></textarea>
           </div>
 
           <div id="bottomHalf">
@@ -117,13 +157,13 @@ class Create extends Component {
             {/*Invite friends pop up*/}
             <button className="btn" onClick={this.inviteFriends}>Invite Friends</button>
             <br></br>
-            <button className="finishedMakingTrip">Finalize Trip</button>
+            <button className="finalize" onClick = {this.finalize}>Finalize Trip</button>
           </div>
 
           {/*Render Invited Friends*/}
           <div id="invitedFriends">
             <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
-          </div>
+          </div> 
 
         </div>
     )

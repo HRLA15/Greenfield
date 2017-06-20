@@ -13034,6 +13034,10 @@ var _FriendsList = __webpack_require__(294);
 
 var _FriendsList2 = _interopRequireDefault(_FriendsList);
 
+var _EventPage = __webpack_require__(597);
+
+var _EventPage2 = _interopRequireDefault(_EventPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13057,10 +13061,18 @@ var Create = function (_Component) {
       toDate: '',
 
       showInvite: true,
-
+      //Invited Friends storage
       friends: [],
 
       display: false,
+
+      displayEventPage: false,
+      //Trip info
+      tripName: '',
+
+      locationName: '',
+
+      description: '',
 
       dummyData: [{
         name: "Jose"
@@ -13077,6 +13089,10 @@ var Create = function (_Component) {
     _this.done = _this.done.bind(_this);
     _this.eventFromDate = _this.eventFromDate.bind(_this);
     _this.eventToDate = _this.eventToDate.bind(_this);
+    _this.finalize = _this.finalize.bind(_this);
+    _this.tripNameData = _this.tripNameData.bind(_this);
+    _this.locationNameData = _this.locationNameData.bind(_this);
+    _this.descriptionData = _this.descriptionData.bind(_this);
     return _this;
   }
 
@@ -13139,6 +13155,29 @@ var Create = function (_Component) {
       console.log(this.state.toDate);
     }
   }, {
+    key: 'finalize',
+    value: function finalize() {
+      this.setState({ displayEventPage: true });
+    }
+  }, {
+    key: 'tripNameData',
+    value: function tripNameData(events) {
+      this.setState({ tripName: events.target.value });
+      console.log(events.target.value);
+    }
+  }, {
+    key: 'locationNameData',
+    value: function locationNameData(events) {
+      this.setState({ location: events.target.value });
+      console.log(events.target.value);
+    }
+  }, {
+    key: 'descriptionData',
+    value: function descriptionData(events) {
+      this.setState({ description: events.target.value });
+      console.log(events.target.value);
+    }
+  }, {
     key: 'render',
     value: function render() {
 
@@ -13160,6 +13199,14 @@ var Create = function (_Component) {
         );
       }
 
+      if (this.state.displayEventPage === true) {
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_EventPage2.default, null)
+        );
+      }
+
       return _react2.default.createElement(
         'div',
         null,
@@ -13171,11 +13218,11 @@ var Create = function (_Component) {
             null,
             'Create Trip'
           ),
-          _react2.default.createElement('input', { id: 'tripName', type: 'text', placeholder: 'Trip name' }),
+          _react2.default.createElement('input', { id: 'tripName', type: 'text', placeholder: 'Trip name', onChange: this.tripNameData }),
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { id: 'location', type: 'text', placeholder: 'Location/Address' }),
+          _react2.default.createElement('input', { id: 'location', type: 'text', placeholder: 'Location/Address', onChange: this.locationNameData }),
           _react2.default.createElement('br', null),
-          _react2.default.createElement('textarea', { name: 'description', placeholder: 'Description Details' })
+          _react2.default.createElement('textarea', { name: 'description', placeholder: 'Description Details', onChange: this.descriptionData })
         ),
         _react2.default.createElement(
           'div',
@@ -13201,7 +13248,7 @@ var Create = function (_Component) {
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',
-            { className: 'finishedMakingTrip' },
+            { className: 'finalize', onClick: this.finalize },
             'Finalize Trip'
           )
         ),
@@ -58118,6 +58165,60 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+/* 597 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(20);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EventPage = function (_Component) {
+  _inherits(EventPage, _Component);
+
+  function EventPage() {
+    _classCallCheck(this, EventPage);
+
+    return _possibleConstructorReturn(this, (EventPage.__proto__ || Object.getPrototypeOf(EventPage)).call(this));
+  }
+
+  _createClass(EventPage, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'h1',
+        null,
+        'Event Page'
+      );
+    }
+  }]);
+
+  return EventPage;
+}(_react.Component);
+
+exports.default = EventPage;
 
 /***/ })
 /******/ ]);
