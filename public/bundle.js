@@ -13052,6 +13052,10 @@ var Create = function (_Component) {
 
     _this.state = {
 
+      fromDate: '',
+
+      toDate: '',
+
       showInvite: true,
 
       friends: [],
@@ -13071,6 +13075,8 @@ var Create = function (_Component) {
     _this.uninviteFriend = _this.uninviteFriend.bind(_this);
     _this.invite = _this.invite.bind(_this);
     _this.done = _this.done.bind(_this);
+    _this.eventFromDate = _this.eventFromDate.bind(_this);
+    _this.eventToDate = _this.eventToDate.bind(_this);
     return _this;
   }
 
@@ -13121,6 +13127,18 @@ var Create = function (_Component) {
       console.log(this.state.friends);
     }
   }, {
+    key: 'eventFromDate',
+    value: function eventFromDate(events) {
+      this.setState({ fromDate: events.target.value });
+      console.log(this.state.fromDate);
+    }
+  }, {
+    key: 'eventToDate',
+    value: function eventToDate(events) {
+      this.setState({ toDate: events.target.value });
+      console.log(this.state.toDate);
+    }
+  }, {
     key: 'render',
     value: function render() {
 
@@ -13155,6 +13173,8 @@ var Create = function (_Component) {
           ),
           _react2.default.createElement('input', { id: 'tripName', type: 'text', placeholder: 'Trip name' }),
           _react2.default.createElement('br', null),
+          _react2.default.createElement('input', { id: 'location', type: 'text', placeholder: 'Location/Address' }),
+          _react2.default.createElement('br', null),
           _react2.default.createElement('textarea', { name: 'description', placeholder: 'Description Details' })
         ),
         _react2.default.createElement(
@@ -13165,13 +13185,13 @@ var Create = function (_Component) {
             null,
             'From:'
           ),
-          _react2.default.createElement('input', { type: 'date' }),
+          _react2.default.createElement('input', { type: 'date', onChange: this.eventFromDate }),
           _react2.default.createElement(
             'span',
             null,
-            'To:'
+            ' To:'
           ),
-          _react2.default.createElement('input', { type: 'date' }),
+          _react2.default.createElement('input', { type: 'date', onChange: this.eventToDate }),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',

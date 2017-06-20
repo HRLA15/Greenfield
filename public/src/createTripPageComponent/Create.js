@@ -7,6 +7,10 @@ class Create extends Component {
     super()
     this.state = {
 
+      fromDate: '',
+
+      toDate: '',
+
       showInvite: true,
 
       friends: [],
@@ -26,6 +30,8 @@ class Create extends Component {
     this.uninviteFriend = this.uninviteFriend.bind(this)
     this.invite = this.invite.bind(this)
     this.done = this.done.bind(this)
+    this.eventFromDate = this.eventFromDate.bind(this)
+    this.eventToDate = this.eventToDate.bind(this)
   }
 
 //Invite Frinends Button
@@ -62,6 +68,16 @@ class Create extends Component {
     console.log(this.state.friends)
   }
 
+  eventFromDate(events) {
+    this.setState({fromDate: events.target.value})
+    console.log(this.state.fromDate)
+  }
+
+  eventToDate(events) {
+    this.setState({toDate: events.target.value})
+    console.log(this.state.toDate)
+  }
+
   render() {
 
 //Invite Friends List on "Invite Friends" click
@@ -85,15 +101,20 @@ class Create extends Component {
             <h2>Create Trip</h2>
             <input id="tripName" type = 'text' placeholder = "Trip name"></input>
           <br></br>
+            <input id="location" type = 'text' placeholder = 'Location/Address'></input>
+          <br></br>
             <textarea name="description" placeholder ="Description Details"></textarea>
           </div>
 
           <div id="bottomHalf">
+            {/*Dropdown calendars*/}
             <span>From:</span>
-            <input type="date" />
-            <span>To:</span>
-            <input type="date" />
+            <input type="date" onChange={this.eventFromDate}/>
+            <span> To:</span>
+            <input type="date" onChange={this.eventToDate}/>
             <br></br>
+            
+            {/*Invite friends pop up*/}
             <button className="btn" onClick={this.inviteFriends}>Invite Friends</button>
             <br></br>
             <button className="finishedMakingTrip">Finalize Trip</button>
