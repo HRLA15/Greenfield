@@ -22,7 +22,7 @@ class Create extends Component {
 //Trip info
       tripName: '',
 
-      locationName: '',
+      location: '',
 
       description: '',
 
@@ -97,17 +97,17 @@ class Create extends Component {
 
   tripNameData(events) {
     this.setState({tripName: events.target.value})
-    console.log(events.target.value)
+    console.log('Trip Name: ',events.target.value)
   }
 
   locationNameData(events) {
     this.setState({location: events.target.value})
-    console.log(events.target.value)
+    console.log('Location: ',events.target.value)
   }
 
   descriptionData(events) {
     this.setState({description: events.target.value})
-    console.log(events.target.value)
+    console.log('Description: ',events.target.value)
   }
 
   render() {
@@ -129,7 +129,14 @@ class Create extends Component {
   if (this.state.displayEventPage === true) {
     return (
       <div>
-        <EventPage />
+        <EventPage 
+        tripName={this.state.tripName} 
+        location={this.state.location} 
+        description={this.state.description} 
+        toDate={this.state.toDate}
+        fromDate={this.state.fromDate}
+        friends={this.state.friends}
+        />
       </div>
     )
   }
