@@ -13056,6 +13056,8 @@ var Create = function (_Component) {
 
     _this.state = {
 
+      // hideInvite: false,
+
       fromDate: '',
 
       toDate: '',
@@ -13093,8 +13095,18 @@ var Create = function (_Component) {
     _this.tripNameData = _this.tripNameData.bind(_this);
     _this.locationNameData = _this.locationNameData.bind(_this);
     _this.descriptionData = _this.descriptionData.bind(_this);
+    // this.hideInvite = this.hideInvite.bind(this)
     return _this;
   }
+
+  // hideInvite(){
+  //   if(this.state.hideInvite === false){
+  //   this.setState({hideInvite: true})
+  //   console.log('hideInvite')
+  //   } else {
+  //   this.setState({hideInvite: false})
+  //   }
+  // }
 
   //Invite Frinends Button
 
@@ -13103,7 +13115,6 @@ var Create = function (_Component) {
     key: 'inviteFriends',
     value: function inviteFriends() {
       this.setState({ display: true });
-      console.log('clicked');
     }
 
     //Uninvite Friends button
@@ -13126,6 +13137,11 @@ var Create = function (_Component) {
   }, {
     key: 'invite',
     value: function invite(friend) {
+      for (var i = 0; i < this.state.friends.length; i++) {
+        if (friend.name === this.state.friends[i]) {
+          return alert('Friend already invited');
+        }
+      }
       console.log('Clicked on friend');
       console.log(friend);
       this.state.friends.push(friend.name);
@@ -13157,7 +13173,11 @@ var Create = function (_Component) {
   }, {
     key: 'finalize',
     value: function finalize() {
-      this.setState({ displayEventPage: true });
+      if (this.state.displayEventPage === false) {
+        this.setState({ displayEventPage: true });
+      } else {
+        this.setState({ displayEventPage: false });
+      }
     }
   }, {
     key: 'tripNameData',
@@ -13182,6 +13202,7 @@ var Create = function (_Component) {
     value: function render() {
 
       //Invite Friends List on "Invite Friends" click
+
       if (this.state.display === true) {
         return _react2.default.createElement(
           'div',
@@ -13194,7 +13215,8 @@ var Create = function (_Component) {
           _react2.default.createElement(_FriendsList2.default, {
             friends: this.state.dummyData,
             invite: this.invite,
-            done: this.done
+            done: this.done,
+            hideInvite: this.hideInvite
           })
         );
       }
@@ -13209,7 +13231,8 @@ var Create = function (_Component) {
             description: this.state.description,
             toDate: this.state.toDate,
             fromDate: this.state.fromDate,
-            friends: this.state.friends
+            friends: this.state.friends,
+            displayEventPage: this.finalize
           })
         );
       }
@@ -13271,6 +13294,9 @@ var Create = function (_Component) {
   return Create;
 }(_react.Component);
 
+//Render invited friends onto Create Page
+
+
 var Friends = function Friends(_ref) {
   var friends = _ref.friends,
       uninviteFriend = _ref.uninviteFriend;
@@ -13282,7 +13308,7 @@ var Friends = function Friends(_ref) {
         'div',
         null,
         _react2.default.createElement(
-          'li',
+          'p',
           null,
           friend,
           _react2.default.createElement(
@@ -26706,6 +26732,11 @@ var EventPage = function (_Component) {
         'div',
         null,
         _react2.default.createElement(
+          'button',
+          { className: 'btn', onClick: this.props.displayEventPage },
+          'Edit'
+        ),
+        _react2.default.createElement(
           'h1',
           null,
           'Event Page'
@@ -26860,7 +26891,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var FriendsList = function FriendsList(_ref) {
   var friends = _ref.friends,
       invite = _ref.invite,
-      done = _ref.done;
+      done = _ref.done,
+      hideInvite = _ref.hideInvite;
   return _react2.default.createElement(
     'div',
     null,
@@ -26869,7 +26901,7 @@ var FriendsList = function FriendsList(_ref) {
         'div',
         null,
         _react2.default.createElement(
-          'h5',
+          'span',
           { key: key },
           friend.name
         ),
@@ -26879,8 +26911,7 @@ var FriendsList = function FriendsList(_ref) {
               invite(friend);
             } },
           'Invite'
-        ),
-        _react2.default.createElement('br', null)
+        )
       );
     }),
     _react2.default.createElement(

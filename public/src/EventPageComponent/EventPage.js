@@ -10,6 +10,9 @@ class EventPage extends Component {
   render() {
     return (
       <div>
+      {/*if organizer*/}
+      <button className='btn' onClick={this.props.displayEventPage}>Edit</button>
+
       <h1>Event Page</h1>
       <h2>Trip Name: {this.props.tripName}</h2>
       <span>Location: {this.props.location}</span>

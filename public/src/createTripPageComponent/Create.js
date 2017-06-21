@@ -8,6 +8,8 @@ class Create extends Component {
     super()
     this.state = {
 
+      // hideInvite: false,
+
       fromDate: '',
 
       toDate: '',
@@ -45,12 +47,21 @@ class Create extends Component {
     this.tripNameData = this.tripNameData.bind(this)
     this.locationNameData = this.locationNameData.bind(this)
     this.descriptionData = this.descriptionData.bind(this)
+    // this.hideInvite = this.hideInvite.bind(this)
   }
+
+  // hideInvite(){
+  //   if(this.state.hideInvite === false){
+  //   this.setState({hideInvite: true})
+  //   console.log('hideInvite')
+  //   } else {
+  //   this.setState({hideInvite: false})
+  //   }
+  // }
 
 //Invite Frinends Button
   inviteFriends(){
     this.setState({display: true})
-    console.log('clicked')
   }
 
 //Uninvite Friends button
@@ -67,6 +78,11 @@ class Create extends Component {
 
 //Invite friends list invite button
   invite(friend){
+    for (var i = 0; i < this.state.friends.length; i++) {
+      if (friend.name === this.state.friends[i]) {
+        return alert('Friend already invited')
+      }
+    }
     console.log('Clicked on friend')
     console.log(friend)
     this.state.friends.push(friend.name)
@@ -92,7 +108,11 @@ class Create extends Component {
   }
 
   finalize() {
+    if (this.state.displayEventPage === false){
     this.setState({displayEventPage: true})
+    } else {
+      this.setState({displayEventPage: false})
+    }
   }
 
   tripNameData(events) {
@@ -113,6 +133,7 @@ class Create extends Component {
   render() {
 
 //Invite Friends List on "Invite Friends" click
+
     if (this.state.display === true) {
       return (
       <div>
@@ -121,6 +142,7 @@ class Create extends Component {
         friends = {this.state.dummyData} 
         invite = {this.invite}
         done = {this.done}
+        hideInvite = {this.hideInvite}
         />
       </div>
       )
@@ -136,6 +158,7 @@ class Create extends Component {
         toDate={this.state.toDate}
         fromDate={this.state.fromDate}
         friends={this.state.friends}
+        displayEventPage={this.finalize}
         />
       </div>
     )
@@ -177,13 +200,14 @@ class Create extends Component {
   }
 }
 
+//Render invited friends onto Create Page
 const Friends = ({friends, uninviteFriend}) => (
   <div>
   {friends.map((friend, key) => {
     return <div>
-    <li>{friend}
+    <p>{friend}
     <button className="uninvite" onClick={() => {uninviteFriend(friend)}}>Uninvite</button>
-    </li>
+    </p>
     </div>
   })
   }
