@@ -59,6 +59,10 @@ class Create extends Component {
   //   }
   // }
 
+  login() {
+    this.props.auth.login();
+  }
+
 //Invite Frinends Button
   inviteFriends(){
     this.setState({display: true})
@@ -134,6 +138,8 @@ class Create extends Component {
 
 //Invite Friends List on "Invite Friends" click
 
+
+
     if (this.state.display === true) {
       return (
       <div>
@@ -165,7 +171,16 @@ class Create extends Component {
   }
 
 
+const { isAuthenticated } = this.props.auth;
     return (
+
+      //if Authenticated ? render : do not render
+      <div>
+        {
+        isAuthenticated() && (
+            
+            
+
         <div>
           <div id="topHalf">
             <h2>Create Trip</h2>
@@ -196,9 +211,28 @@ class Create extends Component {
           </div> 
 
         </div>
-    )
-  }
-}
+
+        ) //isAuthenticated end parenthesis
+        }
+        {
+          !isAuthenticated() && (
+              <h4>
+                You are not logged in! Please{' '}
+                <a
+                  style={{ cursor: 'pointer' }}
+                  onClick={this.login.bind(this)}
+                >
+                  Log In
+                </a>
+                {' '}to continue.
+              </h4>
+            )
+        }
+      </div>
+    ) 
+
+  } //end render bracket
+} //end Create component bracket
 
 //Render invited friends onto Create Page
 const Friends = ({friends, uninviteFriend}) => (
