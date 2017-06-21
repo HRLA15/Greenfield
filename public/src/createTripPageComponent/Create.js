@@ -67,6 +67,11 @@ class Create extends Component {
 
 //Invite friends list invite button
   invite(friend){
+    for (var i = 0; i < this.state.friends.length; i++) {
+      if (friend.name === this.state.friends[i]) {
+        return alert('Already Invited')
+      }
+    }
     console.log('Clicked on friend')
     console.log(friend)
     this.state.friends.push(friend.name)
