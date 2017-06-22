@@ -1,16 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const FriendsList = ({friends, invite, done}) => (
+const FriendsList = ({friends, invite, done, hideInvite}) => (
+  
   <div>
   {friends.map((friend, key) => {
     return <div>
-      <h5 key={key}>
+      <span key={key}>
       {friend.name}
-      </h5>
+      </span>
       <button className="btn" onClick={() => {
         invite(friend)}}>Invite</button>
-      <br></br>
+
   </div>
 
   })}

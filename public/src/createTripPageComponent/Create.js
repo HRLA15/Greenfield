@@ -8,6 +8,8 @@ class Create extends Component {
     super()
     this.state = {
 
+      // hideInvite: false,
+
       fromDate: '',
 
       toDate: '',
@@ -22,7 +24,7 @@ class Create extends Component {
 //Trip info
       tripName: '',
 
-      locationName: '',
+      location: '',
 
       description: '',
 
@@ -45,12 +47,25 @@ class Create extends Component {
     this.tripNameData = this.tripNameData.bind(this)
     this.locationNameData = this.locationNameData.bind(this)
     this.descriptionData = this.descriptionData.bind(this)
+    // this.hideInvite = this.hideInvite.bind(this)
+  }
+
+  // hideInvite(){
+  //   if(this.state.hideInvite === false){
+  //   this.setState({hideInvite: true})
+  //   console.log('hideInvite')
+  //   } else {
+  //   this.setState({hideInvite: false})
+  //   }
+  // }
+
+  login() {
+    this.props.auth.login();
   }
 
 //Invite Frinends Button
   inviteFriends(){
     this.setState({display: true})
-    console.log('clicked')
   }
 
 //Uninvite Friends button
@@ -67,6 +82,11 @@ class Create extends Component {
 
 //Invite friends list invite button
   invite(friend){
+    for (var i = 0; i < this.state.friends.length; i++) {
+      if (friend.name === this.state.friends[i]) {
+        return alert('Friend already invited')
+      }
+    }
     console.log('Clicked on friend')
     console.log(friend)
     this.state.friends.push(friend.name)
@@ -92,27 +112,34 @@ class Create extends Component {
   }
 
   finalize() {
+    if (this.state.displayEventPage === false){
     this.setState({displayEventPage: true})
+    } else {
+      this.setState({displayEventPage: false})
+    }
   }
 
   tripNameData(events) {
     this.setState({tripName: events.target.value})
-    console.log(events.target.value)
+    console.log('Trip Name: ',events.target.value)
   }
 
   locationNameData(events) {
     this.setState({location: events.target.value})
-    console.log(events.target.value)
+    console.log('Location: ',events.target.value)
   }
 
   descriptionData(events) {
     this.setState({description: events.target.value})
-    console.log(events.target.value)
+    console.log('Description: ',events.target.value)
   }
 
   render() {
 
 //Invite Friends List on "Invite Friends" click
+
+
+
     if (this.state.display === true) {
       return (
       <div>
@@ -121,6 +148,7 @@ class Create extends Component {
         friends = {this.state.dummyData} 
         invite = {this.invite}
         done = {this.done}
+        hideInvite = {this.hideInvite}
         />
       </div>
       )
@@ -129,13 +157,30 @@ class Create extends Component {
   if (this.state.displayEventPage === true) {
     return (
       <div>
-        <EventPage />
+        <EventPage 
+        tripName={this.state.tripName} 
+        location={this.state.location} 
+        description={this.state.description} 
+        toDate={this.state.toDate}
+        fromDate={this.state.fromDate}
+        friends={this.state.friends}
+        displayEventPage={this.finalize}
+        />
       </div>
     )
   }
 
 
+const { isAuthenticated } = this.props.auth;
     return (
+
+      //if Authenticated ? render : do not render
+      <div>
+        {
+        isAuthenticated() && (
+            
+            
+
         <div>
           <div id="topHalf">
             <h2>Create Trip</h2>
@@ -166,17 +211,37 @@ class Create extends Component {
           </div> 
 
         </div>
-    )
-  }
-}
 
+        ) //isAuthenticated end parenthesis
+        }
+        {
+          !isAuthenticated() && (
+              <h4>
+                You are not logged in! Please{' '}
+                <a
+                  style={{ cursor: 'pointer' }}
+                  onClick={this.login.bind(this)}
+                >
+                  Log In
+                </a>
+                {' '}to continue.
+              </h4>
+            )
+        }
+      </div>
+    ) 
+
+  } //end render bracket
+} //end Create component bracket
+
+//Render invited friends onto Create Page
 const Friends = ({friends, uninviteFriend}) => (
   <div>
   {friends.map((friend, key) => {
     return <div>
-    <li>{friend}
+    <p>{friend}
     <button className="uninvite" onClick={() => {uninviteFriend(friend)}}>Uninvite</button>
-    </li>
+    </p>
     </div>
   })
   }
