@@ -1,118 +1,6 @@
-<<<<<<< HEAD
-// const Sequelize = require('sequelize');
-// const db = require('../config');
-
-// /*////////////////////////////////////////////////////////////////////////////////
-
-// TABLES
-// //////////////////////////////////////////////////////////////////////////////////*/
-// const Hotel = db.define('hotel',{
-//   name: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   address: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   latitude: {
-//     type: Sequelize.FLOAT,
-//     allowNull: false,
-//   },
-//   longitude: {
-//     type: Sequelize.FLOAT,
-//     allowNull: false,
-//   },
-// }, {
-//   timestamps: false,
-// })
-
-// const HotelVote = db.define('hotelvote', {
-//   hotelId: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-// }, {
-//   timestamps: false,
-// })
-
-// const Trip = db.define('trip',{
-//   title: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   destination: {
-//     type: Sequelize.STRING,
-//     allowNull:false,
-//   },
-//   startDate: {
-//     type: Sequelize.DATEONLY,
-//     allowNull: false,
-//   },
-//   endDate: {
-//     type: Sequelize.DATEONLY,
-//     allowNull: false,
-//   },
-//   isCompleted: {
-//     type: Sequelize.BOOLEAN,
-//     allowNull: false,
-//   }
-//   // hotelTrips: Sequelize.ARRAY(Sequelize.STRING),
-//   // activities: Sequelize.ARRAY(Sequelize.STRING),
-// }, {
-//   timestamps: false,
-// })
-
-// const Activity = db.define('activity', {
-//   name: {
-//     type: Sequelize.INTEGER,
-//     allowNull: false,
-//   },
-//   address: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   latitude: {
-//     type: Sequelize.FLOAT,
-//     allowNull: false,
-//   },
-//   longitude: {
-//     type: Sequelize.FLOAT,
-//     allowNull: false,
-//   },
-// }) 
-
-// const User = db.define('user',{
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     allowNull: false,
-//     unique: true,
-//   },
-//   lastName: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   firstName: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   email: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   accessToken: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-
-//   // friends:Sequelize.ARRAY(Sequelize.STRING),
-// }, {
-//   timestamps: false,
-// })
-=======
 const Sequelize = require('sequelize');
 const db = require('../config');
+
 
 /*////////////////////////////////////////////////////////////////////////////////
 
@@ -243,40 +131,26 @@ const User = db.define('user',{
 }, {
   timestamps: false,
 })
->>>>>>> database
 
 // const UserUpcomingTrip = db.define('userupcomingtrip', {
 //   id: {
 //     type: Sequelize.INTEGER,
 //     primaryKey: true,
-<<<<<<< HEAD
-//     allowNull: false,
-//     unique: true,
-=======
 //     allowNull: false
->>>>>>> database
 //   },
 //   name: {
 //     type: Sequelize.STRING,
 //     allowNull: false,
 //   }
-<<<<<<< HEAD
-=======
 // }, {
 //   timestamps: false,
->>>>>>> database
 // })
 
 // const UserPendingTrip = db.define('userpendingtrip', {
 //   id: {
 //     type: Sequelize.INTEGER,
 //     primaryKey: true,
-<<<<<<< HEAD
-//     allowNull: false,
-//     unique: true,
-=======
 //     allowNull: false
->>>>>>> database
 //   },
 //   name: {
 //     type: Sequelize.STRING,
@@ -290,12 +164,7 @@ const User = db.define('user',{
 //   id: {
 //     type: Sequelize.INTEGER,
 //     primaryKey: true,
-<<<<<<< HEAD
-//     allowNull: false,
-//     unique: true,
-=======
 //     allowNull: false
->>>>>>> database
 //   },
 //   name: {
 //     type: Sequelize.STRING,
@@ -333,11 +202,7 @@ const User = db.define('user',{
 //     type: Sequelize.STRING,
 //     allowNull: false,
 //   },
-<<<<<<< HEAD
-//   accessToken: {
-=======
 //   id_Token: {
->>>>>>> database
 //     type: Sequelize.STRING,
 //     allowNull: false,
 //   },
@@ -345,11 +210,6 @@ const User = db.define('user',{
 //   timestamps: false,
 // })
 
-<<<<<<< HEAD
-// //JOIN TABLE OF USERS AND TRIPS
-
-// const UserTrip = db.define('userstrip',{
-=======
 //JOIN TABLE OF USERS AND TRIPS
 
 const UserTrip = db.define('userstrip',{
@@ -398,7 +258,6 @@ const UserTrip = db.define('userstrip',{
 // //Many to Many relationship with same USER table
 
 // const UserFriend = db.define('userfriend', {
->>>>>>> database
 //   id: {
 //     type: Sequelize.INTEGER,
 //     primaryKey: true,
@@ -422,9 +281,6 @@ const UserTrip = db.define('userstrip',{
 
 
 
-<<<<<<< HEAD
-// /*////////////////////////////////////////////////////////////////////////////////
-=======
 User.belongsToMany(Trip, { through: UserTrip });
 Trip.belongsToMany(User, { through: UserTrip });
 
@@ -465,7 +321,6 @@ HotelVote.belongsTo(Hotel);
 // 1:M relationship with User and Friend
 // // Users can have many friend Users
 // // I will alias the association
->>>>>>> database
 
 // RELATIONSHIPS
 // //////////////////////////////////////////////////////////////////////////////////*/
@@ -475,12 +330,6 @@ HotelVote.belongsTo(Hotel);
 // // // stored in the same-name join table: 'usersTrips'
 // // // the 'through' property is require in 'belongsToMany Associations
 
-<<<<<<< HEAD
-// User.belongsToMany(Trip, { through: UserTrip });
-// Trip.belongsToMany(User, { through: UserTrip });
-
-
-=======
 // Friend.belongsToMany(Trip, {through: UserTrip });
 // Trip.belongsToMany(Friend, {through: UserTrip });
 
@@ -506,7 +355,6 @@ HotelVote.belongsTo(Hotel);
 
 // 1:M relationship with User and HotelVote. HotelVote is associated with Hotel thru the hotelId
 // User.belongsTo(User, { as: 'userFriends' });
->>>>>>> database
 
 // // // Users can have many friend Users
 // // // I will alias the association
@@ -523,33 +371,6 @@ HotelVote.belongsTo(Hotel);
 // // // this will put a foreign key for tripId in the Hotel model
 // // // and give Hotel .setTrip() and .getTrip() instance methods
 
-<<<<<<< HEAD
-// Trip.hasMany(Hotel);
-// Hotel.belongsTo(Trip);
-
-// // this will give Trip the magic methods for addHotel, etc.
-// // but we already have a foreign key for tripId in the Hotel model, so it will maintain
-// // the 1:m relationship
-
-
-// // 1:1 Relationship with User and ProfilePic
-// User.hasOne(ProfilePic);
-// ProfilePic.belongsTo(User);
-
-// // 1:1 Relationship with Friend and ProfilePic
-// Friend.hasOne(ProfilePic);
-// ProfilePic.belongsTo(Friend);
-
-// // 1:M Relationship between User and UserUpcomingTrip
-
-// User.hasMany(UserUpcomingTrip);
-// UserUpcomingTrip.belongsTo(User);
-
-// // 1:M Relationship between User and UserCompletedTrip
-
-// User.hasMany(UserCompletedTrip);
-// UserCompletedTrip.belongsTo(User);
-=======
 // this will give Trip the magic methods for addHotel, etc.
 // but we already have a foreign key for tripId in the Hotel model, so it will maintain
 // the 1:m relationship
@@ -557,7 +378,6 @@ HotelVote.belongsTo(Hotel);
 // 1:1 Relationship with Friend and ProfilePic
 // Friend.hasOne(ProfilePic);
 // ProfilePic.belongsTo(Friend);
->>>>>>> database
 
 // // // 1:M Relationship between Friend and UserUpcomingTrip
 
@@ -569,73 +389,15 @@ HotelVote.belongsTo(Hotel);
 // // Friend.hasMany(UserCompletedTrip);
 // // UserCompletedTrip.belongsTo(Friend);
 
-<<<<<<< HEAD
-// // 1:M Relationship between User and UserPendingTrip
-
-// User.hasMany(UserPendingTrip);
-// UserPendingTrip.belongsTo(User);
-
-// // 1:M Relationship between Trip and Activity
-
-// Trip.hasMany(Activity);
-// Activity.belongsTo(Trip);
-
-// // 1:M relationship with User and HotelVote. HotelVote is associated with Hotel thru the hotelId
-// User.hasOne(HotelVote);
-// HotelVote.belongsTo(User);
-
-
-// // 1:M relationship with User and Friend
-// User.hasMany(Friend);
-// Friend.belongsTo(User);
-=======
 // 1:M Relationship between Trip and Activity
 
 
->>>>>>> database
 
 // /*////////////////////////////////////////////////////////////////////////////////
 
 // SYNC
 // //////////////////////////////////////////////////////////////////////////////////*/
 
-<<<<<<< HEAD
-// User.sync();
-// Trip.sync();
-// UserTrip.sync();
-// Hotel.sync();
-// ProfilePic.sync();
-// UserCompletedTrip.sync();
-// UserUpcomingTrip.sync();
-// Activity.sync();
-// HotelVote.sync();
-// UserPendingTrip.sync();
-// Friend.sync();
-
-// module.exports = {
-//   User,
-//   Trip,
-//   UserTrip,
-//   Hotel,
-//   ProfilePic,
-//   UserCompletedTrip,
-//   UserUpcomingTrip,
-//   Activity,
-//   HotelVote,
-//   UserPendingTrip,
-//   Friend
-// }
-
-// // module.exports.User = User;
-// // module.exports.Trip = Trip;
-// // module.exports.UserTrip = UserTrip;
-// // module.exports.Hotel = Hotel;
-// // module.exports.ProfilePic = ProfilePic;
-// // module.exports.UserCompletedTrip = UserCompletedTrip;
-// // module.exports.UserUpcomingTrip = UserUpcomingTrip;
-// // module.exports.Activity = Activity;
-// // module.exports.HotelVote = HotelVote;
-=======
 User.sync();
 Trip.sync();
 UserTrip.sync();
@@ -689,4 +451,3 @@ module.exports = {
 // module.exports.UserUpcomingTrip = UserUpcomingTrip;
 // module.exports.Activity = Activity;
 // module.exports.HotelVote = HotelVote;
->>>>>>> database
