@@ -23,7 +23,7 @@ class TripSummary extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isTripCreator: true,
+      isTripCreator: false,
       tripData: {}
     }
     this.handleEditButtonClick = this.handleEditButtonClick.bind(this)

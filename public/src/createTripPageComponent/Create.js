@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import FriendsList from './FriendsList'
 import EventPage from '../EventPageComponent/EventPage'
+import { Link } from 'react-router-dom';
+import axios from 'axios'
+import axiosRoutes from './CreateTripPageAxiosRoutes'
 
 class Create extends Component {
   constructor(){
@@ -15,13 +18,15 @@ class Create extends Component {
       toDate: '',
 
       showInvite: true,
-//Invited Friends storage
+      //Invited Friends storage
       friends: [],
 
       display: false,
 
-      displayEventPage: false,
-//Trip info
+      // displayEventPage: false,
+      
+      //Trip info
+
       tripName: '',
 
       location: '',
@@ -111,24 +116,37 @@ class Create extends Component {
     console.log(this.state.toDate)
   }
 
+//grab all trip data and put it into an object to pass into database
+// title, destination, startDate, endDate
   finalize() {
-    if (this.state.displayEventPage === false){
-    this.setState({displayEventPage: true})
-    } else {
-      this.setState({displayEventPage: false})
+    const tripInfo = {
+      title: this.state.tripName,
+      destination: this.state.location,
+      startDate: this.state.fromDate,
+      endDate: this.state.toDate
     }
+    //post request to database
+    axiosRoutes.postTripInfo(tripInfo)
+      .then((res) => {
+        console.log(res.body)
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
+
   }
 
+  //Trip name insert onchange
   tripNameData(events) {
     this.setState({tripName: events.target.value})
     console.log('Trip Name: ',events.target.value)
   }
-
+  //Trip location insert onchange
   locationNameData(events) {
-    this.setState({location: events.target.value})
+    this.setState({tripInfo: {location: events.target.value}})
     console.log('Location: ',events.target.value)
   }
-
+  //Description insert onchange
   descriptionData(events) {
     this.setState({description: events.target.value})
     console.log('Description: ',events.target.value)
@@ -136,10 +154,8 @@ class Create extends Component {
 
   render() {
 
-//Invite Friends List on "Invite Friends" click
-
-
-
+  //Invite Friends List on "Invite Friends" click
+  //Popup friends list/invite list
     if (this.state.display === true) {
       return (
       <div>
@@ -154,7 +170,7 @@ class Create extends Component {
       )
   }
 
-  if (this.state.displayEventPage === true) {
+  /*if (this.state.displayEventPage === true) {
     return (
       <div>
         <EventPage 
@@ -168,7 +184,7 @@ class Create extends Component {
         />
       </div>
     )
-  }
+  }*/
 
 
 const { isAuthenticated } = this.props.auth;
@@ -202,7 +218,11 @@ const { isAuthenticated } = this.props.auth;
             {/*Invite friends pop up*/}
             <button className="btn" onClick={this.inviteFriends}>Invite Friends</button>
             <br></br>
-            <button className="finalize" onClick = {this.finalize}>Finalize Trip</button>
+            
+            {/*go to even page*/}
+            <Link to ="/event">
+              <button className="finalize" onClick = {this.finalize}>Finalize Trip</button>
+            </Link>
           </div>
 
           {/*Render Invited Friends*/}
