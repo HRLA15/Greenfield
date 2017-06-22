@@ -18,7 +18,15 @@ class UserProfilePic extends Component {
   render() {
     let pic = null
     
-    let previewPic = this.state.accepted.length > 0 ? this.state.accepted[0].preview : null
+    let previewPic = null
+
+    if(this.props.userInfo.profilePic.length > 0 && this.state.accepted.length < 1) {
+      previewPic = this.props.userInfo.profilePic
+    }
+
+    if(this.state.accepted.length > 0) {
+      previewPic = this.state.accepted[0].preview
+    }
 
     if(this.props.editPic || this.props.userInfo.profilePic.length < 1) {
       pic = (
@@ -34,7 +42,12 @@ class UserProfilePic extends Component {
         <button onClick={() => {
           this.props.handleSavePicClick(this.state.accepted)
         }}>Save!</button>
-        <button onClick={this.props.handleCancelEditPicClick}>Cancel</button>
+        <button onClick={() => {
+          this.setState({
+            accepted: []
+          })
+          this.props.handleCancelEditPicClick()
+          }}>Cancel</button>
       </div>
       )
     } else {
