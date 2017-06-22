@@ -2,7 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var morgan = require('morgan')
 const PORT = process.env.PORT || 3000;
-const db = require('../Database/config')
+//const db = require('../Database/config')
 const models = require('../Database/models/models');
 const path = require('path')
 

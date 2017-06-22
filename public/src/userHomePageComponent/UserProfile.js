@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import UserProfilePic from './UserProfilePic'
 import UserProfileInfo from './UserProfileInfo'
-
+import axiosRoutes from './UserHomeAxiosRoutes'
 const dummyData = {
+  id: 1,
   name: 'Donald the GOAT',
   email: 'MakeAmericaGreatAgain@trumpin.com',
   profilePic: []
@@ -16,6 +17,8 @@ class UserProfile extends Component {
       edit: false,
       userInfo: dummyData
     }
+    //once server works do userInfo: this.props.userInfo
+
     this.handleEditClick = this.handleEditClick.bind(this)
     this.handleSaveClick = this.handleSaveClick.bind(this)
     this.handleCancelClick = this.handleCancelClick.bind(this)
@@ -37,9 +40,19 @@ class UserProfile extends Component {
   }
 
   handleSaveClick(stateObj) {
+    // axiosRoutes.postUserProfileInfo(this.state.userInfo.id, stateObj)
+    //   .then((res) => {
+    //     this.setState({
+    //     edit: false,
+    //     userInfo: res.body
+    //     })
+    //   })
+    //   .catch(err => console.log(err))
+
+    //once server routes work uncomment above and delete lines below
     this.state.userInfo['name'] = stateObj.tempFullName
     this.state.userInfo['email'] = stateObj.tempEmail
-
+    
     this.setState({
       edit: false,
       userInfo: this.state.userInfo
@@ -53,11 +66,21 @@ class UserProfile extends Component {
   }
 
   handleSavePicClick(savedPicArr) {
-    console.log(savedPicArr.length)
+    // if(savedPicArr.length > 0) {
+    //   axiosRoutes.postUserProfilePic(this.state.userInfo.id, savedPicArr[0].preview)
+    //     .then((res) => {
+    //       this.setState({
+    //         userInfo: res.body,
+    //         editPic: false
+    //       })
+    //     })
+    //     .catch((err) => console.log(err))
+    // }
+    //once server routes work uncomment above and delete lines below
     if(savedPicArr.length > 0) {
       this.state.userInfo['profilePic'] = savedPicArr[0].preview
       this.setState({
-        profilePic: this.state.userInfo,
+        userInfo: this.state.userInfo,
         editPic: false
       })
     }

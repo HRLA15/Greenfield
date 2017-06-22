@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import UserPendingTripEntry from './UserPendingTripEntry'
+import axiosRoutes from './UserHomeAxiosRoutes'
+
 const dummyData = [
   {
     title: 'Maryland'
@@ -18,6 +20,10 @@ const dummyData = [
     title: 'Hawaii'
   }
 ]
+//TODOS:
+//Add a confirm button click handler that will delete trip from pendingtrips and add to upcomingtrips
+//Add a unconfirm button click handler that will delete trip from pendingtrips
+//Finish handleEntryClick??
 
 class UserPendingTripsList extends Component {
 
@@ -30,13 +36,9 @@ class UserPendingTripsList extends Component {
 
     this.handleEntryClick = this.handleEntryClick.bind(this)
   }
-  
-  handleEntryClick(pendingTrip) {
-    //add redirect to the upcoming trip info page
-    console.log('You will be redirected once our routers work', pendingTrip)
-  }
+
   // componentWillMount() {
-  //   axios.get(`/${props.user}/pendingTrips`)
+  //   axiosRoutes.getUserPendingTrips(this.props.userId)
   //     .then((res) => {
   //       this.setState({
   //         pendingTrips = res.body
@@ -46,6 +48,11 @@ class UserPendingTripsList extends Component {
   //       console.log(err)
   //     })
   // }
+
+  handleEntryClick(pendingTrip) {
+    //add redirect to the upcoming trip info page
+    console.log('You will be redirected once our routers work', pendingTrip)
+  }
 
   render() {
     let pendingTripsList = null
