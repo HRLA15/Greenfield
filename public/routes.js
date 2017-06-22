@@ -5,6 +5,7 @@ import Home from './src/Home';
 import Callback from './Auth/Callback/Callback.js';
 import Auth from './Auth/Auth.js';
 import history from './src/history';
+import Create from './src/createTripPageComponent/Create'
 
 const auth = new Auth();
 
@@ -24,6 +25,7 @@ export const makeMainRoutes = () => {
             handleAuthentication(props);
             return <Home auth={auth} {...props} /> 
           }}/>
+          <Route path="/create" render={(props) => <Create auth={auth} {...props}/>}/>
         </div>
       </BrowserRouter>
   );
