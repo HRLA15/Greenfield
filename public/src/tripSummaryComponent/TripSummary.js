@@ -23,7 +23,7 @@ class TripSummary extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isTripCreator: true,
+      isTripCreator: false,
       tripData: {}
     }
     this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
@@ -57,6 +57,7 @@ class TripSummary extends Component {
   }
 
   render() {
+    console.log(this.props.match.params.userId)
     let editButton = null
 
     if(this.state.isTripCreator) {
