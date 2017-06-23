@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import Create from '../createTripPageComponent/Create'
 import CreateTripButton from './CreateTripButton'
 import UserUpcomingTripsList from './UserUpcomingTripsList'
-import UserPendingTripsList from './UserPendingTripsList'
 import UserPreviousTripsList from './UserPreviousTripsList'
-import UserProfile from './UserProfile'
 import TripSummary from '../tripSummaryComponent/TripSummary'
 import axiosRoutes from './UserHomeAxiosRoutes'
 import { Redirect } from 'react-router-dom'
@@ -52,10 +50,8 @@ class UserHome extends Component {
 
     return (
       <div>
-        <UserProfile />
         <UserUpcomingTripsList />
         <UserPreviousTripsList />
-        <UserPendingTripsList />
         <CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick} />
       </div>
     )
