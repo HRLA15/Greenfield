@@ -55,8 +55,12 @@ const Trip = db.define('trip',{
   },
   destination: {
     type: Sequelize.STRING,
-    allowNull:false,
+    allowNull: false,
   },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  }
   // status: {
   //   type: Sequelize.INTEGER,
   //   allowNull:false,
@@ -69,10 +73,6 @@ const Trip = db.define('trip',{
     type: Sequelize.DATEONLY,
     allowNull: false,
   },
-  isCompleted: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-  }
   // hotelTrips: Sequelize.ARRAY(Sequelize.STRING),
   // activities: Sequelize.ARRAY(Sequelize.STRING),
 }, {
@@ -120,7 +120,7 @@ const User = db.define('user',{
     type: Sequelize.STRING,
     allowNull: false,
   },
-  id_Token: {
+  idToken: {
     type: Sequelize.STRING,
     allowNull: false,
   },

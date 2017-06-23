@@ -1,17 +1,37 @@
 const UserTrip = require('../../Database/models')
 
 module.exports = {
-  addCurrentTrip: (req, res) => {
-
+  getAllUserTrips: (req, res) => {
+    UserTrip.UserTrip.findAll({
+      include: [{
+        model: User,
+        include: [{
+          model: Trip
+        }]
+      }]
+    }, {where: {id: req.params.userId}})
+      .then(usertrip => {
+        res.status(202).send(usertrip);
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      })
   },
-  
-  getCurrentTrip: (req, res) => {
-
+    getTripUsers: (req, res) => {
+      UserTrip.UserTrip.findAll({
+        include: [{
+          model: Trip,
+          where: {id: req.params.tripId},
+          include: [{
+            model: User
+          }]
+        }]
+      })
+        .then(usertrip => {
+          res.status(202).send(usertrip);
+        })
+        .catch(err => {
+          res.status(404).send(err);
+        })
   },
-
-  deleteCurrentTrip: (req, res) => {
-    UserTrip.UserTrip.destroy({where: {userId: req.body.userId}})
-    
-  },
-
 }
