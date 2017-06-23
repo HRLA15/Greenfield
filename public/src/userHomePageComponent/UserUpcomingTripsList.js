@@ -3,16 +3,32 @@ import UserUpcomingTripEntry from './UserUpcomingTripEntry'
 
 const dummyTripData = [
   {
-    title: "Let's go to Peru!!"
+    title: "Let's go to Peru!!",
+    destination: "Peru",
+    description: "Cha Cha",
+    startDate: "10/09/17",
+    endDate: "10/11/17"
   },
   {
-    title: "Next Stop Mexico"
+    title: "Next Stop Mexico",
+    destination: "Mexico",
+    description: "Buenos Dias",
+    startDate: "11/16/17",
+    endDate: "11/20/17"
   },
   {
-    title: "California Love"
+    title: "California Love",
+    destination: "California",
+    description: "Cali Drow",
+    startDate: "10/30/15",
+    endDate: "11/11/15"
   },
   {
-    title: "The Great Wall"
+    title: "The Great Wall",
+    destination: "China",
+    description: "NiHou",
+    startDate: "11/09/17",
+    endDate: "11/11/18"
   }
 ]
 
