@@ -25,7 +25,9 @@ class App extends Component {
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#">Tripplanner</a>
+              <a 
+                onClick={this.goTo.bind(this, '')}
+              >Trip Planner</a>
             </Navbar.Brand>
             <Button
               bsStyle="primary"

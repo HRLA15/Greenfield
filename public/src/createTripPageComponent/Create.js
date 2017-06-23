@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import FriendsList from './FriendsList'
-import EventPage from '../EventPageComponent/EventPage'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import axiosRoutes from './CreateTripPageAxiosRoutes'
