@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Slider, Slide, Button, Icon} from 'react-materialize'
+import {Slider, Slide, Button, Icon, Card, CardTitle, Col} from 'react-materialize'
 
 class Landing extends Component {
   constructor() {
@@ -9,7 +9,7 @@ class Landing extends Component {
   render(){
     return (
     <div id="landing">
-      <Slider indicators={false}>
+      <Slider indicators={false} fullscreen={true}>
         <Slide 
           src="http://www.telegraph.co.uk/content/dam/Travel/Destinations/Europe/France/Paris/paris-attractions-xlarge.jpg"
           title = "Plan your trips ahead of time">
@@ -27,7 +27,25 @@ class Landing extends Component {
           >
         </Slide>
       </Slider>
+        <div id="card">
+          <Card header={<CardTitle reveal image={"http://dailytimewaste.com/wp-content/uploads/2017/02/travel-wallpaper-3.png"} waves='light'/>}
+            className='item'
+            title="Travel Together"
+            reveal={<p>Tripplanner makes it easier for you and your friends to create trips based on your interests and availability.</p>}>
+        </Card>
+          <Card header={<CardTitle reveal image={"http://diibache.ir/files/fa/news/1395/12/23/14348_215.jpg"} waves='light'/>}
+            className='item'
+            title="Party Together"
+            reveal={<p>Tripplanner makes it easier for you and your friends to create trips based on your interests and availability.</p>}>
+        </Card>
+          <Card header={<CardTitle reveal image={"http://myventurepad.com/wp-content/uploads/2017/04/planning.jpg"} waves='light'/>}
+            className='item'
+            title="Plan together"
+            reveal={<p>Tripplanner makes it easier for you and your friends to create trips based on your interests and availability.</p>}>
+        </Card>
+        </div>
     </div>
+
     )
   }
 }
