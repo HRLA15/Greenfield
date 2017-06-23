@@ -4,6 +4,7 @@ import FriendsList from './FriendsList'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import axiosRoutes from './CreateTripPageAxiosRoutes'
+import {Redirect} from 'react-router-dom'
 
 class Create extends Component {
   constructor(){
@@ -185,14 +186,18 @@ class Create extends Component {
     )
   }*/
 
-
 const { isAuthenticated } = this.props.auth;
+        
+        if (!isAuthenticated()) {
+          return (
+          <Redirect to ={{
+            pathname: '/'
+          }} />
+          )
+        }
+
     return (
-      //if Authenticated ? render : do not render
-      <div>
-        {
-        isAuthenticated() && (
-            
+      <div> 
         <div>
           <div id="topHalf">
             <h2>Create Trip</h2>
@@ -227,23 +232,6 @@ const { isAuthenticated } = this.props.auth;
           </div> 
 
         </div>
-
-        ) //isAuthenticated end parenthesis
-        }
-        {
-          !isAuthenticated() && (
-              <h4>
-                You are not logged in! Please{' '}
-                <a
-                  style={{ cursor: 'pointer' }}
-                  onClick={this.login.bind(this)}
-                >
-                  Log In
-                </a>
-                {' '}to continue.
-              </h4>
-            )
-        }
       </div>
     ) 
 
