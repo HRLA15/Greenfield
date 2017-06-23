@@ -282,6 +282,7 @@ const UserTrip = db.define('userstrip',{
 
 
 
+<<<<<<< HEAD
 // User.hasMany(UserCompletedTrip)
 // UserCompletedTrip.belongsTo(User);
 
@@ -296,10 +297,16 @@ const UserTrip = db.define('userstrip',{
 // // Users can have many friend Users
 // // I will alias the association
 
+=======
+>>>>>>> database
 // RELATIONSHIPS
 // //////////////////////////////////////////////////////////////////////////////////*/
 
 
+<<<<<<< HEAD
+=======
+// // // Trip to User M:M associations
+>>>>>>> database
 User.belongsToMany(Trip, { through: UserTrip });
 Trip.belongsToMany(User, { through: UserTrip });
 
@@ -311,7 +318,6 @@ Trip.belongsToMany(User, { through: UserTrip });
 
 // User.belongsToMany(UserCompletedTrip, { through: UserCompleted });
 // UserCompletedTrip.belongsToMany(User, { through: UserCompleted});
-
 
 
 Trip.hasMany(Hotel);
@@ -327,9 +333,28 @@ HotelVote.belongsTo(User);
 Hotel.hasMany(HotelVote);
 HotelVote.belongsTo(Hotel);
 
+<<<<<<< HEAD
 User.hasMany(User, {as: 'Friends'});
 
 // // // Trip to User M:M associations
+=======
+User.hasMany(User, {as: 'Friends'}) 
+
+
+// User.hasMany(UserCompletedTrip)
+// UserCompletedTrip.belongsTo(User);
+
+// User.hasMany(UserPendingTrip)
+// UserPendingTrip.belongsTo(User);
+
+// User.hasMany(UserUpcomingTrip)
+// UserUpcomingTrip.belongsTo(User);
+
+
+// 1:M relationship with User and Friend
+// // Users can have many friend Users
+// // I will alias the association
+>>>>>>> database
 // // // stored in the same-name join table: 'usersTrips'
 // // // the 'through' property is require in 'belongsToMany Associations
 
