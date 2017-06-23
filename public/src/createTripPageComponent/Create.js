@@ -189,14 +189,11 @@ class Create extends Component {
 
 const { isAuthenticated } = this.props.auth;
     return (
-
       //if Authenticated ? render : do not render
       <div>
         {
         isAuthenticated() && (
             
-            
-
         <div>
           <div id="topHalf">
             <h2>Create Trip</h2>
