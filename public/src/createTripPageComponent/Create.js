@@ -24,7 +24,7 @@ class Create extends Component {
       display: false,
 
       // displayEventPage: false,
-      
+
       //Trip info
 
       tripName: '',
@@ -64,6 +64,7 @@ class Create extends Component {
   //   }
   // }
 
+//auth0 login
   login() {
     this.props.auth.login();
   }
@@ -106,15 +107,6 @@ class Create extends Component {
     console.log(this.state.friends)
   }
 
-  eventFromDate(events) {
-    this.setState({fromDate: events.target.value})
-    console.log(this.state.fromDate)
-  }
-
-  eventToDate(events) {
-    this.setState({toDate: events.target.value})
-    console.log(this.state.toDate)
-  }
 
 //grab all trip data and put it into an object to pass into database
 // title, destination, startDate, endDate
@@ -122,6 +114,7 @@ class Create extends Component {
     const tripInfo = {
       title: this.state.tripName,
       destination: this.state.location,
+      description: this.state.description,
       startDate: this.state.fromDate,
       endDate: this.state.toDate
     }
@@ -132,25 +125,32 @@ class Create extends Component {
       })
       .catch((err)=> {
         console.log(err)
+        console.log(tripInfo)
       })
 
   }
 
-  //Trip name insert onchange
+//Event listeners to populate fields onchange
   tripNameData(events) {
     this.setState({tripName: events.target.value})
     console.log('Trip Name: ',events.target.value)
-  }
-  //Trip location insert onchange
+  };
   locationNameData(events) {
-    this.setState({tripInfo: {location: events.target.value}})
+    this.setState({location: events.target.value})
     console.log('Location: ',events.target.value)
-  }
-  //Description insert onchange
+  };
   descriptionData(events) {
     this.setState({description: events.target.value})
     console.log('Description: ',events.target.value)
-  }
+  };
+  eventFromDate(events) {
+    this.setState({fromDate: events.target.value})
+    console.log(this.state.fromDate)
+  };
+  eventToDate(events) {
+    this.setState({toDate: events.target.value})
+    console.log(this.state.toDate)
+  };
 
   render() {
 
@@ -219,8 +219,8 @@ const { isAuthenticated } = this.props.auth;
             <button className="btn" onClick={this.inviteFriends}>Invite Friends</button>
             <br></br>
             
-            {/*go to even page*/}
-            <Link to ="/event">
+            {/*go to event page*/}
+            <Link to ={`/event/` + localStorage.id_token}>
               <button className="finalize" onClick = {this.finalize}>Finalize Trip</button>
             </Link>
           </div>

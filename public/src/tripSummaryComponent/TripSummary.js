@@ -57,6 +57,7 @@ class TripSummary extends Component {
   }
 
   render() {
+    console.log(this.props.match.params.userId)
     let editButton = null
 
     if(this.state.isTripCreator) {
