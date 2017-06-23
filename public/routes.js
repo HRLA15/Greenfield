@@ -8,7 +8,7 @@ import history from './src/history';
 import Create from './src/createTripPageComponent/Create';
 import Event from './src/tripSummaryComponent/TripSummary'
 import Landing from './src/LandingPage'
-import Navbar from './src/Navbar'
+import Navbar from './src/navbarComponent/Navbar'
 
 const auth = new Auth();
 
