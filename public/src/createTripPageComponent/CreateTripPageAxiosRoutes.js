@@ -18,6 +18,8 @@ module.exports = {
   ),
   //post invited friends
   postInvitedFriends: () => (
+    //send friendID and userID
+    //
     axios.post("http://localhost:3000/postInvitedFriends/")
   )
 }
