@@ -17,21 +17,41 @@ module.exports = {
         res.status(404).send(err);
       })
   },
-    getTripUsers: (req, res) => {
-      UserTrip.UserTrip.findAll({
+
+  getTripUsers: (req, res) => {
+    UserTrip.UserTrip.findAll({
+      include: [{
+        model: Trip,
+        where: {id: req.params.tripId},
         include: [{
-          model: Trip,
-          where: {id: req.params.tripId},
-          include: [{
-            model: User
-          }]
+          model: User
         }]
+      }]
+    })
+      .then(usertrip => {
+        res.status(202).send(usertrip);
       })
-        .then(usertrip => {
-          res.status(202).send(usertrip);
-        })
-        .catch(err => {
-          res.status(404).send(err);
-        })
+      .catch(err => {
+        res.status(404).send(err);
+      })
   },
+
+  // getCompletedTrips: (req, res) => {
+  //   UserTrip.UserTrip.findAll({
+  //     include: [{
+  //       model: User,
+  //       include: [{
+  //         model: Trip,
+  //         where: {endDate: {
+  //           $lt: req.body.endDate
+  //         }}
+  //       }]
+  //     }]
+  //   }, {where: {userId: req.params.userId}})
+  // }
 }
+
+
+
+
+// router.get('/getCompletedTrips/:id', userTripController.getCompletedTrips);

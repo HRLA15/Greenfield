@@ -8,6 +8,8 @@ router.get('/getAllUserTrips/:id', userTripController.getAllUserTrips);
 // id = tripId
 router.get('/getTripUsers/:id', userTripController.getTripUsers);
 
+//
+router.get('/getCompletedTrips/:id', userTripController.getCompletedTrips);
 
 //get all trips for one individual user
   getAllUserTrips: (userId) => (
