@@ -1,16 +1,12 @@
-import React, {Component} from 'react';
-//these two imports are needed below to work with material-ui
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';;
-import ActionHome from 'material-ui/svg-icons/action/home';
-import SocialNotificationActive from 'material-ui/svg-icons/social/notifications-active';
-import {blue500, red500, greenA200} from 'material-ui/styles/colors';
+import React, {Component} from 'react'
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import FlatButton from 'material-ui/FlatButton'
+import ActionHome from 'material-ui/svg-icons/action/home'
+import SocialNotificationActive from 'material-ui/svg-icons/social/notifications-active'
+import {blue500, red500, greenA200} from 'material-ui/styles/colors'
 import Earth from 'material-ui/svg-icons/social/public'
 
 
@@ -89,7 +85,6 @@ const appBarStyle = {
 class Navbar extends Component {
   constructor(props) {
     super(props)
-    injectTapEventPlugin()
 
   }
 
@@ -109,7 +104,6 @@ class Navbar extends Component {
     const { isAuthenticated } = this.props.auth
 
     return (
-      <MuiThemeProvider>
       <div>
         <AppBar
           title={<span style={styles.title} onClick={
@@ -121,7 +115,6 @@ class Navbar extends Component {
           style={appBarStyle}
         />
       </div>
-      </MuiThemeProvider>
     )
   }
 }
