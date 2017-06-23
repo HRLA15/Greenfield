@@ -8,8 +8,8 @@ class Landing extends Component {
 
   render(){
     return (
-    <div id="landing">
-      <Slider indicators={false}>
+    <div class="landing">
+      <Slider indicators={false} fullscreen={true}>
         <Slide 
           src="http://www.telegraph.co.uk/content/dam/Travel/Destinations/Europe/France/Paris/paris-attractions-xlarge.jpg"
           title = "Plan your trips ahead of time">

@@ -8,6 +8,7 @@ import history from './src/history';
 import Create from './src/createTripPageComponent/Create';
 import Event from './src/tripSummaryComponent/TripSummary'
 import Landing from './src/LandingPage'
+import Navbar from './src/Navbar'
 
 const auth = new Auth();
 
@@ -21,16 +22,16 @@ export const makeMainRoutes = () => {
   return (
       <BrowserRouter history={history}>
         <div>
-          <Route path="/" render={(props) => <App auth={auth} {...props} />} />
+          <Route path="/" render={(props) => <Navbar auth={auth} {...props} />} />
           <Route exact={true} path="/" component={Landing}/>
-          <Route path="/landing" component={Landing}/>
           <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
             return <Home auth={auth} {...props} /> 
           }}/>
           <Route path="/create" render={(props) => <Create auth={auth} {...props}/>}/>
-          <Route path="/event/:userId" render={(props) => <Event auth={auth} {...props}/>}/>
+          <Route path="/event" render={(props) => <Event auth={auth} {...props}/>}/>
+       
         </div>
       </BrowserRouter>
   );

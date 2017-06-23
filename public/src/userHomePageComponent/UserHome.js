@@ -7,7 +7,7 @@ import UserPreviousTripsList from './UserPreviousTripsList'
 import UserProfile from './UserProfile'
 import TripSummary from '../tripSummaryComponent/TripSummary'
 import axiosRoutes from './UserHomeAxiosRoutes'
-
+import { Redirect } from 'react-router-dom'
 //TODOS:
 
 class UserHome extends Component {
@@ -42,26 +42,21 @@ class UserHome extends Component {
   render() {
     let clicked = this.state.redirect
 
-    let redirect = null
-
     if(clicked) {
-      redirect = <Create />
-    } else {
-      redirect = (
-        <div>
-          <UserProfile />
-          <UserUpcomingTripsList />
-          <UserPreviousTripsList />
-          <UserPendingTripsList />
-          <CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick} />
-        </div>
+      return (
+        <Redirect to={{
+        pathname: '/create'
+        }}/>
       )
     }
 
     return (
       <div>
-        <h1>TRIP PLANNER</h1>
-        {redirect}
+        <UserProfile />
+        <UserUpcomingTripsList />
+        <UserPreviousTripsList />
+        <UserPendingTripsList />
+        <CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick} />
       </div>
     )
   }
