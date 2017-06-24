@@ -134,25 +134,10 @@ module.exports = {
   },
 
   voteOnHotel: (req, res) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
     Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId}})
       .spread((hotel, created) => {
         Trip.HotelVote.update({
           hotelId: req.params.hotelId,
-=======
-    Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId, userId: req.params.userId}})
-      .spread((hotel, created) => {
-        Trip.HotelVote.update({
-          hotelId: req.params.hotelId,
-          userId: req.params.userId,
->>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
-=======
-    Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId}})
-      .spread((hotel, created) => {
-        Trip.HotelVote.update({
-          hotelId: req.params.hotelId,
->>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
           vote: 1
         }, {where: {friendId: req.params.friendId}})
           .then(update => {
@@ -164,10 +149,6 @@ module.exports = {
       })
   },
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
   userVoteOnHotel: (req, res) => {
     Trip.HotelVote.findOrCreate({where: {userId: req.params.userId}, default: {vote: 1, hotelId: req.params.hotelId}})
       .spread((hotel, created) => {
@@ -184,11 +165,6 @@ module.exports = {
       })
   },
 
-<<<<<<< HEAD
-=======
->>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
-=======
->>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
   sumOfVote: (req, res) => {
     Trip.Hotel.findAll({
       attributes: ['name', [Sequelize.fn('SUM', (Sequelize.col('hotelvotes.vote'))), 'count']],

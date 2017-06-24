@@ -342,7 +342,7 @@ User.belongsToMany(User, {as: 'friend', through: UserFriend, unique: false})
 
 Hotel.hasMany(HotelVote);
 HotelVote.belongsTo(Hotel);
-User.belongsToMany(User, {as: 'friend', through: UserFriend})
+// User.belongsToMany(User, {as: 'friend', through: UserFriend})
 
 UserTrip.belongsTo(User, {as: 'participant', through: UserTrip, foreignKey: {name: 'participantId', unique: false }});
 // User.hasMany(UserCompletedTrip)
