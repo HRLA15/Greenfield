@@ -14,7 +14,7 @@ class Home extends Component {
         {
           isAuthenticated() && (
               <div>
-                <UserHome />
+                <UserHome {...this.props} />
               </div>
             )
         }

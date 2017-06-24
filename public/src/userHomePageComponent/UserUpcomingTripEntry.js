@@ -4,7 +4,7 @@ const UserUpcomingTripEntry = ({upcomingTrip, handleEntryClick}) => {
   return (
     <tr>
       <td onClick={() => (
-        handleEntryClick(upcomingTrip.title)
+        handleEntryClick(upcomingTrip.id)
       )}>{upcomingTrip.title}</td>
     </tr>
   )

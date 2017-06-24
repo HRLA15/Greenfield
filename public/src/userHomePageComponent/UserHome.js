@@ -36,6 +36,9 @@ class UserHome extends Component {
   //     })
   //     .catch(err => console.log(err))
   // }
+  goTo(route) {
+    this.props.history.replace(`/${route}`)
+  }
 
   handleCreateTripButtonClick() {
     this.setState({
@@ -57,7 +60,7 @@ class UserHome extends Component {
     return (
       <div style={{display: 'flex', flexDirection: 'row'}}>
         <div style={{flexGrow: 5, flexShrink: 5}}>
-        <UserUpcomingTripsList />
+        <UserUpcomingTripsList redirect={this.goTo.bind(this)}/>
         <UserPreviousTripsList />
         </div>
         <div style={{flexGrow: 1, flexShrink: 1}}>
