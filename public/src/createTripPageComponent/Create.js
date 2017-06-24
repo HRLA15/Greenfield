@@ -34,13 +34,7 @@ class Create extends Component {
 
       description: '',
 
-      dummyData: [{
-        name: "Jose"
-      },{
-        name: "Han Solo"
-      },{
-        name: "Jay is cool"
-      }]
+      friendsData: ''
     }
     
     this.inviteFriends = this.inviteFriends.bind(this)
@@ -64,6 +58,17 @@ class Create extends Component {
   //   this.setState({hideInvite: false})
   //   }
   // }
+
+componentDidMount() {
+  axiosRoutes.getUserFriends()
+    .then((res)=>{
+      console.log('res.body in componentdidmount = ', res.data[0].friend)
+      this.setState({friendsData: res.data[0].friend})
+    })
+    .catch((err) =>{
+      console.log(err)
+    })
+}
 
 //auth0 login
   login() {
@@ -162,7 +167,7 @@ class Create extends Component {
       <div>
         <h1>Friends List</h1>
         <FriendsList 
-        friends = {this.state.dummyData} 
+        friends = {this.state.friendsData} 
         invite = {this.invite}
         done = {this.done}
         hideInvite = {this.hideInvite}
