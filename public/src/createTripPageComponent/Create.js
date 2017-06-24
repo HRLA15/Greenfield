@@ -9,7 +9,7 @@ import {Button, Icon, Row, Input} from 'react-materialize'
 
 class Create extends Component {
   constructor(){
-    super()
+    super();
     this.state = {
 
       // hideInvite: false,

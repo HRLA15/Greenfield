@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, {Component} from 'react'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
@@ -8,21 +7,7 @@ import FlatButton from 'material-ui/FlatButton'
 import ActionHome from 'material-ui/svg-icons/action/home'
 import SocialNotificationActive from 'material-ui/svg-icons/social/notifications-active'
 import {blue500, red500, greenA200} from 'material-ui/styles/colors'
-=======
-import React, {Component} from 'react';
-//these two imports are needed below to work with material-ui
-
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';;
-import ActionHome from 'material-ui/svg-icons/action/home';
-import SocialNotificationActive from 'material-ui/svg-icons/social/notifications-active';
-import {blue500, red500, greenA200} from 'material-ui/styles/colors';
->>>>>>> userhome
 import Earth from 'material-ui/svg-icons/social/public'
-
 
 const dummyData = [
   {
