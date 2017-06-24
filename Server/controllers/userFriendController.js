@@ -46,7 +46,7 @@ module.exports = {
   friendTripConfirmation: (req, res) => {
     console.log('this is req paramasdfasdfasdfasdfasdfs', req.params)
     UserFriend.UserTrip.update({
-      confirmed: true
+      participantConfirmed: true
     }, {where: {userId: req.params.userId, tripId: req.params.tripId, participantId: req.params.participantId}})
       .then(confirmed => {
         res.status(202).send(confirmed);

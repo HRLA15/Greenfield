@@ -73,8 +73,15 @@ const Trip = db.define('trip',{
     type: Sequelize.DATEONLY,
     allowNull: false,
   },
-  // hotelTrips: Sequelize.ARRAY(Sequelize.STRING),
-  // activities: Sequelize.ARRAY(Sequelize.STRING),
+  url: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  currentDate: {
+  type: Sequelize.DATEONLY,
+  allowNull: false,
+  defaultValue: Sequelize.NOW
+  },
 }, {
   timestamps: false,
 })
@@ -223,11 +230,16 @@ const UserTrip = db.define('usertrip',{
     defaultValue: false,    
     allowNull: false
   },
-  confirmed: {
+  userConfirmed: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false,    
+    defaultValue: true,    
     allowNull: false
-  }
+  },
+  participantConfirmed: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
 }, {
   timestamps: false,
 })
@@ -326,8 +338,8 @@ const UserFriend = db.define('userfriend', {
 
 
 // // // Trip to User M:M associations
-UserTrip.belongsTo(Trip, { through: UserTrip, foreignKey: {name: 'userId', unique: false }});
-UserTrip.belongsTo(User, { through: UserTrip, foreignKey: {name: 'tripId', unique: false }});
+UserTrip.belongsTo(Trip, { through: UserTrip, foreignKey: {name: 'tripId', unique: false }});
+UserTrip.belongsTo(User, { through: UserTrip, foreignKey: {name: 'userId', unique: false }});
 
 // THERE IS A BUG WITH SEQUELIZE WHEN YOU HAVE TO HAVE MORE THAN 2 FOREIGN KEYS IN A TABLE, 
 //it says that the foreign keys have to be unique 

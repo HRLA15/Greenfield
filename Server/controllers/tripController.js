@@ -19,7 +19,8 @@ module.exports = {
       destination: tripData.destination,
       startDate: tripData.startDate,
       endDate: tripData.endDate,
-      description: tripData.description
+      description: tripData.description,
+      url: tripData.url
     })
       .then(trip => {
         res.status(202).send(trip);
@@ -37,7 +38,8 @@ module.exports = {
       destination: tripData.destination,
       startDate: tripData.startDate,
       endDate: tripData.endDate,
-      description: tripData.description
+      description: tripData.description,
+      url: tripData.url
     }, {where: {id: req.params.tripId }})
       .then(trip => {
         //return Trip.Trip.findAll({where: {id: req.params.id}}) use this instead of the res.status line when using the database
@@ -67,7 +69,7 @@ module.exports = {
 
   postTripNearbyHotels: (req, res) => {
     let tripData = req.body;
-    
+
     Trip.Hotel.create({
       name: tripData.name,
       address: tripData.address,
