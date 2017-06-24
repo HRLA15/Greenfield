@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import ConfirmedFriendsEntry from './ConfirmedFriendsEntry'
 import axiosRoutes from './TripSummaryAxiosRoutes'
+import Drawer from 'material-ui/Drawer';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import MenuItem from 'material-ui/MenuItem';
 
 const dummyData = [
   'Jon',
@@ -13,6 +16,10 @@ class ConfirmedFriends extends Component {
 
   constructor(props) {
     super(props)
+    this.state = {open: false}
+
+    this.handleToggle = this.handleToggle.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   componentWillMount() {
@@ -41,23 +48,35 @@ class ConfirmedFriends extends Component {
     //     .catch(err => console.log(err)),
     //   5000)
   }
+  handleToggle() {
+    this.setState({open: !this.state.open})
+  }
+
+  handleClose() {
+    this.setState({open: false})
+  }
 
   render() {
     return (
-      <table>
-        <thead>
-          <tr>
-            <td>Confirmed Friends:</td>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            this.state.friends.map((friendObj) => (
-              <ConfirmedFriendsEntry friend={friendObj}/>
-            ))
-          }
-        </tbody>
-      </table>
+      <div>
+        <RaisedButton
+          label="Toggle Drawer"
+          onTouchTap={this.handleToggle}
+        />
+        <Drawer
+          docked={false}
+          width={200} 
+          openSecondary={true}
+          open={this.state.open}
+          onRequestChange={(open) => this.setState({open})}
+        >
+        {
+          this.state.friends.map((friendObj) => (
+            <MenuItem onTouchTap={this.handleClose}>{this.state.friends.name}</MenuItem>
+          ))
+        }
+        </Drawer>
+      </div>
     )
   }
 
