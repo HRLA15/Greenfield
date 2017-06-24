@@ -58,10 +58,7 @@ class UserHome extends Component {
         <div syle={{flexGrow: 1, flexShrink: 1}}>
         <UserSideBar />
         </div>
-<<<<<<< HEAD
-=======
         <CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick}/>
->>>>>>> recent
       </div>
     )
   }
