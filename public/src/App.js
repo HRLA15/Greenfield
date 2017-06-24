@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Navbar, Button } from 'react-bootstrap';
 import './App.css';
+import Landing from './LandingPage'
 
 class App extends Component {
+
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
@@ -23,11 +25,13 @@ class App extends Component {
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#">Auth0 - React</a>
+              <a 
+                onClick={this.goTo.bind(this, '')}
+              >Trip Planner</a>
             </Navbar.Brand>
             <Button
               bsStyle="primary"
-              className="btn-margin"
+              className="btn-margin btn-warning"
               onClick={this.goTo.bind(this, 'home')}
             >
               Home
@@ -36,18 +40,19 @@ class App extends Component {
               !isAuthenticated() && (
                   <Button
                     bsStyle="primary"
-                    className="btn-margin"
+                    className="btn-margin btn-warning"
                     onClick={this.login.bind(this)}
                   >
                     Log In
                   </Button>
                 )
+
             }
             {
               isAuthenticated() && (
                   <Button
                     bsStyle="primary"
-                    className="btn-margin"
+                    className="btn-warning"
                     onClick={this.logout.bind(this)}
                   >
                     Log Out
@@ -57,6 +62,7 @@ class App extends Component {
           </Navbar.Header>
         </Navbar>
       </div>
+      
     );
   }
 }

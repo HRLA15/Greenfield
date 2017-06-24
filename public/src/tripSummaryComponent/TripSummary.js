@@ -4,6 +4,7 @@ import ActivityList from './ActivityList'
 import NearbyHotels from './NearbyHotels'
 import EditButton from './EditButton'
 import axiosRoutes from './TripSummaryAxiosRoutes'
+import { Redirect } from 'react-router-dom'
 //title, destionation, startdate, enddate, isCompleted, userId
 const trip = {
   id:1,
@@ -30,6 +31,7 @@ class TripSummary extends Component {
   }
 
   componentWillMount() {
+
     // axiosRoutes.getTripData(this.props.tripId)
     //   .then((res) => {
     //     if(res.body.userId === this.props.userId) {
@@ -56,8 +58,18 @@ class TripSummary extends Component {
     console.log('LINK BACK TO THE CREATE PAGE')
   }
 
-  render() {
-    console.log(this.props.match.params.userId)
+  render() {    
+    
+    const { isAuthenticated } = this.props.auth
+
+    if(!isAuthenticated()) {
+      return (
+        <Redirect to={{
+        pathname: '/'
+        }}/>
+      )
+    }
+
     let editButton = null
 
     if(this.state.isTripCreator) {
