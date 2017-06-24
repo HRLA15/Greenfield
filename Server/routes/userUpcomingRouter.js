@@ -6,3 +6,5 @@ const router = require('express').Router();
 
 router.route('/userupcoming/:userId')
   .get(UserUpcomingController.getAllUpcomingFromOneUser)
+
+  module.exports = router;

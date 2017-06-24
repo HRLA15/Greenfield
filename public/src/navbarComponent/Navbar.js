@@ -9,6 +9,7 @@ import {blue500, red500, greenA200} from 'material-ui/styles/colors'
 import Earth from 'material-ui/svg-icons/social/public'
 import PendingTrips from './UserPendingTripsList'
 
+
 const iconStyles = {
   marginRight: 24,
 }

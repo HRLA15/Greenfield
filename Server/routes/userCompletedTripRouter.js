@@ -8,3 +8,4 @@ router.route('/usercompletedtrip')
 router.route('/usercompletedtrip/:id')
   .get(userCompletedTripController.getOneCompletedTrip)
 
+module.exports = router;

@@ -1,4 +1,4 @@
-const Activity = require('../../Database/models');
+const Activity = require('../../Database/models/models');
 
 
 module.exports = {
