@@ -31,7 +31,11 @@ const HotelVote = db.define('hotelvote', {
   vote: {
     type: Sequelize.INTEGER,
     allowNull: true,
+<<<<<<< HEAD
   },
+=======
+  }
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 }, {
   timestamps: false,
 })
@@ -130,6 +134,7 @@ const User = db.define('user',{
 <<<<<<< HEAD
 
 
+<<<<<<< HEAD
 =======
 // const UserUpcomingTrip = db.define('userupcomingtrip', {
 //   id: {
@@ -205,6 +210,9 @@ const User = db.define('user',{
 //   timestamps: false,
 // })
 >>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 //JOIN TABLE OF USERS AND TRIPS
 const UserTrip = db.define('usertrip',{
   id: {
@@ -239,6 +247,7 @@ const UserFriend = db.define('userfriend', {
 }, {
   timestamps: false,
 })
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -275,6 +284,9 @@ const UserFriend = db.define('userfriend', {
 // }, {
 //   timestamps: false,
 // })
+=======
+
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 // //Many to Many relationship with same USER table
 // const UserFriend = db.define('userfriend', {
 //   id: {
@@ -341,6 +353,9 @@ Activity.belongsTo(Trip);
 User.hasOne(HotelVote);
 HotelVote.belongsTo(User);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 HotelVote.belongsTo(User, {as: 'friendvote', foreignKey: {name: 'friendId', unique: false}})
 
 
@@ -421,6 +436,7 @@ HotelVote.sync();
 UserFriend.sync();
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 =======
 // Friend.sync();
 // UserUpcoming.sync();
@@ -431,6 +447,8 @@ UserFriend.sync();
 // UserUpcomingTrip.sync();
 // UserPendingTrip.sync();
 >>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 // User.sync({force: true});
 // Trip.sync({force: true});
 // UserTrip.sync({force: true});
@@ -441,6 +459,7 @@ UserFriend.sync();
 <<<<<<< HEAD
 
 
+<<<<<<< HEAD
 =======
 // Friend.sync({force: true});
 // UserCompletedTrip.sync({force: true});
@@ -450,6 +469,8 @@ UserFriend.sync();
 // UserPending.sync({force: true});
 // UserCompleted.sync({force: true});
 >>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 module.exports = {
   User,
   Trip,
@@ -461,6 +482,7 @@ module.exports = {
 }
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 =======
 // module.exports.User = User;
 // module.exports.Trip = Trip;
@@ -472,3 +494,5 @@ module.exports = {
 // module.exports.Activity = Activity;
 // module.exports.HotelVote = HotelVote;
 >>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually

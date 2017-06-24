@@ -12,6 +12,7 @@ module.exports = {
   },
 
   postUserProfileInfo: (req, res) => {
+<<<<<<< HEAD
     console.log('this is req params', req.params)
     console.log('this is req body', req.body)
     User.User.findOrCreate({where: {id: req.params.userId}, 
@@ -36,6 +37,17 @@ module.exports = {
           .catch(err => {
             res.status(404).send(err);
           })
+=======
+    User.User.create({
+      firstName: req.body.firstName,
+      username: req.body.username,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      idToken: req.body.idToken
+    }, {where: {id: req.params.id }})
+      .then(profileinfo => {
+        res.status(202).send(profileinfo);
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
       })
       .catch(err => {
         console.log('err in creating the profile info', err);
