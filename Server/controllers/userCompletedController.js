@@ -1,4 +1,4 @@
-const UserCompleted = require('../../Database/models');
+const UserCompleted = require('../../Database/models/models');
 
 module.exports = {
   getAllCompletedFromOneUser: (req, res) => {

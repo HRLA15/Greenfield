@@ -8,3 +8,6 @@ router.route('/userupcomingtrip')
 router.route('/userupcomingtrip/:id')
   .get(userUpcomingTripController.getOneUpcomingTrip)
   .delete(userUpcomingTripController.deleteUpcomingTrip)
+
+
+module.exports = router;

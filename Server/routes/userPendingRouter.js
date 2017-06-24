@@ -6,3 +6,6 @@ const router = require('express').Router();
 
 router.route('/userpending/:userId')
   .get(UserPendingController.getAllPendingFromOneUser)
+
+
+module.exports = router;

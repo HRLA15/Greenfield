@@ -1,4 +1,4 @@
-const Trip = require('../../Database/models');
+const Trip = require('../../Database/models/models');
 
 module.exports = {
   getTripData: (req, res) => {
@@ -18,10 +18,9 @@ module.exports = {
       title: tripData.title,
       destination: tripData.destination,
       startDate: tripData.startDate,
-      endDate: tripData.endData,
+      endDate: tripData.endDate,
       description: tripData.description
-
-    }, {where: {id: req.params.id }})
+    })
       .then(trip => {
         res.status(202).send(trip);
       })
@@ -32,15 +31,16 @@ module.exports = {
   
   updateTripData: (req, res) => {
     let tripData = req.body;
-
+    console.log('this is tripdata', tripData)
     Trip.Trip.update({
       title: tripData.title,
       destination: tripData.destination,
       startDate: tripData.startDate,
-      endDate: tripData.endData,
+      endDate: tripData.endDate,
       description: tripData.description
     }, {where: {id: req.params.id }})
       .then(trip => {
+        //return Trip.Trip.findAll({where: {id: req.params.id}}) use this instead of the res.status line when using the database
         res.status(202).send(trip);
       })
       .catch(err => {
@@ -53,9 +53,10 @@ module.exports = {
 
     Trip.Trip.findAll({
       include: [{
-        model: Hotel
+        model: Trip.Hotel,
+        where: {tripId: req.params.id}
       }]
-    }, {where: {id: req.params.id}})
+    })
       .then(hotels => {
         res.status(202).send(hotels);
       })
@@ -71,8 +72,9 @@ module.exports = {
       name: tripData.name,
       address: tripData.address,
       longitude: tripData.longitude,
-      latitude: tripData.latitude
-    }, {where: {id: req.params.id}})
+      latitude: tripData.latitude,
+      tripId: req.params.id
+    })
       .then(hotel => {
         res.status(202).send(hotel);
       })
@@ -86,9 +88,10 @@ module.exports = {
 
     Trip.Trip.findAll({
       include: [{
-        model: Activity
+        model: Trip.Activity,
+        where: {tripId: req.params.id}
       }]
-    }, {where: {id: req.params.id }})
+    })
     .then(activities => {
       res.status(202).send(activities);
     })
@@ -104,9 +107,9 @@ module.exports = {
       name: tripData.name,
       address: tripData.address,
       longitude: tripData.longitude,
-      latitude: tripData.latitude
-
-    }, {where: {id: req.params.id }})
+      latitude: tripData.latitude,
+      tripId: req.params.id
+    })
       .then(activity => {
         res.status(202).send(activity);
       })
@@ -118,9 +121,9 @@ module.exports = {
   deleteTripActivity: (req, res) => {
     let tripData = req.body;
 
-    Trip.Activity.destroy({where: {id: req.params.id})
+    Trip.Activity.destroy({where: {id: req.params.id}})
       .then(activity => {
-        res.sendStatus(202).send('deleted');
+        res.status(202).send('deleted');
       })
       .catch(err => {
         res.status(404).send(err);

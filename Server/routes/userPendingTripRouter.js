@@ -8,3 +8,5 @@ router.route('/userpendingtrip')
 router.route('/userpendingtrip/:id')
   .get(userPendingTripController.getOnePendingTrip)
   .delete(userPendingTripController.deletePendingTrip)
+
+module.exports = router;

@@ -23,10 +23,10 @@ const Hotel = db.define('hotel',{
     type: Sequelize.FLOAT,
     allowNull: false,
   },
-  count: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  }
+  // count: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: true,
+  // }
 }, {
   timestamps: false,
 })
@@ -60,7 +60,7 @@ const Trip = db.define('trip',{
   description: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
   // status: {
   //   type: Sequelize.INTEGER,
   //   allowNull:false,
@@ -126,7 +126,7 @@ const User = db.define('user',{
   },
   url: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
 }, {
   timestamps: false,
@@ -212,16 +212,40 @@ const User = db.define('user',{
 
 //JOIN TABLE OF USERS AND TRIPS
 
-const UserTrip = db.define('userstrip',{
+const UserTrip = db.define('usertrip',{
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
+  },
+  invited: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,    
+    allowNull: false
+  },
+  confirmed: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,    
+    allowNull: false
   }
 }, {
   timestamps: false,
 })
 
+const UserFriend = db.define('userfriend', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  // invited: {
+  //   type: Sequelize.BOOLEAN,
+  //   defaultValue: false,    
+  //   allowNull: false
+  // }
+}, {
+  timestamps: false,
+})
 // const UserUpcoming = db.define('userupcoming', {
 //   id: {
 //     type: Sequelize.INTEGER,
@@ -282,7 +306,6 @@ const UserTrip = db.define('userstrip',{
 
 
 
-<<<<<<< HEAD
 // User.hasMany(UserCompletedTrip)
 // UserCompletedTrip.belongsTo(User);
 
@@ -297,18 +320,22 @@ const UserTrip = db.define('userstrip',{
 // // Users can have many friend Users
 // // I will alias the association
 
-=======
->>>>>>> database
 // RELATIONSHIPS
 // //////////////////////////////////////////////////////////////////////////////////*/
 
 
-<<<<<<< HEAD
-=======
+
 // // // Trip to User M:M associations
->>>>>>> database
-User.belongsToMany(Trip, { through: UserTrip });
-Trip.belongsToMany(User, { through: UserTrip });
+UserTrip.belongsTo(Trip, { through: UserTrip, foreignKey: {name: 'userId', unique: false }});
+UserTrip.belongsTo(User, { through: UserTrip, foreignKey: {name: 'tripId', unique: false }});
+
+// THERE IS A BUG WITH SEQUELIZE WHEN YOU HAVE TO HAVE MORE THAN 2 FOREIGN KEYS IN A TABLE, 
+//it says that the foreign keys have to be unique 
+//Link: https://github.com/sequelize/sequelize/issues/3220 ... fixed it up top
+      // THIS IS THE ORIGINAL CODE THAT SHOULD WORK, but when adding participants/friends to the usertrip table it gets and error 
+// User.belongsToMany(Trip, { through: UserTrip, foreignKey: {name: 'userId', unique: false });
+// Trip.belongsToMany(User, { through: UserTrip, foreignKey: 'tripId', unique: false });
+
 
 // User.belongsToMany(UserUpcomingTrip, { through: UserUpcoming});
 // UserUpcomingTrip.belongsToMany(User, { through: UserUpcoming });
@@ -333,12 +360,10 @@ HotelVote.belongsTo(User);
 Hotel.hasMany(HotelVote);
 HotelVote.belongsTo(Hotel);
 
-<<<<<<< HEAD
-User.hasMany(User, {as: 'Friends'});
+User.belongsToMany(User, {as: 'friend', through: UserFriend})
+// User.belongsToMany(User, {as: 'participant', foreignKey: 'participantId' , through: UserTrip, unique: false})
+UserTrip.belongsTo(User, {as: 'participant', through: UserTrip, foreignKey: {name: 'participantId', unique: false }});
 
-// // // Trip to User M:M associations
-=======
-User.hasMany(User, {as: 'Friends'}) 
 
 
 // User.hasMany(UserCompletedTrip)
@@ -354,7 +379,6 @@ User.hasMany(User, {as: 'Friends'})
 // 1:M relationship with User and Friend
 // // Users can have many friend Users
 // // I will alias the association
->>>>>>> database
 // // // stored in the same-name join table: 'usersTrips'
 // // // the 'through' property is require in 'belongsToMany Associations
 
@@ -432,6 +456,8 @@ UserTrip.sync();
 Hotel.sync();
 Activity.sync();
 HotelVote.sync();
+UserFriend.sync();
+
 // Friend.sync();
 // UserUpcoming.sync();
 // UserPending.sync();
@@ -447,11 +473,12 @@ HotelVote.sync();
 // Hotel.sync({force: true});
 // Activity.sync({force: true});
 // HotelVote.sync({force: true});
+// UserFriend.sync({force: true});
+
 // Friend.sync({force: true});
 // UserCompletedTrip.sync({force: true});
 // UserUpcomingTrip.sync({force: true});
 // UserPendingTrip.sync({force: true});
-// ProfilePic.sync({force: true});
 // UserUpcoming.sync({force: true});
 // UserPending.sync({force: true});
 // UserCompleted.sync({force: true});
@@ -461,11 +488,11 @@ module.exports = {
   Trip,
   UserTrip,
   Hotel,
-  // ProfilePic,
-  // UserCompletedTrip,
-  // UserUpcomingTrip,
+  UserFriend,
   Activity,
   HotelVote,
+  // UserCompletedTrip,
+  // UserUpcomingTrip,
   // UserPendingTrip,
   // Friend
 }

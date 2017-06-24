@@ -6,3 +6,5 @@ const router = require('express').Router();
 
 router.route('/usercompleted/:userId')
   .get(UserCompletedController.getAllCompletedFromOneUser)
+
+  module.exports = router;

@@ -1,31 +1,11 @@
-const UserTrip = require('../../Database/models')
+const UserTrip = require('../../Database/models/models');
 
 module.exports = {
   getAllUserTrips: (req, res) => {
     UserTrip.UserTrip.findAll({
+      where: {userId: req.params.userId},
       include: [{
-        model: User,
-        include: [{
-          model: Trip
-        }]
-      }]
-    }, {where: {id: req.params.userId}})
-      .then(usertrip => {
-        res.status(202).send(usertrip);
-      })
-      .catch(err => {
-        res.status(404).send(err);
-      })
-  },
-
-  getTripUsers: (req, res) => {
-    UserTrip.UserTrip.findAll({
-      include: [{
-        model: Trip,
-        where: {id: req.params.tripId},
-        include: [{
-          model: User
-        }]
+        model: UserTrip.Trip
       }]
     })
       .then(usertrip => {
@@ -35,6 +15,35 @@ module.exports = {
         res.status(404).send(err);
       })
   },
+
+  postUserTrip: (req, res) => {
+    UserTrip.UserTrip.create({
+      userId: req.params.userId,
+      tripId: req.params.tripId
+    })
+      .then(userTrip => {
+        res.status(202).send(userTrip);
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      })
+  },
+
+  // getTripUsers: (req, res) => {
+  //   UserTrip.UserTrip.findAll({
+  //     where: {confirmed: true, tripId: req.params.tripId},
+  //     include: [{
+  //       model: UserTrip.Trip,
+  //       where: {id: req.params.id}
+  //     }]
+  //   })
+  //     .then(usertrip => {
+  //       res.status(202).send(usertrip);
+  //     })
+  //     .catch(err => {
+  //       res.status(404).send(err);
+  //     })
+  // },
 
   // getCompletedTrips: (req, res) => {
   //   UserTrip.UserTrip.findAll({
