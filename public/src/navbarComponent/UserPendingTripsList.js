@@ -38,8 +38,7 @@ class PendingTrips extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pendingTrips: dummyData,
-      toggle: false
+      pendingTrips: dummyData
     }
 
     this.handleEntryClick = this.handleEntryClick.bind(this)
