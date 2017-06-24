@@ -38,7 +38,7 @@ class TripSummary extends Component {
 
   componentWillMount() {
 
-    // axiosRoutes.getTripData(this.props.tripId)
+    // axiosRoutes.getTripData(this.props.match.params.tripId)
     //   .then((res) => {
     //     if(res.body.userId === this.props.userId) {
     //       this.setState({
@@ -55,6 +55,17 @@ class TripSummary extends Component {
     this.setState({
       tripData: trip
     })
+    console.log('Mounted trip id is ', this.props.match.params.tripId)
+  }
+  
+  
+  componentWillReceiveProps(nextProps) {
+    //get confirmed friends, all places, tripInfo
+    console.log('received props', nextProps.match.params.tripId)
+  }
+  componentDidMount() {
+    //update every 10 seconds
+    //get confirmed friends, all places, this.props.match.params.tripId
   }
 
   handleEditButtonClick() {

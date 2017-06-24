@@ -4,7 +4,9 @@ class UserProfileInfo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      tempFullName: this.props.userInfo.name,
+      tempUsername: this.props.userInfo.username,
+      tempFirstName: this.props.userInfo.firstName,
+      tempLastName: this.props.userInfo.lastName,
       tempEmail: this.props.userInfo.email
     }
 
@@ -31,11 +33,29 @@ class UserProfileInfo extends Component {
           this.props.handleSaveClick(this.state)
         }}>
         <label>
-          Full Name:
+          Username:
           <input
-            name="tempFullName"
+            name="tempUsername"
             type="text"
-            placeholder={this.props.userInfo.name}
+            placeholder={this.props.userInfo.username}
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          First Name:
+          <input
+            name="tempFirstName"
+            type="text"
+            placeholder={this.props.userInfo.firstName}
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Last Name:
+          <input
+            name="tempLastName"
+            type="text"
+            placeholder={this.props.userInfo.lastName}
             onChange={this.handleInputChange} />
         </label>
         <br />
@@ -51,7 +71,9 @@ class UserProfileInfo extends Component {
         <input type="submit" value="Save" />
         <button onClick={() => {
           this.setState({
-            tempFullName: this.props.userInfo.name,
+            tempUsername: this.props.userInfo.username,
+            tempFirstName: this.props.userInfo.firstName,
+            tempLastName: this.props.userInfo.lastName,
             tempEmail: this.props.userInfo.email
           })
           this.props.handleCancelClick()
@@ -62,7 +84,7 @@ class UserProfileInfo extends Component {
       display = (
       <div>
         <textarea rows="4" cols="50" readOnly>
-          {`Full Name: ${this.props.userInfo.name}\nEmail: ${this.props.userInfo.email}`}
+          {`Username: ${this.props.userInfo.username}\nFirst Name: ${this.props.userInfo.firstName}\nLastName: ${this.props.userInfo.lastName}\nEmail: ${this.props.userInfo.email}`}
         </textarea>
         <button onClick={this.props.handleEditClick}>Edit</button>
       </div>

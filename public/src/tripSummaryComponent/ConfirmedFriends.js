@@ -6,10 +6,18 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 
 const dummyData = [
-  'Jon',
-  'Will',
-  'Jay',
-  'Mike'
+  {
+    name: 'Jon'
+  },
+  {
+    name: 'Will'
+  },
+  {
+    name: 'Mike'
+  },
+  {
+    name: 'Jay'
+  }
 ]
 // will have tripId passed into props
 class ConfirmedFriends extends Component {
@@ -60,19 +68,19 @@ class ConfirmedFriends extends Component {
     return (
       <div>
         <RaisedButton
-          label="Toggle Drawer"
+          label="Trip Summary"
           onTouchTap={this.handleToggle}
         />
         <Drawer
           docked={false}
-          width={200} 
+          width={'30%'} 
           openSecondary={true}
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
         {
           this.state.friends.map((friendObj) => (
-            <MenuItem onTouchTap={this.handleClose}>{this.state.friends.name}</MenuItem>
+            <MenuItem onTouchTap={this.handleClose}>{friendObj.name}</MenuItem>
           ))
         }
         </Drawer>

@@ -44,17 +44,22 @@ class PendingTrips extends Component {
     this.handleEntryClick = this.handleEntryClick.bind(this)
   }
 
-  // componentWillMount() {
-  //   axiosRoutes.getUserPendingTrips(this.props.userId)
-  //     .then((res) => {
-  //       this.setState({
-  //         pendingTrips = res.body
-  //       })
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }
+  componentDidMount() {
+    // axiosRoutes.getUserPendingTrips(this.props.userId)
+    //   .then((res) => {
+    //     this.setState({
+    //       pendingTrips = res.body
+    //     })
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
+    console.log('inside user pending trips', this.props.userId)
+  }
+
+  handleUpdate() {
+    console.log('get axios data')
+  }
 
   handleEntryClick(pendingTripId) {
     //add redirect to the upcoming trip info page
@@ -66,9 +71,10 @@ class PendingTrips extends Component {
   }
 
   render() {
+
     return (
     <IconMenu
-      iconButtonElement={<IconButton><SocialNotificationActive hoverColor={red500}/></IconButton>}
+      iconButtonElement={<IconButton><SocialNotificationActive onClick={() => this.handleUpdate.apply(this)} hoverColor={red500}/></IconButton>}
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       targetOrigin={{horizontal: 'left', vertical: 'top'}}
     >

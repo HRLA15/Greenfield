@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import UserProfilePic from './UserProfilePic'
 import UserProfileInfo from './UserProfileInfo'
-import axiosRoutes from './UserHomeAxiosRoutes'
+import axiosRoutes from '../userHomePageComponent/UserHomeAxiosRoutes'
+
 const dummyData = {
   id: 1,
-  name: 'Donald the GOAT',
+  username: 'trumpin',
+  firstName: 'Donald',
+  lastName: 'Trump',
   email: 'MakeAmericaGreatAgain@trumpin.com',
   profilePic: []
 }
@@ -26,7 +29,9 @@ class UserProfile extends Component {
     this.handleEditPicClick = this.handleEditPicClick.bind(this)
     this.handleCancelEditPicClick = this.handleCancelEditPicClick.bind(this)
   }
-
+  componentWillUnmount() {
+    console.log('unmounted')
+  }
   handleEditClick() {
     this.setState({
       edit: true
@@ -50,7 +55,9 @@ class UserProfile extends Component {
     //   .catch(err => console.log(err))
 
     //once server routes work uncomment above and delete lines below
-    this.state.userInfo['name'] = stateObj.tempFullName
+    this.state.userInfo['username'] = stateObj.tempUsername
+    this.state.userInfo['firstName'] = stateObj.tempFirstName
+    this.state.userInfo['lastName'] = stateObj.tempLastName
     this.state.userInfo['email'] = stateObj.tempEmail
     
     this.setState({

@@ -62,7 +62,6 @@ class Create extends Component {
   // }
 componentWillMount() {
   console.log('MOUNTED CREATE')
-  console.log(this.props.match.params.userId)
 }
 
 componentDidMount() {
@@ -75,7 +74,9 @@ componentDidMount() {
   //     console.log(err)
   //   })
 }
-
+  goTo(route) {
+    this.props.history.replace(`/${route}`)
+  }
 //auth0 login
   login() {
     this.props.auth.login();
@@ -133,9 +134,15 @@ componentDidMount() {
     //post request to database
     axiosRoutes.postTripInfo(tripInfo)
       .then((res) => {
+        axiosRoutes.postInvitedFriends
+        //using the new trip info we will redirect them from here
+        this.goTo.call(this, res.body.id)
+
         console.log(res.body)
       })
       .catch((err)=> {
+        //take this out once we get servers linked
+        this.goTo.call(this, 'event/1')
         console.log(err)
         console.log(tripInfo)
       })
@@ -198,7 +205,7 @@ handleFormSubmit(){
  }
 
   render() {
-
+    console.log(this.props.location)
   //Invite Friends List on "Invite Friends" click
   //Popup friends list/invite list
     if (this.state.display === true) {
@@ -274,9 +281,9 @@ const { isAuthenticated } = this.props.auth;
             <br></br>
             
             {/*go to event page*/}
-            <Link to ={`/event/` + localStorage.id_token}>
+            
               <button className="finalize" onClick = {this.finalize}>Finalize Trip</button>
-            </Link>
+            
           </div>
 
           {/*Render Invited Friends*/}

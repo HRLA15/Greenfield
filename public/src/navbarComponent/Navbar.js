@@ -18,7 +18,7 @@ const Login = ({login}) => (
   <FlatButton onClick={login} label="Login" />
 )
 
-const Logged = ({logout}) => (
+const Logged = ({goTo, logout}) => (
   <IconMenu
     iconButtonElement={
       <IconButton><ActionHome hoverColor={greenA200}/></IconButton>
@@ -26,7 +26,7 @@ const Logged = ({logout}) => (
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
   >
-    <MenuItem primaryText="Settings" />
+    <MenuItem onClick={() => (goTo('settings'))} primaryText="Settings" />
     <MenuItem onClick={logout} primaryText="Sign out" />
   </IconMenu>
 )
@@ -49,6 +49,7 @@ class Navbar extends Component {
   }
 
   componentDidMount() {
+    console.log('in nav bar user id is', this.props.userId)
     console.log(localStorage.id_token)
   }
 
@@ -79,8 +80,8 @@ class Navbar extends Component {
             isAuthenticated() ? this.goTo.bind(this, 'home') : this.goTo.bind(this, '')
           }>TRIP PLANNER</span>}
           titleStyle={{textAlign: "center"}}
-          iconElementRight={isAuthenticated() ? <Logged logout={this.logout.bind(this)}/> : <Login login={this.login.bind(this)}/>}
-          iconElementLeft={isAuthenticated() ? <PendingTrips router={this.goToNext.bind(this)}/> : <Earth color="green"/>}
+          iconElementRight={isAuthenticated() ? <Logged goTo={this.goTo.bind(this)} logout={this.logout.bind(this)}/> : <Login login={this.login.bind(this)}/>}
+          iconElementLeft={isAuthenticated() ? <PendingTrips userId={this.props.userId} router={this.goTo.bind(this)}/> : <Earth color="green"/>}
           style={appBarStyle}
         />
       </div>
