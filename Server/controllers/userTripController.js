@@ -110,6 +110,18 @@ module.exports = {
         res.status(404).send(err);
       })
   },
+
+  deletePendingFriendTrip: (req, res) => {
+    UserTrip.UserTrip.destroy({where: {participantId: req.params.participandId, invited: true, userConfirmed: true, participantConfirmed: false}})
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      })
+  },
+}
+
   // getTripUsers: (req, res) => {
   //   UserTrip.UserTrip.findAll({
   //     where: {confirmed: true, tripId: req.params.tripId},
@@ -125,9 +137,3 @@ module.exports = {
   //       res.status(404).send(err);
   //     })
   // },
-}
-
-
-
-
-// router.get('/getCompletedTrips/:id', userTripController.getCompletedTrips);

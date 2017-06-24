@@ -6,23 +6,27 @@ router.get('/getTripSummary/:tripId', tripController.getTripData);
 router.post('/postTripSummary', tripController.postTripData);
 router.put('/putTripSummary/:tripId', tripController.updateTripData);
 
-//Hotels
+//Get the Nearby Hotels particular trip
 router.get('/getTripNearbyHotels/:tripId', tripController.getTripNearbyHotels);
 
-// Post hotels
+// Post hotels from Google Maps
 router.post('/postTripNearbyHotels/:tripId', tripController.postTripNearbyHotels);
 
-//Activities use the tripId
+//Get the Nearby Activities from a particular trip
 router.get('/getTripActivities/:tripId', tripController.getTripActivities);
 
-//Post Activities
+//Post/Delete Activities
 router.post('/postTripActivity/:tripId', tripController.postTripActivity);
 router.delete('/deleteTripActivity/:tripId', tripController.deleteTripActivity);
 
-//Post/update HotelVote for friends prevents user from voting multiple times
-router.post('/hotelVote/:userId/:hotelId/:friendId', tripController.voteOnHotel)
+//Post/update HotelVote for friends prevents friend from voting multiple times
+router.post('/hotelVote/:hotelId/:friendId', tripController.voteOnHotel)
 
-//Sum of the votes of each hotel
+//Post/Update HoteVote for user prevents user from from voting multiple times
+router.post('/userHotelVote/:hotelId/:userId', tripController.userVoteOnHotel);
+
+//Sum of the votes of each hotel for all users
 router.get('/sumOfVote/:hotelId', tripController.sumOfVote)
+
 
 module.exports = router;

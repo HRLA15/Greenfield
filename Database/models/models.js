@@ -35,7 +35,7 @@ const HotelVote = db.define('hotelvote', {
   vote: {
     type: Sequelize.INTEGER,
     allowNull: true,
-  }
+  },
 }, {
   timestamps: false,
 })
@@ -169,50 +169,10 @@ const UserFriend = db.define('userfriend', {
     primaryKey: true,
     autoIncrement: true
   },
-  // invited: {
-  //   type: Sequelize.BOOLEAN,
-  //   defaultValue: false,    
-  //   allowNull: false
-  // }
 }, {
   timestamps: false,
 })
 
-// //Many to Many relationship with same USER table
-
-// const UserFriend = db.define('userfriend', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true
-//   }
-// }, {
-//   timestamps: false,
-// })
-
-// // //Many to Many relationship with same USER table
-
-// // const UserFriend = db.define('userfriend', {
-// //   id: {
-// //     type: Sequelize.INTEGER,
-// //     primaryKey: true,
-// //     autoIncrement: true
-// //   }
-// // }, {
-// //   timestamps: false,
-// // })
-
-
-
-
-// User.hasMany(UserCompletedTrip)
-// UserCompletedTrip.belongsTo(User);
-
-// User.hasMany(UserPendingTrip)
-// UserPendingTrip.belongsTo(User);
-
-// User.hasMany(UserUpcomingTrip)
-// UserUpcomingTrip.belongsTo(User);
 
 
 // 1:M relationship with User and Friend
@@ -236,15 +196,6 @@ UserTrip.belongsTo(User, { through: UserTrip, foreignKey: {name: 'userId', uniqu
 // Trip.belongsToMany(User, { through: UserTrip, foreignKey: 'tripId', unique: false });
 
 
-// User.belongsToMany(UserUpcomingTrip, { through: UserUpcoming});
-// UserUpcomingTrip.belongsToMany(User, { through: UserUpcoming });
-
-// User.belongsToMany(UserPendingTrip, { through: UserPending});
-// UserPendingTrip.belongsToMany(User, { through: UserPending});
-
-// User.belongsToMany(UserCompletedTrip, { through: UserCompleted });
-// UserCompletedTrip.belongsToMany(User, { through: UserCompleted});
-
 
 Trip.hasMany(Hotel);
 Hotel.belongsTo(Trip);
@@ -261,7 +212,7 @@ Hotel.hasMany(HotelVote);
 HotelVote.belongsTo(Hotel);
 
 User.belongsToMany(User, {as: 'friend', through: UserFriend})
-// User.belongsToMany(User, {as: 'participant', foreignKey: 'participantId' , through: UserTrip, unique: false})
+
 UserTrip.belongsTo(User, {as: 'participant', through: UserTrip, foreignKey: {name: 'participantId', unique: false }});
 
 

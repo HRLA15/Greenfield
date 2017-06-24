@@ -134,13 +134,28 @@ module.exports = {
   },
 
   voteOnHotel: (req, res) => {
-    Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId, userId: req.params.userId}})
+    Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId}})
       .spread((hotel, created) => {
         Trip.HotelVote.update({
           hotelId: req.params.hotelId,
-          userId: req.params.userId,
           vote: 1
         }, {where: {friendId: req.params.friendId}})
+          .then(update => {
+            res.status(202).send(update);
+          })
+          .catch(err => {
+            res.status(404).send(err);
+          })
+      })
+  },
+
+  userVoteOnHotel: (req, res) => {
+    Trip.HotelVote.findOrCreate({where: {userId: req.params.userId}, default: {vote: 1, hotelId: req.params.hotelId}})
+      .spread((hotel, created) => {
+        Trip.HotelVote.update({
+          hotelId: req.params.hotelId,
+          vote: 1
+        }, {where: {userId: req.params.userId}})
           .then(update => {
             res.status(202).send(update);
           })

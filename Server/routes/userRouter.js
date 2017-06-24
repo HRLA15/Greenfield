@@ -3,7 +3,7 @@ const userController = require('../controllers/userController');
 
 
 router.get('/getOneUser/:idToken', userController.getOneUser)
-router.post('/postUserProfilePic/:id', userController.postUserProfilePic)
-router.post('/postUserProfileInfo/:id', userController.postUserProfileInfo)
+router.post('/postUserProfilePic/:userId', userController.postUserProfilePic)
+router.post('/postUserProfileInfo/:userId', userController.postUserProfileInfo)
 
 module.exports = router;

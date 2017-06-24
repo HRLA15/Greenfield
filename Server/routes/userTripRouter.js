@@ -22,15 +22,7 @@ router.get('/getUpcomingFriendTrip/:participantId', userTripController.getUpcomi
 
 // get pending trips for friends
 router.get('/getPendingFriendTrip/:participantId', userTripController.getPendingFriendTrips);
-
-
-
-
-// this is in the userfriend router/controller
-// router.get('/getTripUsers/:tripId', userTripController.getTripUsers);
-
-//
-// router.get('/getCompletedTrips/:id', userTripController.getCompletedTrips);
+router.delete('/deletePendingTrip/:participantId', userTripController.deletePendingFriendTrip);
 
 
 module.exports = router;

@@ -18,7 +18,7 @@ module.exports = {
       lastName: req.body.lastName,
       email: req.body.email,
       idToken: req.body.idToken
-    }, {where: {id: req.params.id }})
+    }, {where: {id: req.params.userId }})
       .then(profileinfo => {
         res.status(202).send(profileinfo);
       })
@@ -30,15 +30,14 @@ module.exports = {
   postUserProfilePic: (req, res) => {
     User.User.update({
       url: req.body.url
-    }, {where: {id: req.params.id }})
+    }, {where: {id: req.params.userId }})
       .then(profilepic => {
         //profilepic is outputting how many attributes that it changed
-        // return User.User.findAll({where: {id: req.params.id}})  this should work when we get save stuff in our database
+        // return User.User.findAll({where: {id: req.params.userId}})  this should work when we get save stuff in our database
         res.status(200).send(profilepic);
       })
       .catch(err => {
         res.status(404).send(err);
       })
   },
-
 }
