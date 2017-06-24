@@ -12,10 +12,11 @@ import Navbar from './src/navbarComponent/Navbar'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+
 const auth = new Auth();
 
 const handleAuthentication = (nextState, replace) => {
-  if (/access_token|id_token|error/.test(nextState.location.hash)) {
+  if (access_token|id_token|error.test(nextState.location.hash)) {
     auth.handleAuthentication();
   }
 }
