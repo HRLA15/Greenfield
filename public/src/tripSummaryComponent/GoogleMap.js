@@ -113,7 +113,6 @@ class GoogleMap extends Component{
 
     this.setState({
       pendingList:tempArray
-      
     })
     // console.log('this is the pendingList after click', this.state.pendingList)
   }
@@ -139,8 +138,12 @@ class GoogleMap extends Component{
             {this.state.markerClicked.showAddButton ? <button onClick={this.addToPending}>Add to PendingList</button> : null}
             
         </div>
-        {console.log("before pending list", this.state.pendingList)}
-        {this.state.pendingList.length > 0 ? <PendingList queryType={this.state.querySelection} pendingList={this.state.pendingList}/> : null}
+        {this.state.pendingList.length > 0 ? 
+          <PendingList queryType={this.state.querySelection} 
+                       pendingList={this.state.pendingList}
+          /> 
+          : null
+        }
         
       </div>
     )
