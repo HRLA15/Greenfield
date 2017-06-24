@@ -99,40 +99,6 @@ class GoogleMap extends Component{
     });  
   }
 
-
-  // handleFormSubmit(){
-  //   this.initAutocomplete();
-  // }
-
-  // initAutocomplete() {
-  //   // Create the autocomplete object, restricting the search to geographical
-  //   // location types.
-  //   var placeSearch, autocomplete;
-  //   var componentForm = {
-  //     street_number: 'short_name',
-  //     route: 'long_name',
-  //     locality: 'long_name',
-  //     administrative_area_level_1: 'short_name',
-  //     country: 'long_name',
-  //     postal_code: 'short_name'
-  //   };
-  //   autocomplete = new google.maps.places.Autocomplete(
-  //       /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-  //       {types: ['geocode']});
-  //   // console.log("document.getElementById in initAutocomplet", document.getElementById('autocomplete').value);
-  //   // console.log("autocomplete return object in initAutocomplete", autocomplete.getPlace())
-  //   // When the user selects an address from the dropdown, populate the address
-  //   // fields in the form.
-  //   autocomplete.addListener('place_changed', ()=>{
-  //     console.log("is it in autocomplete?",autocomplete.getPlace().geometry.location);
-  //     this.setState({
-  //       searchedLocation : autocomplete.getPlace().geometry.location
-  //     })
-  //     this.initialize();
-  //   });
-    
-  // }
-
   handleSelectionClick(selection){
     this.setState({
       querySelection : selection
@@ -172,10 +138,9 @@ class GoogleMap extends Component{
             {this.state.markerClicked.showAddButton ? <button onClick={this.addToPending}>Add to PendingList</button> : null}
             
         </div>
-        Pending List
         {console.log("before pending list", this.state.pendingList)}
-        {/*<PendingListEntry pendingList={this.state.pendingList}/>*/}
-
+        {this.state.pendingList.length > 0 ? <PendingList pendingList={this.state.pendingList}/> : null}
+        
       </div>
     )
   }

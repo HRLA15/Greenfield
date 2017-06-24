@@ -21,6 +21,10 @@ const handleAuthentication = (nextState, replace) => {
   }
 }
 
+let handleCreateInputToEvent = ()=>{
+  
+}
+
 export const makeMainRoutes = () => {
   injectTapEventPlugin()
 
@@ -36,7 +40,8 @@ export const makeMainRoutes = () => {
             return <Home auth={auth} {...props} /> 
           }}/>
           <Route path="/create" render={(props) => <Create auth={auth} {...props}/>}/>
-          <Route path="/event/:tripId" render={(props) => <Event auth={auth} {...props}/>}/>
+          {/*<Route path="/event/:tripId" render={(props) => <Event auth={auth} {...props}/>}/>*/}
+          <Route path="/event" render={(props) => <Event auth={auth} {...props}/>}/>
        
         </div>
           </MuiThemeProvider>
