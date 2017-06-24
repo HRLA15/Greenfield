@@ -5,53 +5,12 @@ import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import FlatButton from 'material-ui/FlatButton'
 import ActionHome from 'material-ui/svg-icons/action/home'
-import SocialNotificationActive from 'material-ui/svg-icons/social/notifications-active'
 import {blue500, red500, greenA200} from 'material-ui/styles/colors'
 import Earth from 'material-ui/svg-icons/social/public'
-
-
-const dummyData = [
-  {
-    title: 'ChinaTown'
-  },
-  {
-    title: 'KoreaTown'
-  }
-]
+import PendingTrips from './UserPendingTripsList'
 
 const iconStyles = {
   marginRight: 24,
-}
-
-class PendingTrips extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      pendingTripsArr: []
-    }
-  }
-
-  componentWillMount() {
-    this.setState({
-      pendingTripsArr: dummyData
-    })
-  }
-
-  render() {
-    return (
-    <IconMenu
-      iconButtonElement={<IconButton><SocialNotificationActive hoverColor={red500}/></IconButton>}
-      anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-      targetOrigin={{horizontal: 'left', vertical: 'top'}}
-    >
-      {
-        this.state.pendingTripsArr.map((pendingTrip) => (
-          <MenuItem primaryText={pendingTrip.title} />
-        ))
-      }
-    </IconMenu>
-    )
-  }
 }
 
 const Login = ({login}) => (
@@ -100,7 +59,13 @@ class Navbar extends Component {
     this.props.auth.logout();
   }
 
+  goToNext(route) {
+    this.props.history.push(`/${route}`)
+  }
+
   render() {
+
+    console.log(this.props.history)
     const { isAuthenticated } = this.props.auth
 
     return (
@@ -111,7 +76,7 @@ class Navbar extends Component {
           }>TRIP PLANNER</span>}
           titleStyle={{textAlign: "center"}}
           iconElementRight={isAuthenticated() ? <Logged logout={this.logout.bind(this)}/> : <Login login={this.login.bind(this)}/>}
-          iconElementLeft={isAuthenticated() ? <PendingTrips /> : <Earth color="green"/>}
+          iconElementLeft={isAuthenticated() ? <PendingTrips router={this.goToNext.bind(this)}/> : <Earth color="green"/>}
           style={appBarStyle}
         />
       </div>

@@ -22,7 +22,7 @@ const handleAuthentication = (nextState, replace) => {
 
 export const makeMainRoutes = () => {
   injectTapEventPlugin()
-  
+
   return (
       <BrowserRouter history={history}>
         <MuiThemeProvider>
@@ -35,7 +35,7 @@ export const makeMainRoutes = () => {
             return <Home auth={auth} {...props} /> 
           }}/>
           <Route path="/create" render={(props) => <Create auth={auth} {...props}/>}/>
-          <Route path="/event" render={(props) => <Event auth={auth} {...props}/>}/>
+          <Route path="/event/:tripId" render={(props) => <Event auth={auth} {...props}/>}/>
        
         </div>
          </MuiThemeProvider>
