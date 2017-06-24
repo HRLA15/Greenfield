@@ -17,11 +17,7 @@ class UserSideBar extends Component {
 
     return (
       <div>
-<<<<<<< HEAD
         <h1>Side Bar</h1>
-=======
-
->>>>>>> fixed conflicts
       </div>
     )
   }

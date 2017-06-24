@@ -51,6 +51,7 @@ class UserHome extends Component {
 
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
       <div style={{display: 'flex', flexDirection: 'row'}}>
         <div style={{flexGrow: 5, flexShrink: 5}}>
         <UserUpcomingTripsList />
@@ -65,6 +66,14 @@ class UserHome extends Component {
         </div>
         <div>
 >>>>>>> fixed conflicts
+=======
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <div style={{flexGrow: 5, flexShrink: 5}}>
+        <UserUpcomingTripsList />
+        <UserPreviousTripsList />
+        </div>
+        <div syle={{flexGrow: 1, flexShrink: 1}}>
+>>>>>>> "Styled create page"
         <UserSideBar />
         </div>
         {/*<CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick} />*/}
