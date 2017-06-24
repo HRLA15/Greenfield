@@ -32,10 +32,14 @@ const HotelVote = db.define('hotelvote', {
     type: Sequelize.INTEGER,
     allowNull: true,
 <<<<<<< HEAD
+<<<<<<< HEAD
   },
 =======
   }
 >>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
+=======
+  },
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
 }, {
   timestamps: false,
 })
@@ -252,6 +256,7 @@ const UserFriend = db.define('userfriend', {
 
 
 
+<<<<<<< HEAD
 =======
 // const UserUpcoming = db.define('userupcoming', {
 //   id: {
@@ -314,6 +319,8 @@ const UserFriend = db.define('userfriend', {
 // User.hasMany(UserUpcomingTrip)
 // UserUpcomingTrip.belongsTo(User);
 >>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
 // 1:M relationship with User and Friend
 // // Users can have many friend Users
 // // I will alias the association
@@ -338,6 +345,7 @@ UserTrip.belongsTo(User, { through: UserTrip, foreignKey: {name: 'tripId', uniqu
 
 
 
+<<<<<<< HEAD
 =======
 // User.belongsToMany(UserUpcomingTrip, { through: UserUpcoming});
 // UserUpcomingTrip.belongsToMany(User, { through: UserUpcoming });
@@ -346,6 +354,8 @@ UserTrip.belongsTo(User, { through: UserTrip, foreignKey: {name: 'tripId', uniqu
 // User.belongsToMany(UserCompletedTrip, { through: UserCompleted });
 // UserCompletedTrip.belongsToMany(User, { through: UserCompleted});
 >>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
 Trip.hasMany(Hotel);
 Hotel.belongsTo(Trip);
 Trip.hasMany(Activity);
@@ -368,8 +378,12 @@ User.belongsToMany(User, {as: 'friend', through: UserFriend, unique: false})
 Hotel.hasMany(HotelVote);
 HotelVote.belongsTo(Hotel);
 User.belongsToMany(User, {as: 'friend', through: UserFriend})
+<<<<<<< HEAD
 // User.belongsToMany(User, {as: 'participant', foreignKey: 'participantId' , through: UserTrip, unique: false})
 >>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
 UserTrip.belongsTo(User, {as: 'participant', through: UserTrip, foreignKey: {name: 'participantId', unique: false }});
 // User.hasMany(UserCompletedTrip)
 // UserCompletedTrip.belongsTo(User);

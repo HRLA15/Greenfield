@@ -44,7 +44,7 @@ module.exports = {
       lastName: req.body.lastName,
       email: req.body.email,
       idToken: req.body.idToken
-    }, {where: {id: req.params.id }})
+    }, {where: {id: req.params.userId }})
       .then(profileinfo => {
         res.status(202).send(profileinfo);
 >>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
@@ -56,6 +56,7 @@ module.exports = {
 
 
   postUserProfilePic: (req, res) => {
+<<<<<<< HEAD
     User.User.findOrCreate({where: {id: req.params.userId}, defaults: {url: req.body.url}})
       .spread((user,created) => {
         User.User.update({
@@ -67,6 +68,15 @@ module.exports = {
           .catch(err => {
             res.status(404).send(err);
           })
+=======
+    User.User.update({
+      url: req.body.url
+    }, {where: {id: req.params.userId }})
+      .then(profilepic => {
+        //profilepic is outputting how many attributes that it changed
+        // return User.User.findAll({where: {id: req.params.userId}})  this should work when we get save stuff in our database
+        res.status(200).send(profilepic);
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
       })
       .catch(err => {
         console.log('err in creating the profile pic', err);
