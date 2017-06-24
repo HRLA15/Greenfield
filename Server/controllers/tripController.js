@@ -1,55 +1,132 @@
-const Trip = require('../../Database/models');
+const Trip = require('../../Database/models/models');
 
 module.exports = {
-  addTrip: (req, res) => {
-    let trips = req.body;
+  getTripData: (req, res) => {
+    Trip.Trip.findAll({where: {id: req.params.id }})
+      .then(trip => {
+        res.status(202).send(trip);
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      }, {where: {id: req.params.id }})
+  },
+  
+  postTripData: (req, res) => {
+    let tripData = req.body;
 
     Trip.Trip.create({
-      title: trips.title,
-      destination: trips.destination,
-      startDate: trips.startDate,
-      endDate: trips.endDate,
-      isComplete: trips.isComplete
+      title: tripData.title,
+      destination: tripData.destination,
+      startDate: tripData.startDate,
+      endDate: tripData.endDate,
+      description: tripData.description
     })
-    .then(trip => {
-      res.status(200).send(trip);
+      .then(trip => {
+        res.status(202).send(trip);
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      })
+  },
+  
+  updateTripData: (req, res) => {
+    let tripData = req.body;
+    console.log('this is tripdata', tripData)
+    Trip.Trip.update({
+      title: tripData.title,
+      destination: tripData.destination,
+      startDate: tripData.startDate,
+      endDate: tripData.endDate,
+      description: tripData.description
+    }, {where: {id: req.params.id }})
+      .then(trip => {
+        //return Trip.Trip.findAll({where: {id: req.params.id}}) use this instead of the res.status line when using the database
+        res.status(202).send(trip);
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      })
+  },
+
+  getTripNearbyHotels: (req, res) => {
+    let tripData = req.body;
+
+    Trip.Trip.findAll({
+      include: [{
+        model: Trip.Hotel,
+        where: {tripId: req.params.id}
+      }]
+    })
+      .then(hotels => {
+        res.status(202).send(hotels);
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      })
+  },
+
+  postTripNearbyHotels: (req, res) => {
+    let tripData = req.body;
+
+    Trip.Hotel.create({
+      name: tripData.name,
+      address: tripData.address,
+      longitude: tripData.longitude,
+      latitude: tripData.latitude,
+      tripId: req.params.id
+    })
+      .then(hotel => {
+        res.status(202).send(hotel);
+      })
+      .catch(err => {
+        res.status(202).send(err);
+      })
+  },
+
+  getTripActivities: (req, res) => {
+    let tripData = req.body;
+
+    Trip.Trip.findAll({
+      include: [{
+        model: Trip.Activity,
+        where: {tripId: req.params.id}
+      }]
+    })
+    .then(activities => {
+      res.status(202).send(activities);
     })
     .catch(err => {
       res.status(404).send(err);
     })
   },
 
-  deleteTrip: (req, res) => {
-    let trips = req.body;
+  postTripActivity: (req, res) => {
+    let tripData = req.body;
 
-    Trip.Trip.destroy({where: {id: trips.id}})
-      .then(trip => {
-        res.status(202).send('deleted')
+    Trip.Activity.create({
+      name: tripData.name,
+      address: tripData.address,
+      longitude: tripData.longitude,
+      latitude: tripData.latitude,
+      tripId: req.params.id
+    })
+      .then(activity => {
+        res.status(202).send(activity);
       })
       .catch(err => {
-        res.status(404).send(err)
+        res.status(404).send(err);
       })
-    },
+  },
 
-  updateTrip: (req, res) => {
-    Trip.Trip.find({where: {id: req.params.id}})
-      .then(trip => {
-        Trip.Trip.update({
-          title: trip.title,
-          destination: trip.destination,
-          startDate: trip.startDate,
-          endDate: trip.endDate
-        })
-        .then(trip => {
-          res.status(202).send(trip);
-        })
-        .catch(err => {
-          res.status(404).send('couldn\'t update the trip', err);
-        })
+  deleteTripActivity: (req, res) => {
+    let tripData = req.body;
+
+    Trip.Activity.destroy({where: {id: req.params.id}})
+      .then(activity => {
+        res.status(202).send('deleted');
       })
       .catch(err => {
-        console.log('didn\'t find the updated trip', err)
+        res.status(404).send(err);
       })
   }
 }
-

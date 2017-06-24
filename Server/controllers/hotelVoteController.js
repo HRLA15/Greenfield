@@ -1,4 +1,4 @@
-const HotelVote = require('../../Database/models');
+const HotelVote = require('../../Database/models/models');
 
 module.exports = {
   allVotes: (req, res) => {

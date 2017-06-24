@@ -1,4 +1,4 @@
-const Hotel = require('../../Database/models');
+const Hotel = require('../../Database/models/models');
 
 
 module.exports = {
