@@ -66,7 +66,6 @@ class Navbar extends Component {
 
   render() {
 
-    console.log(this.props.history)
     const { isAuthenticated } = this.props.auth
 
     return (
