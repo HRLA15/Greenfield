@@ -12,10 +12,6 @@ module.exports = {
   },
 
   postUserProfileInfo: (req, res) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fixed edge cases of adding same trip, same friend etc.. need to still figure out how to post the data that is coming in as an array
     console.log('this is req params', req.params)
     console.log('this is req body', req.body)
     User.User.findOrCreate({where: {id: req.params.userId}, 
@@ -40,20 +36,6 @@ module.exports = {
           .catch(err => {
             res.status(404).send(err);
           })
-<<<<<<< HEAD
-=======
-    User.User.create({
-      firstName: req.body.firstName,
-      username: req.body.username,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      idToken: req.body.idToken
-    }, {where: {id: req.params.userId }})
-      .then(profileinfo => {
-        res.status(202).send(profileinfo);
->>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
-=======
->>>>>>> fixed edge cases of adding same trip, same friend etc.. need to still figure out how to post the data that is coming in as an array
       })
       .catch(err => {
         console.log('err in creating the profile info', err);
@@ -62,10 +44,6 @@ module.exports = {
 
 
   postUserProfilePic: (req, res) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fixed edge cases of adding same trip, same friend etc.. need to still figure out how to post the data that is coming in as an array
     User.User.findOrCreate({where: {id: req.params.userId}, defaults: {url: req.body.url}})
       .spread((user,created) => {
         User.User.update({
@@ -77,21 +55,6 @@ module.exports = {
           .catch(err => {
             res.status(404).send(err);
           })
-<<<<<<< HEAD
-=======
-    User.User.update({
-      url: req.body.url
-    }, {where: {id: req.params.userId }})
-      .then(profilepic => {
-        //profilepic is outputting how many attributes that it changed
-        // return User.User.findAll({where: {id: req.params.userId}})  this should work when we get save stuff in our database
-        res.status(200).send(profilepic);
->>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
-=======
->>>>>>> fixed edge cases of adding same trip, same friend etc.. need to still figure out how to post the data that is coming in as an array
       })
-      .catch(err => {
-        console.log('err in creating the profile pic', err);
-      })
-  },
+  }
 }
