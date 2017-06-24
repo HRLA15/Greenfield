@@ -12,32 +12,52 @@ module.exports = {
   },
 
   postUserProfileInfo: (req, res) => {
-    User.User.create({
-      firstName: req.body.firstName,
-      username: req.body.username,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      idToken: req.body.idToken
-    }, {where: {id: req.params.userId }})
-      .then(profileinfo => {
-        res.status(202).send(profileinfo);
+    console.log('this is req params', req.params)
+    console.log('this is req body', req.body)
+    User.User.findOrCreate({where: {id: req.params.userId}, 
+      defaults: {
+        firstName: req.body.firstName, 
+        username: req.body.username,
+        lastName: req.body.lastName,
+        email: req.body.lastName,
+        idToken: req.body.idToken
+    }})
+      .spread((user, created) => {
+        User.User.update({
+          firstName: req.body.firstName, 
+          username: req.body.username,
+          lastName: req.body.lastName,
+          email: req.body.lastName,
+          idToken: req.body.idToken
+        }, {where: {id: req.params.userId}})
+          .then(user => {
+            res.status(202).send(user);
+          })
+          .catch(err => {
+            res.status(404).send(err);
+          })
       })
       .catch(err => {
-        res.status(404).send(err);
+        console.log('err in creating the profile info', err);
       })
   },
 
+
   postUserProfilePic: (req, res) => {
-    User.User.update({
-      url: req.body.url
-    }, {where: {id: req.params.userId }})
-      .then(profilepic => {
-        //profilepic is outputting how many attributes that it changed
-        // return User.User.findAll({where: {id: req.params.userId}})  this should work when we get save stuff in our database
-        res.status(200).send(profilepic);
+    User.User.findOrCreate({where: {id: req.params.userId}, defaults: {url: req.body.url}})
+      .spread((user,created) => {
+        User.User.update({
+          url: req.body.url
+        }, {where: {id: req.params.userId }})
+          .then(updated => {
+            res.status(200).send(updated);
+          })
+          .catch(err => {
+            res.status(404).send(err);
+          })
       })
       .catch(err => {
-        res.status(404).send(err);
+        console.log('err in creating the profile pic', err);
       })
   },
 }

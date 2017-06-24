@@ -27,7 +27,6 @@ module.exports = {
           model: UserFriend.User, as: 'participant'
         }]
         // where: {id: req.params.userId},
-        // where: {id: req.params.userId}
         // model: UserFriend.User, as: 'friend',
         // include: [{
         //   model: UserFriend.Trip,
@@ -73,32 +72,48 @@ module.exports = {
 
   addFriendToTrip: (req, res) => {
     console.log('req.params', req.params)
-    UserFriend.UserTrip.create({
+    UserFriend.UserTrip.findOrCreate({where: {participantId: req.params.participantId},
+      defaults: {
       tripId: req.params.tripId,
       participantId: req.params.participantId,
       userId: req.params.userId,
-      invited: true
-    })
-      .then(trip => {
-        res.status(202).send(trip);
-      })
-      .catch(err => {
-        res.status(404).send(err);
-      })
+      invited: true}})
+        .spread((addfriend,created) => {
+          UserFriend.UserTrip.update({
+            participantId: req.params.participantId,
+          }, {where: {userId: req.params.userId, tripId: req.params.userId}})
+            .then(updated => {
+              res.status(202).send(updated);
+            })
+            .catch(err => {
+              res.status(404).send(err);
+            })
+        })
+        .catch(err => {
+          console.log('there is an err adding friend to trip', err);
+        })
   },
 
   addFriend: (req, res) => {
     console.log('this is req.params in friends', req.params)
-    UserFriend.UserFriend.create({
-      friendId: req.params.friendId,
-      userId: req.params.userId
-    })
-    .then(userfriend => {
-      res.status(202).send(userfriend);
-    })
-    .catch(err => {
-      res.status(404).send(err);
-    })
+    UserFriend.UserFriend.findOrCreate({where: {friendId: req.params.friendId},
+      defaults: {
+        friendId: req.params.friendId,
+        userId: req.params.userId
+      }})
+        .spread((addfriend, created) => {
+          UserFriend.UserFriend.update({
+            friendId: req.params.friendId
+          }, {where: {userId: req.params.userId, friendId: req.params.friendId}})
+            .then(updated => {
+              res.status(202).send(updated);
+            })
+            .catch(err => {
+              res.status(404).send(err);
+            })
+        })
+        .catch(err => {
+          console.log('there is an error with adding friends', err);
+        })
   }
-
 }

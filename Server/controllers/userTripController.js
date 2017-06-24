@@ -18,15 +18,22 @@ module.exports = {
   },
 
   postUserTrip: (req, res) => {
-    UserTrip.UserTrip.create({
-      userId: req.params.userId,
-      tripId: req.params.tripId
-    })
-      .then(userTrip => {
-        res.status(202).send(userTrip);
+    UserTrip.UserTrip.findOrCreate({where: {tripId: req.params.tripId},
+    defaults: { userId: req.params.userId , tripId: req.params.tripId }})
+      .spread((usertrip, created) => {
+        UserTrip.UserTrip.update({
+          userId: req.params.userId,
+          tripId: req.params.tripId
+        }, {where: {tripId: req.params.tripId}})
+          .then(trip => {
+            res.status(200).send(trip);
+          })
+          .catch(err => {
+            res.status(404).send(err);
+          })
       })
       .catch(err => {
-        res.status(404).send(err);
+        console.log('err in creating the usertrip', err);
       })
   },
 

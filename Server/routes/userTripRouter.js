@@ -2,10 +2,10 @@ const router = require('express').Router();
 const userTripController = require('../controllers/userTripController')
 
 
-// id = userId -- works
+// get all the trips of a user
 router.get('/getAllUserTrips/:userId', userTripController.getAllUserTrips);
 
-//need to pass down the tripId also -- works
+// add the trip that the user has created -- trip can only be created by one person
 router.post('/postUserTrip/:userId/:tripId', userTripController.postUserTrip);
 
 // get the completed trip for user
