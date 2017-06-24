@@ -60,16 +60,20 @@ class Create extends Component {
   //   this.setState({hideInvite: false})
   //   }
   // }
+componentWillMount() {
+  console.log('MOUNTED CREATE')
+  console.log(this.props.match.params.userId)
+}
 
 componentDidMount() {
-  axiosRoutes.getUserFriends()
-    .then((res)=>{
-      console.log('res.body in componentdidmount = ', res.data[0].friend)
-      this.setState({friendsData: res.data[0].friend})
-    })
-    .catch((err) =>{
-      console.log(err)
-    })
+  // axiosRoutes.getUserFriends()
+  //   .then((res)=>{
+  //     console.log('res.body in componentdidmount = ', res.data[0].friend)
+  //     this.setState({friendsData: res.data[0].friend})
+  //   })
+  //   .catch((err) =>{
+  //     console.log(err)
+  //   })
 }
 
 //auth0 login

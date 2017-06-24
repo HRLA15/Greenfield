@@ -9,13 +9,18 @@ import { Redirect, Link } from 'react-router-dom'
 import UserSideBar from './UserSideBar'
 //TODOS:
 
+const dummyData = {
+  id: 1,
+  name: 'Jon',
+
+}
 class UserHome extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
       redirect: false,
-      userInfo: {}
+      userInfo: dummyData
     }
 
     this.handleCreateTripButtonClick = this.handleCreateTripButtonClick.bind(this)
@@ -58,7 +63,7 @@ class UserHome extends Component {
         <div style={{flexGrow: 1, flexShrink: 1}}>
         <UserSideBar />
         </div>
-        <Link to ="/create">
+        <Link to ={"/create/"+ this.state.userInfo.id} >
         <button className="test">Create</button>
         </Link>
       </div>
