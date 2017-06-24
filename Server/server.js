@@ -15,7 +15,6 @@ var app = express()
   .use(require('./routes/tripRouter'))
   .use(require('./routes/userTripRouter'))
   .use(require('./routes/userFriendRouter'))
-  // .use(require('./routes/'))
 
 
 
