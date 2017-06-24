@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 //these two imports are needed below to work with material-ui
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
@@ -89,7 +87,6 @@ const appBarStyle = {
 class Navbar extends Component {
   constructor(props) {
     super(props)
-    injectTapEventPlugin()
 
   }
 
@@ -109,7 +106,6 @@ class Navbar extends Component {
     const { isAuthenticated } = this.props.auth
 
     return (
-      <MuiThemeProvider>
       <div>
         <AppBar
           title={<span style={styles.title} onClick={
@@ -121,7 +117,6 @@ class Navbar extends Component {
           style={appBarStyle}
         />
       </div>
-      </MuiThemeProvider>
     )
   }
 }
