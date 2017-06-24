@@ -20,7 +20,7 @@ class UserHome extends Component {
     super(props)
     this.state = {
       redirect: false,
-      userInfo: dummyData
+      userInfo: {}
     }
 
     this.handleCreateTripButtonClick = this.handleCreateTripButtonClick.bind(this)
@@ -46,13 +46,13 @@ class UserHome extends Component {
   render() {
     let clicked = this.state.redirect
 
-    if(clicked) {
-      return (
-        <Redirect to={{
-        pathname: '/create'
-        }}/>
-      )
-    }
+    // if(clicked) {
+    //   return (
+    //     <Redirect to={{
+    //     pathname: '/create'
+    //     }}/>
+    //   )
+    // }
 
     return (
       <div style={{display: 'flex', flexDirection: 'row'}}>
@@ -63,7 +63,7 @@ class UserHome extends Component {
         <div style={{flexGrow: 1, flexShrink: 1}}>
         <UserSideBar />
         </div>
-        <Link to ={"/create/"+ this.state.userInfo.id} >
+        <Link to ="/create">
         <button className="test">Create</button>
         </Link>
       </div>

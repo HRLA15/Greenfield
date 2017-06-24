@@ -34,8 +34,8 @@ export const makeMainRoutes = () => {
             handleAuthentication(props);
             return <Home auth={auth} {...props} /> 
           }}/>
-          <Route path="/create/:userId" render={(props) => <Create auth={auth} {...props}/>}/>
-          <Route path="/event/:tripId/:userId" render={(props) => <Event auth={auth} {...props}/>}/>
+          <Route path="/create" render={(props) => <Create auth={auth} {...props}/>}/>
+          <Route path="/event/:tripId" render={(props) => <Event auth={auth} {...props}/>}/>
        
         </div>
           </MuiThemeProvider>
