@@ -9,13 +9,8 @@ import Create from './src/createTripPageComponent/Create';
 import Event from './src/tripSummaryComponent/TripSummary'
 import Landing from './src/LandingPage'
 import Navbar from './src/navbarComponent/Navbar'
-<<<<<<< HEAD
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-=======
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
->>>>>>> userhome
 
 const auth = new Auth();
 
@@ -27,11 +22,7 @@ const handleAuthentication = (nextState, replace) => {
 
 export const makeMainRoutes = () => {
   injectTapEventPlugin()
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> userhome
   return (
       <BrowserRouter history={history}>
         <MuiThemeProvider>
@@ -47,11 +38,7 @@ export const makeMainRoutes = () => {
           <Route path="/event" render={(props) => <Event auth={auth} {...props}/>}/>
        
         </div>
-<<<<<<< HEAD
-         </MuiThemeProvider>
-=======
           </MuiThemeProvider>
->>>>>>> userhome
       </BrowserRouter>
   );
 }
