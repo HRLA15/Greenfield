@@ -4,6 +4,10 @@ import ActivityList from './ActivityList'
 import NearbyHotels from './NearbyHotels'
 import EditButton from './EditButton'
 import axiosRoutes from './TripSummaryAxiosRoutes'
+import { Redirect } from 'react-router-dom'
+import GMapQuerySelect from './GMapQuerySelect'
+import GoogleMap from './GoogleMap'
+import PendingList from './PendingList'
 //title, destionation, startdate, enddate, isCompleted, userId
 const trip = {
   id:1,
@@ -24,12 +28,16 @@ class TripSummary extends Component {
     super(props)
     this.state = {
       isTripCreator: false,
-      tripData: {}
+      tripData: {},
+      pendingList :[],
+      querySelection:'',
     }
     this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
+    this.handleAddToPending = this.handleAddToPending.bind(this);
   }
 
   componentWillMount() {
+
     // axiosRoutes.getTripData(this.props.tripId)
     //   .then((res) => {
     //     if(res.body.userId === this.props.userId) {
@@ -55,9 +63,23 @@ class TripSummary extends Component {
     // using router /create/:tripId
     console.log('LINK BACK TO THE CREATE PAGE')
   }
+  handleAddToPending(){
+    this.state.pendingList.push(this.state.hotelClicked);
+    
+  }
 
-  render() {
-    console.log(this.props.match.params.userId)
+  render() {    
+    
+    const { isAuthenticated } = this.props.auth
+
+    if(!isAuthenticated()) {
+      return (
+        <Redirect to={{
+        pathname: '/'
+        }}/>
+      )
+    }
+
     let editButton = null
 
     if(this.state.isTripCreator) {
@@ -66,7 +88,9 @@ class TripSummary extends Component {
 
     return (
       <div>
-      
+        <GoogleMap  handleSelectionClick={this.handleSelectionClick}
+                    querySelection={this.state.querySelection ? this.state.querySelection : "hotel"}
+                   />
         <h1>{this.state.tripData.title}</h1>
         <h4>{`Start Date: ${this.state.tripData.startDate} End Date: ${this.state.tripData.endDate}`}</h4>
         <p>{this.state.tripData.destination}</p>

@@ -2,14 +2,18 @@ import React, { Component } from 'react'
 import Create from '../createTripPageComponent/Create'
 import CreateTripButton from './CreateTripButton'
 import UserUpcomingTripsList from './UserUpcomingTripsList'
-import UserPendingTripsList from './UserPendingTripsList'
 import UserPreviousTripsList from './UserPreviousTripsList'
-import UserProfile from './UserProfile'
 import TripSummary from '../tripSummaryComponent/TripSummary'
 import axiosRoutes from './UserHomeAxiosRoutes'
-
+import { Redirect, Link } from 'react-router-dom'
+import UserSideBar from './UserSideBar'
 //TODOS:
 
+const dummyData = {
+  id: 1,
+  name: 'Jon',
+
+}
 class UserHome extends Component {
 
   constructor(props) {
@@ -24,7 +28,7 @@ class UserHome extends Component {
 
   //once servers are working and auth0token is given uncomment below
   // componentWillMount() {
-  //   axiosRoutes.getOneUser(auth0Token)
+  //   axiosRoutes.getOneUser(localStorage.id_token)
   //     .then((res) => {
   //       this.setState({
   //         userInfo: res.body
@@ -42,26 +46,26 @@ class UserHome extends Component {
   render() {
     let clicked = this.state.redirect
 
-    let redirect = null
-
-    if(clicked) {
-      redirect = <Create />
-    } else {
-      redirect = (
-        <div>
-          <UserProfile />
-          <UserUpcomingTripsList />
-          <UserPreviousTripsList />
-          <UserPendingTripsList />
-          <CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick} />
-        </div>
-      )
-    }
+    // if(clicked) {
+    //   return (
+    //     <Redirect to={{
+    //     pathname: '/create'
+    //     }}/>
+    //   )
+    // }
 
     return (
-      <div>
-        <h1>TRIP PLANNER</h1>
-        {redirect}
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <div style={{flexGrow: 5, flexShrink: 5}}>
+        <UserUpcomingTripsList />
+        <UserPreviousTripsList />
+        </div>
+        <div style={{flexGrow: 1, flexShrink: 1}}>
+        <UserSideBar />
+        </div>
+        <Link to ="/create">
+        <button className="test">Create</button>
+        </Link>
       </div>
     )
   }

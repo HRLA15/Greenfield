@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import FriendsList from './FriendsList'
-import EventPage from '../EventPageComponent/EventPage'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import axiosRoutes from './CreateTripPageAxiosRoutes'
+import {Redirect} from 'react-router-dom'
+import {Button, Icon, Row, Input} from 'react-materialize'
 
 class Create extends Component {
   constructor(){
-    super()
+    super();
     this.state = {
 
       // hideInvite: false,
@@ -33,13 +34,7 @@ class Create extends Component {
 
       description: '',
 
-      dummyData: [{
-        name: "Jose"
-      },{
-        name: "Han Solo"
-      },{
-        name: "Jay is cool"
-      }]
+      friendsData: ''
     }
     
     this.inviteFriends = this.inviteFriends.bind(this)
@@ -52,6 +47,8 @@ class Create extends Component {
     this.tripNameData = this.tripNameData.bind(this)
     this.locationNameData = this.locationNameData.bind(this)
     this.descriptionData = this.descriptionData.bind(this)
+    this.initAutocomplete = this.initAutocomplete.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
     // this.hideInvite = this.hideInvite.bind(this)
   }
 
@@ -63,6 +60,21 @@ class Create extends Component {
   //   this.setState({hideInvite: false})
   //   }
   // }
+componentWillMount() {
+  console.log('MOUNTED CREATE')
+  console.log(this.props.match.params.userId)
+}
+
+componentDidMount() {
+  // axiosRoutes.getUserFriends()
+  //   .then((res)=>{
+  //     console.log('res.body in componentdidmount = ', res.data[0].friend)
+  //     this.setState({friendsData: res.data[0].friend})
+  //   })
+  //   .catch((err) =>{
+  //     console.log(err)
+  //   })
+}
 
 //auth0 login
   login() {
@@ -152,6 +164,39 @@ class Create extends Component {
     console.log(this.state.toDate)
   };
 
+handleFormSubmit(){
+    this.initAutocomplete();
+  }
+
+ initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    var placeSearch, autocomplete;
+    var componentForm = {
+      street_number: 'short_name',
+      route: 'long_name',
+      locality: 'long_name',
+      administrative_area_level_1: 'short_name',
+      country: 'long_name',
+      postal_code: 'short_name'
+    };
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+        {types: ['geocode']});
+    // console.log(“document.getElementById in initAutocomplet”, document.getElementById(‘autocomplete’).value);
+    // console.log(“autocomplete return object in initAutocomplete”, autocomplete.getPlace())
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', ()=>{
+      console.log("is it in autocomplete?",autocomplete.getPlace().geometry.location);
+      this.setState({
+        searchedLocation : autocomplete.getPlace().geometry.location
+      })
+
+    });
+    
+ }
+
   render() {
 
   //Invite Friends List on "Invite Friends" click
@@ -161,7 +206,7 @@ class Create extends Component {
       <div>
         <h1>Friends List</h1>
         <FriendsList 
-        friends = {this.state.dummyData} 
+        friends = {this.state.friendsData} 
         invite = {this.invite}
         done = {this.done}
         hideInvite = {this.hideInvite}
@@ -186,30 +231,42 @@ class Create extends Component {
     )
   }*/
 
-
 const { isAuthenticated } = this.props.auth;
+        
+        if (!isAuthenticated()) {
+          return (
+          <Redirect to ={{
+            pathname: '/'
+          }} />
+          )
+        }
+
     return (
-      //if Authenticated ? render : do not render
-      <div>
-        {
-        isAuthenticated() && (
-            
-        <div>
-          <div id="topHalf">
+      <div> 
+
+          {/*<div id="topHalf">
             <h2>Create Trip</h2>
-            <input id="tripName" type = 'text' placeholder = "Trip name" onChange={this.tripNameData}></input>
+            <input id="tripName" type = 'text' placeholder = "Trip name" ></input>
           <br></br>
             <input id="location" type = 'text' placeholder = 'Location/Address' onChange={this.locationNameData}></input>
           <br></br>
             <textarea name="description" placeholder ="Description Details" onChange={this.descriptionData}></textarea>
+          </div>*/}
+
+          <div className="input field" style={{marginLeft: 30 + "px", marginTop: 30 + "px", marginRight: 30 + "px"}}>
+            <Row>
+                <Input style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder="Trip Name" s={12} label="Trip Name" onChange={this.tripNameData}/>
+                <input id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder="Destination" s={12} label="Destination" onChange={this.handleFormSubmit}/>
+                <Input style={{fontSize: 15 + "px"}}placeholder="Description" s={12} label="Description" onChange={this.descriptionData}/>
+            </Row>
           </div>
 
-          <div id="bottomHalf">
+          <div id="bottomHalf" style={{marginLeft: 30 + "px", marginRight: 50 + "%"}}>
             {/*Dropdown calendars*/}
             <span>From:</span>
-            <input type="date" onChange={this.eventFromDate}/>
+            <input style={{height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventFromDate}/>
             <span> To:</span>
-            <input type="date" onChange={this.eventToDate}/>
+            <input style={{height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventToDate}/>
             <br></br>
             
             {/*Invite friends pop up*/}
@@ -227,24 +284,7 @@ const { isAuthenticated } = this.props.auth;
             <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
           </div> 
 
-        </div>
 
-        ) //isAuthenticated end parenthesis
-        }
-        {
-          !isAuthenticated() && (
-              <h4>
-                You are not logged in! Please{' '}
-                <a
-                  style={{ cursor: 'pointer' }}
-                  onClick={this.login.bind(this)}
-                >
-                  Log In
-                </a>
-                {' '}to continue.
-              </h4>
-            )
-        }
       </div>
     ) 
 

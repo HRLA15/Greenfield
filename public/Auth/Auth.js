@@ -64,7 +64,8 @@ export default class Auth {
     // Check whether the current time is past the 
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    console.log("in setSession id_token:", localStorage.idToken, "access_token:", localStorage.accessToken)
+    // console.log("in setSession id_token:", localStorage.id_token, "access_token:", localStorage.access_token)
+    // console.log("token expiration time", expiresAt)
     return new Date().getTime() < expiresAt;
   }
 }
