@@ -1,14 +1,15 @@
 const Trip = require('../../Database/models/models');
+const Sequelize = require('sequelize')
 
 module.exports = {
   getTripData: (req, res) => {
-    Trip.Trip.findAll({where: {id: req.params.id }})
+    Trip.Trip.findAll({where: {id: req.params.tripId }})
       .then(trip => {
         res.status(202).send(trip);
       })
       .catch(err => {
         res.status(404).send(err);
-      }, {where: {id: req.params.id }})
+      }, {where: {id: req.params.tripId }})
   },
   
   postTripData: (req, res) => {
@@ -19,7 +20,8 @@ module.exports = {
       destination: tripData.destination,
       startDate: tripData.startDate,
       endDate: tripData.endDate,
-      description: tripData.description
+      description: tripData.description,
+      url: tripData.url
     })
       .then(trip => {
         res.status(202).send(trip);
@@ -37,8 +39,9 @@ module.exports = {
       destination: tripData.destination,
       startDate: tripData.startDate,
       endDate: tripData.endDate,
-      description: tripData.description
-    }, {where: {id: req.params.id }})
+      description: tripData.description,
+      url: tripData.url
+    }, {where: {id: req.params.tripId }})
       .then(trip => {
         //return Trip.Trip.findAll({where: {id: req.params.id}}) use this instead of the res.status line when using the database
         res.status(202).send(trip);
@@ -54,7 +57,7 @@ module.exports = {
     Trip.Trip.findAll({
       include: [{
         model: Trip.Hotel,
-        where: {tripId: req.params.id}
+        where: {tripId: req.params.tripId}
       }]
     })
       .then(hotels => {
@@ -73,7 +76,7 @@ module.exports = {
       address: tripData.address,
       longitude: tripData.longitude,
       latitude: tripData.latitude,
-      tripId: req.params.id
+      tripId: req.params.tripId
     })
       .then(hotel => {
         res.status(202).send(hotel);
@@ -89,7 +92,7 @@ module.exports = {
     Trip.Trip.findAll({
       include: [{
         model: Trip.Activity,
-        where: {tripId: req.params.id}
+        where: {tripId: req.params.tripId}
       }]
     })
     .then(activities => {
@@ -108,7 +111,7 @@ module.exports = {
       address: tripData.address,
       longitude: tripData.longitude,
       latitude: tripData.latitude,
-      tripId: req.params.id
+      tripId: req.params.tripId
     })
       .then(activity => {
         res.status(202).send(activity);
@@ -121,9 +124,85 @@ module.exports = {
   deleteTripActivity: (req, res) => {
     let tripData = req.body;
 
-    Trip.Activity.destroy({where: {id: req.params.id}})
+    Trip.Activity.destroy({where: {id: req.params.tripId}})
       .then(activity => {
         res.status(202).send('deleted');
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      })
+  },
+
+  voteOnHotel: (req, res) => {
+<<<<<<< HEAD
+<<<<<<< HEAD
+    Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId}})
+      .spread((hotel, created) => {
+        Trip.HotelVote.update({
+          hotelId: req.params.hotelId,
+=======
+    Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId, userId: req.params.userId}})
+      .spread((hotel, created) => {
+        Trip.HotelVote.update({
+          hotelId: req.params.hotelId,
+          userId: req.params.userId,
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
+=======
+    Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId}})
+      .spread((hotel, created) => {
+        Trip.HotelVote.update({
+          hotelId: req.params.hotelId,
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
+          vote: 1
+        }, {where: {friendId: req.params.friendId}})
+          .then(update => {
+            res.status(202).send(update);
+          })
+          .catch(err => {
+            res.status(404).send(err);
+          })
+      })
+  },
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
+  userVoteOnHotel: (req, res) => {
+    Trip.HotelVote.findOrCreate({where: {userId: req.params.userId}, default: {vote: 1, hotelId: req.params.hotelId}})
+      .spread((hotel, created) => {
+        Trip.HotelVote.update({
+          hotelId: req.params.hotelId,
+          vote: 1
+        }, {where: {userId: req.params.userId}})
+          .then(update => {
+            res.status(202).send(update);
+          })
+          .catch(err => {
+            res.status(404).send(err);
+          })
+      })
+  },
+
+<<<<<<< HEAD
+=======
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
+=======
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
+  sumOfVote: (req, res) => {
+    Trip.Hotel.findAll({
+      attributes: ['name', [Sequelize.fn('SUM', (Sequelize.col('hotelvotes.vote'))), 'count']],
+      order: [Sequelize.literal('count DESC NULLS LAST')],
+      include: [{
+        model: Trip.HotelVote,
+        attributes: [],
+        raw: true
+      }],
+      group: ['hotel.id'],
+      raw: true
+    })
+      .then(sum => {
+        res.status(202).send(sum);
       })
       .catch(err => {
         res.status(404).send(err);

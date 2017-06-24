@@ -2,27 +2,27 @@ const router = require('express').Router();
 const userTripController = require('../controllers/userTripController')
 
 
-// id = userId -- works
+// get all the trips of a user
 router.get('/getAllUserTrips/:userId', userTripController.getAllUserTrips);
 
-//need to pass down the tripId also -- works
+// add the trip that the user has created -- trip can only be created by one person
 router.post('/postUserTrip/:userId/:tripId', userTripController.postUserTrip);
 
+// get the completed trip for user
+router.get('/getCompletedUserTrip/:userId', userTripController.getCompletedTrips);
 
-// this is in the userfriend router/controller
-// router.get('/getTripUsers/:tripId', userTripController.getTripUsers);
+// get friend completed trip
+router.get('/getCompletedFriendTrip/:participantId', userTripController.getCompletedFriendTrips);
 
-//
-// router.get('/getCompletedTrips/:id', userTripController.getCompletedTrips);
+// get upcoming trip for user
+router.get('/getUpcomingUserTrip/:userId', userTripController.getUpcomingTrips);
 
-//get all trips for one individual user
-//   getAllUserTrips: (userId) => (
-//     axios.get(`http://localhost:3000/getAllUserTrips/${userId}`)
-//   ),
+//get upcoming trip for friends
+router.get('/getUpcomingFriendTrip/:participantId', userTripController.getUpcomingFriendTrips);
 
-// //get all users that are going on one particular trip
-//   getTripFriendsList: (tripId) => (
-//     //should return array of users/friends obj that are confirmed for given trip
-//     axios.get(`http://localhost:3000/getTripFriendsList/${tripId}`)
-//   ),
+// get pending trips for friends
+router.get('/getPendingFriendTrip/:participantId', userTripController.getPendingFriendTrips);
+router.delete('/deletePendingTrip/:participantId', userTripController.deletePendingFriendTrip);
+
+
 module.exports = router;

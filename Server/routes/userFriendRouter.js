@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const userFriendController = require('../controllers/userFriendController');
 
-// 
+// get all friends of a user
 router.get('/getUserFriends/:userId', userFriendController.getUserFriends);
 // router.post('/inviteFriend/:userId/:friendId', userFriendController.inviteFriend);
 
 // Will get you the names of the friends that have been invited
 router.get('/getInvitedParticipants/:userId/:tripId', userFriendController.getInvitedParticipants);
 
-//add a friend/invite to a trip
+//invite a friend to a trip
 router.post('/addFriendToTrip/:userId/:tripId/:participantId', userFriendController.addFriendToTrip)
 
 // add a friend

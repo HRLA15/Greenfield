@@ -20,26 +20,26 @@ const Hotel = db.define('hotel',{
     type: Sequelize.FLOAT,
     allowNull: false,
   },
-  // count: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: true,
-  // }
+  count: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  }
 }, {
   timestamps: false,
 })
 const HotelVote = db.define('hotelvote', {
-  // hotelId: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false,
-  // },
-  // hotelName: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false,
-  // },
-  count: {
+  vote: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
+<<<<<<< HEAD
+<<<<<<< HEAD
+  },
+=======
   }
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
+=======
+  },
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
 }, {
   timestamps: false,
 })
@@ -56,10 +56,6 @@ const Trip = db.define('trip',{
     type: Sequelize.STRING,
     allowNull: false,
   },
-  // status: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull:false,
-  // },
   startDate: {
     type: Sequelize.DATEONLY,
     allowNull: false,
@@ -68,8 +64,15 @@ const Trip = db.define('trip',{
     type: Sequelize.DATEONLY,
     allowNull: false,
   },
-  // hotelTrips: Sequelize.ARRAY(Sequelize.STRING),
-  // activities: Sequelize.ARRAY(Sequelize.STRING),
+  url: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  currentDate: {
+  type: Sequelize.DATEONLY,
+  allowNull: false,
+  defaultValue: Sequelize.NOW
+  },
 }, {
   timestamps: false,
 })
@@ -90,6 +93,10 @@ const Activity = db.define('activity', {
     type: Sequelize.FLOAT,
     allowNull: false,
   },
+  url: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  }
 }, {
   timestamps: false,
 }) 
@@ -100,6 +107,10 @@ const User = db.define('user',{
     allowNull: false,
     unique: true,
     autoIncrement: true,
+  },
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false,
   },
   lastName: {
     type: Sequelize.STRING,
@@ -124,6 +135,11 @@ const User = db.define('user',{
 }, {
   timestamps: false,
 })
+<<<<<<< HEAD
+
+
+<<<<<<< HEAD
+=======
 // const UserUpcomingTrip = db.define('userupcomingtrip', {
 //   id: {
 //     type: Sequelize.INTEGER,
@@ -197,6 +213,10 @@ const User = db.define('user',{
 // }, {
 //   timestamps: false,
 // })
+>>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 //JOIN TABLE OF USERS AND TRIPS
 const UserTrip = db.define('usertrip',{
   id: {
@@ -209,11 +229,16 @@ const UserTrip = db.define('usertrip',{
     defaultValue: false,    
     allowNull: false
   },
-  confirmed: {
+  userConfirmed: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false,    
+    defaultValue: true,    
     allowNull: false
-  }
+  },
+  participantConfirmed: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
 }, {
   timestamps: false,
 })
@@ -223,14 +248,16 @@ const UserFriend = db.define('userfriend', {
     primaryKey: true,
     autoIncrement: true
   },
-  // invited: {
-  //   type: Sequelize.BOOLEAN,
-  //   defaultValue: false,    
-  //   allowNull: false
-  // }
 }, {
   timestamps: false,
 })
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+
+
+<<<<<<< HEAD
+=======
 // const UserUpcoming = db.define('userupcoming', {
 //   id: {
 //     type: Sequelize.INTEGER,
@@ -262,6 +289,9 @@ const UserFriend = db.define('userfriend', {
 // }, {
 //   timestamps: false,
 // })
+=======
+
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 // //Many to Many relationship with same USER table
 // const UserFriend = db.define('userfriend', {
 //   id: {
@@ -288,36 +318,75 @@ const UserFriend = db.define('userfriend', {
 // UserPendingTrip.belongsTo(User);
 // User.hasMany(UserUpcomingTrip)
 // UserUpcomingTrip.belongsTo(User);
+>>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
 // 1:M relationship with User and Friend
 // // Users can have many friend Users
 // // I will alias the association
 // RELATIONSHIPS
 // //////////////////////////////////////////////////////////////////////////////////*/
 // // // Trip to User M:M associations
+<<<<<<< HEAD
+UserTrip.belongsTo(Trip, { through: UserTrip, foreignKey: {name: 'tripId', unique: false }});
+UserTrip.belongsTo(User, { through: UserTrip, foreignKey: {name: 'userId', unique: false }});
+
+=======
 UserTrip.belongsTo(Trip, { through: UserTrip, foreignKey: {name: 'userId', unique: false }});
 UserTrip.belongsTo(User, { through: UserTrip, foreignKey: {name: 'tripId', unique: false }});
+>>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
 // THERE IS A BUG WITH SEQUELIZE WHEN YOU HAVE TO HAVE MORE THAN 2 FOREIGN KEYS IN A TABLE, 
 //it says that the foreign keys have to be unique 
-//Link: https://github.com/sequelize/sequelize/issues/3220 ... fixed it up top
+//Link: https://github.com/sequelize/sequelize/issues/3220 ... work around up top
       // THIS IS THE ORIGINAL CODE THAT SHOULD WORK, but when adding participants/friends to the usertrip table it gets and error 
 // User.belongsToMany(Trip, { through: UserTrip, foreignKey: {name: 'userId', unique: false });
 // Trip.belongsToMany(User, { through: UserTrip, foreignKey: 'tripId', unique: false });
+<<<<<<< HEAD
+
+
+
+<<<<<<< HEAD
+=======
 // User.belongsToMany(UserUpcomingTrip, { through: UserUpcoming});
 // UserUpcomingTrip.belongsToMany(User, { through: UserUpcoming });
 // User.belongsToMany(UserPendingTrip, { through: UserPending});
 // UserPendingTrip.belongsToMany(User, { through: UserPending});
 // User.belongsToMany(UserCompletedTrip, { through: UserCompleted });
 // UserCompletedTrip.belongsToMany(User, { through: UserCompleted});
+>>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
 Trip.hasMany(Hotel);
 Hotel.belongsTo(Trip);
 Trip.hasMany(Activity);
 Activity.belongsTo(Trip);
 User.hasOne(HotelVote);
 HotelVote.belongsTo(User);
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
+HotelVote.belongsTo(User, {as: 'friendvote', foreignKey: {name: 'friendId', unique: false}})
+
+
+Hotel.hasMany(HotelVote);
+HotelVote.belongsTo(Hotel);
+
+User.belongsToMany(User, {as: 'friend', through: UserFriend, unique: false})
+<<<<<<< HEAD
+
+=======
 Hotel.hasMany(HotelVote);
 HotelVote.belongsTo(Hotel);
 User.belongsToMany(User, {as: 'friend', through: UserFriend})
+<<<<<<< HEAD
 // User.belongsToMany(User, {as: 'participant', foreignKey: 'participantId' , through: UserTrip, unique: false})
+>>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+=======
+>>>>>>> fixed edge cases of adding same trip, same friend etc.. need to still figure out how to post the data that is coming in as an array
+
+>>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
 UserTrip.belongsTo(User, {as: 'participant', through: UserTrip, foreignKey: {name: 'participantId', unique: false }});
 // User.hasMany(UserCompletedTrip)
 // UserCompletedTrip.belongsTo(User);
@@ -382,6 +451,10 @@ Hotel.sync();
 Activity.sync();
 HotelVote.sync();
 UserFriend.sync();
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+=======
 // Friend.sync();
 // UserUpcoming.sync();
 // UserPending.sync();
@@ -390,6 +463,9 @@ UserFriend.sync();
 // UserCompletedTrip.sync();
 // UserUpcomingTrip.sync();
 // UserPendingTrip.sync();
+>>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 // User.sync({force: true});
 // Trip.sync({force: true});
 // UserTrip.sync({force: true});
@@ -397,6 +473,11 @@ UserFriend.sync();
 // Activity.sync({force: true});
 // HotelVote.sync({force: true});
 // UserFriend.sync({force: true});
+<<<<<<< HEAD
+
+
+<<<<<<< HEAD
+=======
 // Friend.sync({force: true});
 // UserCompletedTrip.sync({force: true});
 // UserUpcomingTrip.sync({force: true});
@@ -404,6 +485,9 @@ UserFriend.sync();
 // UserUpcoming.sync({force: true});
 // UserPending.sync({force: true});
 // UserCompleted.sync({force: true});
+>>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
 module.exports = {
   User,
   Trip,
@@ -411,12 +495,12 @@ module.exports = {
   Hotel,
   UserFriend,
   Activity,
-  HotelVote,
-  // UserCompletedTrip,
-  // UserUpcomingTrip,
-  // UserPendingTrip,
-  // Friend
+  HotelVote
 }
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+=======
 // module.exports.User = User;
 // module.exports.Trip = Trip;
 // module.exports.UserTrip = UserTrip;
@@ -426,3 +510,6 @@ module.exports = {
 // module.exports.UserUpcomingTrip = UserUpcomingTrip;
 // module.exports.Activity = Activity;
 // module.exports.HotelVote = HotelVote;
+>>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
+=======
+>>>>>>> refactored to make the router/controller/models optimized. finished the hotelvotes database. added username to user. going to add a option to delete pending trips, need to figure out how to add the user to the sum of the count, friends is coming in as an array... have to figure out how to add them in, individually
