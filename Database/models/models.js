@@ -373,6 +373,7 @@ Hotel.hasMany(HotelVote);
 HotelVote.belongsTo(Hotel);
 
 User.belongsToMany(User, {as: 'friend', through: UserFriend, unique: false})
+<<<<<<< HEAD
 
 =======
 Hotel.hasMany(HotelVote);
@@ -382,6 +383,8 @@ User.belongsToMany(User, {as: 'friend', through: UserFriend})
 // User.belongsToMany(User, {as: 'participant', foreignKey: 'participantId' , through: UserTrip, unique: false})
 >>>>>>> 43c87362fe22f7487a259dda212e72fb08cdf938
 =======
+=======
+>>>>>>> fixed edge cases of adding same trip, same friend etc.. need to still figure out how to post the data that is coming in as an array
 
 >>>>>>> made a delete pending function, added username to user, figured out how to add user to the vote
 UserTrip.belongsTo(User, {as: 'participant', through: UserTrip, foreignKey: {name: 'participantId', unique: false }});
