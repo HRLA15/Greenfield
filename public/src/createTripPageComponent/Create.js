@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import axiosRoutes from './CreateTripPageAxiosRoutes'
 import {Redirect} from 'react-router-dom'
+import {Button, Icon, Row, Input} from 'react-materialize'
 
 class Create extends Component {
   constructor(){
-    super()
+    super();
     this.state = {
 
       // hideInvite: false,
@@ -198,22 +199,30 @@ const { isAuthenticated } = this.props.auth;
 
     return (
       <div> 
-        <div>
-          <div id="topHalf">
+
+          {/*<div id="topHalf">
             <h2>Create Trip</h2>
-            <input id="tripName" type = 'text' placeholder = "Trip name" onChange={this.tripNameData}></input>
+            <input id="tripName" type = 'text' placeholder = "Trip name" ></input>
           <br></br>
             <input id="location" type = 'text' placeholder = 'Location/Address' onChange={this.locationNameData}></input>
           <br></br>
             <textarea name="description" placeholder ="Description Details" onChange={this.descriptionData}></textarea>
+          </div>*/}
+
+          <div className="input field" style={{marginLeft: 30 + "px", marginTop: 30 + "px", marginRight: 30 + "px"}}>
+            <Row>
+                <Input style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder="Trip Name" s={12} label="Trip Name" onChange={this.tripNameData}/>
+                <Input style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder="Destination" s={12} label="Destination" onChange={this.locationNameData}/>
+                <Input style={{fontSize: 15 + "px"}}placeholder="Description" s={12} label="Description" onChange={this.descriptionData}/>
+            </Row>
           </div>
 
-          <div id="bottomHalf">
+          <div id="bottomHalf" style={{marginLeft: 30 + "px", marginRight: 50 + "%"}}>
             {/*Dropdown calendars*/}
             <span>From:</span>
-            <input type="date" onChange={this.eventFromDate}/>
+            <input style={{height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventFromDate}/>
             <span> To:</span>
-            <input type="date" onChange={this.eventToDate}/>
+            <input style={{height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventToDate}/>
             <br></br>
             
             {/*Invite friends pop up*/}
@@ -231,7 +240,7 @@ const { isAuthenticated } = this.props.auth;
             <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
           </div> 
 
-        </div>
+
       </div>
     ) 
 

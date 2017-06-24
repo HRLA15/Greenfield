@@ -6,6 +6,7 @@ import UserPreviousTripsList from './UserPreviousTripsList'
 import TripSummary from '../tripSummaryComponent/TripSummary'
 import axiosRoutes from './UserHomeAxiosRoutes'
 import { Redirect } from 'react-router-dom'
+import UserSideBar from './UserSideBar'
 //TODOS:
 
 class UserHome extends Component {
@@ -49,10 +50,15 @@ class UserHome extends Component {
     }
 
     return (
-      <div>
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <div style={{flexGrow: 5, flexShrink: 5}}>
         <UserUpcomingTripsList />
         <UserPreviousTripsList />
-        <CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick} />
+        </div>
+        <div syle={{flexGrow: 1, flexShrink: 1}}>
+        <UserSideBar />
+        </div>
+        {/*<CreateTripButton handleCreateTripButtonClick={this.handleCreateTripButtonClick} />*/}
       </div>
     )
   }
