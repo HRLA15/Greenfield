@@ -7,7 +7,7 @@ const FriendsList = ({friends, invite, done, hideInvite}) => (
   {friends.map((friend, key) => {
     return <div>
       <span key={key}>
-      {friend.name}
+      {friend.firstName}
       </span>
       <button className="btn" onClick={() => {
         invite(friend)}}>Invite</button>
