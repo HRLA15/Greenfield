@@ -55,7 +55,7 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    width: 90 + "%",
+    width: 70 + "%",
     height: 100 + "%",
     overflowY: 'auto',
     flexGrow: 2
