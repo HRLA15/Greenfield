@@ -32,17 +32,9 @@ const Hotel = db.define('hotel',{
 })
 
 const HotelVote = db.define('hotelvote', {
-  // hotelId: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false,
-  // },
-  // hotelName: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false,
-  // },
-  count: {
+  vote: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   }
 }, {
   timestamps: false,
@@ -61,10 +53,6 @@ const Trip = db.define('trip',{
     type: Sequelize.STRING,
     allowNull: false,
   },
-  // status: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull:false,
-  // },
   startDate: {
     type: Sequelize.DATEONLY,
     allowNull: false,
@@ -103,6 +91,10 @@ const Activity = db.define('activity', {
     type: Sequelize.FLOAT,
     allowNull: false,
   },
+  url: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  }
 }, {
   timestamps: false,
 }) 
@@ -114,6 +106,10 @@ const User = db.define('user',{
     allowNull: false,
     unique: true,
     autoIncrement: true,
+  },
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false,
   },
   lastName: {
     type: Sequelize.STRING,
@@ -139,83 +135,6 @@ const User = db.define('user',{
   timestamps: false,
 })
 
-// const UserUpcomingTrip = db.define('userupcomingtrip', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     allowNull: false
-//   },
-//   name: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   }
-// }, {
-//   timestamps: false,
-// })
-
-// const UserPendingTrip = db.define('userpendingtrip', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     allowNull: false
-//   },
-//   name: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   }
-// }, {
-//   timestamps: false,
-// })
-
-// const UserCompletedTrip = db.define('usercompletedtrip', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     allowNull: false
-//   },
-//   name: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   }
-// }, {
-//   timestamps: false,
-// })
-
-// const ProfilePic = db.define('profilepic', {
-//   url: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-// }, {
-//   timestamps: false,
-// });
-
-// const Friend = db.define('friend', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     allowNull: false,
-//     unique: true,
-//   },
-//   lastName: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   firstName: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   email: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-//   id_Token: {
-//     type: Sequelize.STRING,
-//     allowNull: false,
-//   },
-// }, {
-//   timestamps: false,
-// })
 
 //JOIN TABLE OF USERS AND TRIPS
 
@@ -258,39 +177,7 @@ const UserFriend = db.define('userfriend', {
 }, {
   timestamps: false,
 })
-// const UserUpcoming = db.define('userupcoming', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true
-//   }
-// }, {
-//   timestamps: false,
-// })
 
-// const UserCompleted = db.define('usercompleted', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true
-//   }
-// }, {
-//   timestamps: false,
-// })
-
-// const UserPending = db.define('userpending', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true
-//   }, 
-//   attending: {
-//     type: Sequelize.BOOLEAN,
-//     allowNull: false,
-//   },
-// }, {
-//   timestamps: false,
-// })
 // //Many to Many relationship with same USER table
 
 // const UserFriend = db.define('userfriend', {
@@ -343,7 +230,7 @@ UserTrip.belongsTo(User, { through: UserTrip, foreignKey: {name: 'userId', uniqu
 
 // THERE IS A BUG WITH SEQUELIZE WHEN YOU HAVE TO HAVE MORE THAN 2 FOREIGN KEYS IN A TABLE, 
 //it says that the foreign keys have to be unique 
-//Link: https://github.com/sequelize/sequelize/issues/3220 ... fixed it up top
+//Link: https://github.com/sequelize/sequelize/issues/3220 ... work around up top
       // THIS IS THE ORIGINAL CODE THAT SHOULD WORK, but when adding participants/friends to the usertrip table it gets and error 
 // User.belongsToMany(Trip, { through: UserTrip, foreignKey: {name: 'userId', unique: false });
 // Trip.belongsToMany(User, { through: UserTrip, foreignKey: 'tripId', unique: false });
@@ -367,6 +254,7 @@ Activity.belongsTo(Trip);
 
 User.hasOne(HotelVote);
 HotelVote.belongsTo(User);
+HotelVote.belongsTo(User, {as: 'friendvote', foreignKey: {name: 'friendId', unique: false}})
 
 
 Hotel.hasMany(HotelVote);
@@ -470,15 +358,6 @@ Activity.sync();
 HotelVote.sync();
 UserFriend.sync();
 
-// Friend.sync();
-// UserUpcoming.sync();
-// UserPending.sync();
-// UserCompleted.sync();
-// ProfilePic.sync();
-// UserCompletedTrip.sync();
-// UserUpcomingTrip.sync();
-// UserPendingTrip.sync();
-
 // User.sync({force: true});
 // Trip.sync({force: true});
 // UserTrip.sync({force: true});
@@ -487,13 +366,6 @@ UserFriend.sync();
 // HotelVote.sync({force: true});
 // UserFriend.sync({force: true});
 
-// Friend.sync({force: true});
-// UserCompletedTrip.sync({force: true});
-// UserUpcomingTrip.sync({force: true});
-// UserPendingTrip.sync({force: true});
-// UserUpcoming.sync({force: true});
-// UserPending.sync({force: true});
-// UserCompleted.sync({force: true});
 
 module.exports = {
   User,
@@ -502,19 +374,6 @@ module.exports = {
   Hotel,
   UserFriend,
   Activity,
-  HotelVote,
-  // UserCompletedTrip,
-  // UserUpcomingTrip,
-  // UserPendingTrip,
-  // Friend
+  HotelVote
 }
 
-// module.exports.User = User;
-// module.exports.Trip = Trip;
-// module.exports.UserTrip = UserTrip;
-// module.exports.Hotel = Hotel;
-// module.exports.ProfilePic = ProfilePic;
-// module.exports.UserCompletedTrip = UserCompletedTrip;
-// module.exports.UserUpcomingTrip = UserUpcomingTrip;
-// module.exports.Activity = Activity;
-// module.exports.HotelVote = HotelVote;

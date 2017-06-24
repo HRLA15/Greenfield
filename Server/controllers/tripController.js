@@ -1,4 +1,5 @@
 const Trip = require('../../Database/models/models');
+const Sequelize = require('sequelize')
 
 module.exports = {
   getTripData: (req, res) => {
@@ -126,6 +127,43 @@ module.exports = {
     Trip.Activity.destroy({where: {id: req.params.tripId}})
       .then(activity => {
         res.status(202).send('deleted');
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      })
+  },
+
+  voteOnHotel: (req, res) => {
+    Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId, userId: req.params.userId}})
+      .spread((hotel, created) => {
+        Trip.HotelVote.update({
+          hotelId: req.params.hotelId,
+          userId: req.params.userId,
+          vote: 1
+        }, {where: {friendId: req.params.friendId}})
+          .then(update => {
+            res.status(202).send(update);
+          })
+          .catch(err => {
+            res.status(404).send(err);
+          })
+      })
+  },
+
+  sumOfVote: (req, res) => {
+    Trip.Hotel.findAll({
+      attributes: ['name', [Sequelize.fn('SUM', (Sequelize.col('hotelvotes.vote'))), 'count']],
+      order: [Sequelize.literal('count DESC NULLS LAST')],
+      include: [{
+        model: Trip.HotelVote,
+        attributes: [],
+        raw: true
+      }],
+      group: ['hotel.id'],
+      raw: true
+    })
+      .then(sum => {
+        res.status(202).send(sum);
       })
       .catch(err => {
         res.status(404).send(err);

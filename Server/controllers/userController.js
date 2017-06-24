@@ -14,6 +14,7 @@ module.exports = {
   postUserProfileInfo: (req, res) => {
     User.User.create({
       firstName: req.body.firstName,
+      username: req.body.username,
       lastName: req.body.lastName,
       email: req.body.email,
       idToken: req.body.idToken
