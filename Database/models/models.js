@@ -23,10 +23,10 @@ const Hotel = db.define('hotel',{
     type: Sequelize.FLOAT,
     allowNull: false,
   },
-  // count: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: true,
-  // }
+  count: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  }
 }, {
   timestamps: false,
 })

@@ -2,13 +2,13 @@ const Trip = require('../../Database/models/models');
 
 module.exports = {
   getTripData: (req, res) => {
-    Trip.Trip.findAll({where: {id: req.params.id }})
+    Trip.Trip.findAll({where: {id: req.params.tripId }})
       .then(trip => {
         res.status(202).send(trip);
       })
       .catch(err => {
         res.status(404).send(err);
-      }, {where: {id: req.params.id }})
+      }, {where: {id: req.params.tripId }})
   },
   
   postTripData: (req, res) => {
@@ -38,7 +38,7 @@ module.exports = {
       startDate: tripData.startDate,
       endDate: tripData.endDate,
       description: tripData.description
-    }, {where: {id: req.params.id }})
+    }, {where: {id: req.params.tripId }})
       .then(trip => {
         //return Trip.Trip.findAll({where: {id: req.params.id}}) use this instead of the res.status line when using the database
         res.status(202).send(trip);
@@ -54,7 +54,7 @@ module.exports = {
     Trip.Trip.findAll({
       include: [{
         model: Trip.Hotel,
-        where: {tripId: req.params.id}
+        where: {tripId: req.params.tripId}
       }]
     })
       .then(hotels => {
@@ -67,13 +67,13 @@ module.exports = {
 
   postTripNearbyHotels: (req, res) => {
     let tripData = req.body;
-
+    
     Trip.Hotel.create({
       name: tripData.name,
       address: tripData.address,
       longitude: tripData.longitude,
       latitude: tripData.latitude,
-      tripId: req.params.id
+      tripId: req.params.tripId
     })
       .then(hotel => {
         res.status(202).send(hotel);
@@ -89,7 +89,7 @@ module.exports = {
     Trip.Trip.findAll({
       include: [{
         model: Trip.Activity,
-        where: {tripId: req.params.id}
+        where: {tripId: req.params.tripId}
       }]
     })
     .then(activities => {
@@ -108,7 +108,7 @@ module.exports = {
       address: tripData.address,
       longitude: tripData.longitude,
       latitude: tripData.latitude,
-      tripId: req.params.id
+      tripId: req.params.tripId
     })
       .then(activity => {
         res.status(202).send(activity);
@@ -121,7 +121,7 @@ module.exports = {
   deleteTripActivity: (req, res) => {
     let tripData = req.body;
 
-    Trip.Activity.destroy({where: {id: req.params.id}})
+    Trip.Activity.destroy({where: {id: req.params.tripId}})
       .then(activity => {
         res.status(202).send('deleted');
       })

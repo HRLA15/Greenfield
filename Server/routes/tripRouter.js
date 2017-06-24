@@ -3,22 +3,22 @@ const tripController = require('../controllers/tripController')
 
 //id = tripId
 
-//Trip Detail 
-router.get('/getTripSummary/:id', tripController.getTripData);
+//Trip Detail --works
+router.get('/getTripSummary/:tripId', tripController.getTripData);
 router.post('/postTripSummary', tripController.postTripData);
-router.put('/putTripSummary/:id', tripController.updateTripData);
+router.put('/putTripSummary/:tripId', tripController.updateTripData);
 
-//Hotels  
-router.get('/getTripNearbyHotels/:id', tripController.getTripNearbyHotels);
+//Hotels  -- works
+router.get('/getTripNearbyHotels/:tripId', tripController.getTripNearbyHotels);
 
-// Post hotels
-router.post('/postTripNearbyHotels/:id', tripController.postTripNearbyHotels);
+// Post hotels   --works
+router.post('/postTripNearbyHotels/:tripId', tripController.postTripNearbyHotels);
 
-//Activities use the tripid
-router.get('/getTripActivities/:id', tripController.getTripActivities);
+//Activities use the tripId --works
+router.get('/getTripActivities/:tripId', tripController.getTripActivities);
 
-//Post Activities
-router.post('/postTripActivity/:id', tripController.postTripActivity);
-router.delete('/deleteTripActivity/:id', tripController.deleteTripActivity);
+//Post Activities -- works
+router.post('/postTripActivity/:tripId', tripController.postTripActivity);
+router.delete('/deleteTripActivity/:tripId', tripController.deleteTripActivity);
 
 module.exports = router;
