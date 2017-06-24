@@ -6,11 +6,18 @@ class PendingListEntry extends React.Component{
   }
 
   render(){
-    console.log("pendinglistentry", this.props.pendingListEntry.name)
+    console.log("pendinglistentry", this.props.pendingListEntry)
     return(
+      
       <tr>
-        <td>{this.props.pendingListEntry.name}</td>
+        <td 
+          onClick={()=>
+          {this.props.handleListEntryClick(this.props.queryType)}}
+        >
+          {this.props.pendingListEntry.name}
+        </td>
       </tr>
+      
     )
   }
 }

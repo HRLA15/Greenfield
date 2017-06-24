@@ -8,9 +8,18 @@ class PendingList extends React.Component{
     this.state = {
       curPendingList:this.props.pendingList
     }
+
+    this.handleListEntryClick = this.handleListEntryClick.bind(this);
+
   }
+
+
+  handleListEntryClick(type){
+    console.log("add this to type:", type)
+  }
+
   render(){
-    console.log("pendinglist in pendinglist entry",this.props.pendingList);
+    console.log("pendinglist in pendinglist entry",this.props.queryType);
     return(
        <div>
         <table>
@@ -22,7 +31,9 @@ class PendingList extends React.Component{
           <tbody>
             {
               this.state.curPendingList.map((pendingListEntry) => (
-                <PendingListEntry pendingListEntry={pendingListEntry} />
+                <PendingListEntry queryType={this.props.queryType}
+                                  handleListEntryClick={this.handleListEntryClick} 
+                                  pendingListEntry={pendingListEntry} />
               ))
             }
           </tbody>

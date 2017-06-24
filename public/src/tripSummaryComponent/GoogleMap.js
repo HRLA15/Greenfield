@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PendingList from './PendingList'
+
 class GoogleMap extends Component{
   constructor(props){
     super(props)
@@ -139,7 +140,7 @@ class GoogleMap extends Component{
             
         </div>
         {console.log("before pending list", this.state.pendingList)}
-        {this.state.pendingList.length > 0 ? <PendingList pendingList={this.state.pendingList}/> : null}
+        {this.state.pendingList.length > 0 ? <PendingList queryType={this.state.querySelection} pendingList={this.state.pendingList}/> : null}
         
       </div>
     )
