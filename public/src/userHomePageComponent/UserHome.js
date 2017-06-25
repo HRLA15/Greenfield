@@ -7,13 +7,18 @@ import TripSummary from '../tripSummaryComponent/TripSummary'
 import axiosRoutes from './UserHomeAxiosRoutes'
 import { Redirect, Link } from 'react-router-dom'
 import UserSideBar from './UserSideBar'
+import {Tabs, Tab} from 'material-ui/Tabs'
 //TODOS:
 
-const dummyData = {
-  id: 1,
-  name: 'Jon',
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+};
 
-}
 class UserHome extends Component {
 
   constructor(props) {
@@ -58,17 +63,30 @@ class UserHome extends Component {
     // }
 
     return (
-      <div>
-      <div style={{display: 'flex', flexDirection: 'row'}}>
+
+        <div style={{display: 'flex', flexDirection: 'row'}}>
         <div style={{flexGrow: 2, flexShrink: 3}}>
-        <UserUpcomingTripsList />
-        <UserPreviousTripsList />
+         <Tabs style ={{marginLeft: -10 + "%"}}>
+            <Tab label="Upcoming Trips" style={{color: "black", backgroundColor: "white"}} >
+              <div>
+                  <UserUpcomingTripsList />
+              </div>
+            </Tab>
+            <Tab label="Previous Trips" style={{color: "black", backgroundColor: "white"}}>
+              <div>
+                  <UserPreviousTripsList />
+              </div>
+            </Tab>
+          </Tabs>
         </div>
-        <div style={{flexGrow: 1, flexShrink: 1}}>
+        <div style={{flexGrow: 1, flexShrink: 1, marginTop: 45 + "px", marginLeft: 40 + "px"}}>
         <UserSideBar />
+
+        {/*<UserUpcomingTripsList />
+        <UserPreviousTripsList />*/}
         </div>
       </div>
-      </div>
+
     )
   }
 
