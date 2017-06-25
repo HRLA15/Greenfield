@@ -32,33 +32,29 @@ class NearbyHotels extends Component {
     //make axios call to get all the hotels for a give trip id or
     // use google place call to get all hotels near the location
     //set state using the data
-    // axiosRoutes.getTripNearbyHotels(this.props.tripId)
-    //   .then((res) => {
-    //     this.setState({
-    //       hotels: res.data
-    //     })
-    //   })
-    //   .catch(err => console.log(err))
+    axiosRoutes.getTripNearbyHotels(this.props.tripId)
+      .then((res) => {
+        this.setState({
+          hotels: res.data
+        })
+      })
+      .catch(err => console.log(err))
     
-    // delete below and uncomment above once we get server and google places working
-    this.setState({
-      hotels: dummyData
-    })
   }
 
   componentDidMount() {
-    // setInterval(() => {
-    //   axiosRoutes.getTripNearbyHotels(this.props.tripId)
-    //     .then((res) => {
-    //       this.setState({
-    //         hotels: res.data
-    //       })
-    //       let topHotel = res.data.shift()
-    //       this.props.getTopHotel(topHotel)
-    //     })
-    //     .catch(err => console.log(err))
-    // }
-    // , 1000)
+    setInterval(() => {
+      axiosRoutes.getTripNearbyHotels(this.props.tripId)
+        .then((res) => {
+          this.setState({
+            hotels: res.data
+          })
+          let topHotel = res.data.shift()
+          this.props.getTopHotel(topHotel)
+        })
+        .catch(err => console.log(err))
+    }
+    , 1000)
   }
   handleVoteClick(hotelId) {
     console.log('you voted')

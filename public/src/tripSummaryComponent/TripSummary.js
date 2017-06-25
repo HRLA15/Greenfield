@@ -41,24 +41,19 @@ class TripSummary extends Component {
   }
 
   componentWillMount() {
-    // axiosRoutes.getTripData(this.props.match.params.tripId)
-    //   .then((res) => {
-    //     if(res.data.userId === this.props.userId) {
-    //       this.setState({
-    //         isTripCreator: true
-    //       })
-    //     }
-    //     this.setState({
-    //       tripData: res.data[0]
-    //     })
-    //   })
-    //   .catch(err => console.log(err))
+    axiosRoutes.getTripData(this.props.match.params.tripId)
+      .then((res) => {
+        if(res.data.userId === this.props.userId) {
+          this.setState({
+            isTripCreator: true
+          })
+        }
+        this.setState({
+          tripData: res.data[0]
+        })
+      })
+      .catch(err => console.log(err))
 
-    //once server routes are set up uncomment above and delete lines below
-    this.setState({
-      tripData: trip
-    })
-    console.log('Mounted trip id is ', this.props.match.params.tripId)
   }
   
   goTo(route) {
@@ -66,18 +61,18 @@ class TripSummary extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // axiosRoutes.getTripData(nextProps.match.params.tripId)
-    //   .then((res) => {
-    //     if(res.data.userId === nextProps.userId) {
-    //       this.setState({
-    //         isTripCreator: true
-    //       })
-    //     }
-    //     this.setState({
-    //       tripData: res.data[0]
-    //     })
-    //   })
-    //   .catch(err => console.log(err))
+    axiosRoutes.getTripData(nextProps.match.params.tripId)
+      .then((res) => {
+        if(res.data.userId === nextProps.userId) {
+          this.setState({
+            isTripCreator: true
+          })
+        }
+        this.setState({
+          tripData: res.data[0]
+        })
+      })
+      .catch(err => console.log(err))
 
   }
 
