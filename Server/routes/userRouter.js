@@ -7,6 +7,6 @@ router.get('/getOneUser/:idToken', userController.getOneUser)
 router.post('/postUserProfilePic/:userId', userController.postUserProfilePic)
 
 // add users profile info/ update if he already created a useraccount
-router.post('/postUserProfileInfo/:userId', userController.postUserProfileInfo)
+router.post('/postUserProfileInfo/:idToken', userController.postUserProfileInfo)
 
 module.exports = router;

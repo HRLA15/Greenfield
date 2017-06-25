@@ -18,23 +18,17 @@ module.exports = {
   },
 
   postUserTrip: (req, res) => {
-    UserTrip.UserTrip.findOrCreate({where: {tripId: req.params.tripId},
-    defaults: { userId: req.params.userId , tripId: req.params.tripId }})
-      .spread((usertrip, created) => {
-        UserTrip.UserTrip.update({
-          userId: req.params.userId,
-          tripId: req.params.tripId
-        }, {where: {tripId: req.params.tripId}})
-          .then(trip => {
-            res.status(200).send(trip);
-          })
-          .catch(err => {
-            res.status(404).send(err);
-          })
-      })
-      .catch(err => {
-        console.log('err in creating the usertrip', err);
-      })
+    UserTrip.UserTrip.findOrCreate({where: {tripId: req.params.tripId, endDate: {$gt: Sequelize.NOW}},
+      defaults: {
+        userId: req.params.userId,
+        tripId: req.params.tripId
+      }})
+        .spread((usertrip, created) => {
+          res.status(202).send(usertrip);
+        })
+        .catch(err => {
+          res.status(404).send(err);
+        })
   },
 
   getCompletedTrips: (req, res) => {
@@ -58,7 +52,7 @@ module.exports = {
       where: {userId: req.params.userId, userConfirmed: true, participantConfirmed: true, invited: true},
       include: [{
         model: UserTrip.Trip,
-        where: {endDate: {$lt: Sequelize.col('currentDate')}}
+        where: {endDate: {$lt: Sequelize.col('currentDate'), endDate: {$gt: Sequelize.NOW}}}
       }]
     })
       .then(completedtrip => {
@@ -128,19 +122,3 @@ module.exports = {
       })
   },
 }
-
-  // getTripUsers: (req, res) => {
-  //   UserTrip.UserTrip.findAll({
-  //     where: {confirmed: true, tripId: req.params.tripId},
-  //     include: [{
-  //       model: UserTrip.Trip,
-  //       where: {id: req.params.id}
-  //     }]
-  //   })
-  //     .then(usertrip => {
-  //       res.status(202).send(usertrip);
-  //     })
-  //     .catch(err => {
-  //       res.status(404).send(err);
-  //     })
-  // },

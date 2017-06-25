@@ -14,21 +14,19 @@ module.exports = {
   postUserProfileInfo: (req, res) => {
     console.log('this is req params', req.params)
     console.log('this is req body', req.body)
-    User.User.findOrCreate({where: {id: req.params.userId}, 
+    User.User.findOrCreate({where: {idToken: req.params.idToken}, 
       defaults: {
         firstName: req.body.firstName, 
         username: req.body.username,
         lastName: req.body.lastName,
-        email: req.body.lastName,
-        idToken: req.body.idToken
+        email: req.body.email
     }})
       .spread((user, created) => {
         User.User.update({
           firstName: req.body.firstName, 
           username: req.body.username,
           lastName: req.body.lastName,
-          email: req.body.lastName,
-          idToken: req.body.idToken
+          email: req.body.email
         }, {where: {id: req.params.userId}})
           .then(user => {
             res.status(202).send(user);

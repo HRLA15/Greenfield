@@ -15,7 +15,7 @@ router.post('/addFriendToTrip/:userId/:tripId/:participantId', userFriendControl
 router.post('/addFriend/:userId/:friendId', userFriendController.addFriend)
 
 // friend confirmation of attending the trip 
-router.put('/friendTripConfirmation/:userId/:tripId/:participantId', userFriendController.friendTripConfirmation)
+router.post('/friendTripConfirmation/:userId/:tripId/:participantId', userFriendController.friendTripConfirmation)
 
 // get all friends that are attending the trip
 router.get('/allConfirmedParticipants/:userId/:tripId', userFriendController.getConfirmedParticipants)

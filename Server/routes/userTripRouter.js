@@ -5,7 +5,7 @@ const userTripController = require('../controllers/userTripController')
 // get all the trips of a user
 router.get('/getAllUserTrips/:userId', userTripController.getAllUserTrips);
 
-// add the trip that the user has created -- trip can only be created by one person
+// add the trip that the user has created -- trip can only be created once and only by one person
 router.post('/postUserTrip/:userId/:tripId', userTripController.postUserTrip);
 
 // get the completed trip for user
@@ -23,6 +23,7 @@ router.get('/getUpcomingFriendTrip/:participantId', userTripController.getUpcomi
 // get pending trips for friends
 router.get('/getPendingFriendTrip/:participantId', userTripController.getPendingFriendTrips);
 router.delete('/deletePendingTrip/:participantId', userTripController.deletePendingFriendTrip);
+
 
 
 module.exports = router;
