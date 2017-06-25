@@ -56,9 +56,9 @@ module.exports = {
   },
 
   postNewUser: (req, res) => {
-    User.User.findOrCreate({where: {idToken: req.params.idToken},
+    User.User.findOrCreate({where: {idToken: req.body.idToken},
       defaults: {
-        idToken: req.params.idToken,
+        idToken: req.body.idToken,
       }})
         .spread((user, created) => {
           res.status(202).send(user);

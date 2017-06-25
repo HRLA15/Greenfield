@@ -8,7 +8,9 @@ router.get('/getOneUser/:idToken', userController.getOneUser);
 router.post('/postUserProfilePic/:userId', userController.postUserProfilePic);
 
 // add users profile info/ update if he already created a useraccount
-router.post('/postUserProfileInfo/:idToken', userController.postUserProfileInfo);
+router.post('/postUserProfileInfo/:userId', userController.postUserProfileInfo);
 
-router.post('/postNewUser/:userId', userController.postNewUser);
+//add users to the datebase
+router.post('/postNewUser/:idToken', userController.postNewUser);
+
 module.exports = router;
