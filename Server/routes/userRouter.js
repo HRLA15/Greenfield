@@ -11,6 +11,6 @@ router.post('/postUserProfilePic/:userId', userController.postUserProfilePic);
 router.post('/postUserProfileInfo/:userId', userController.postUserProfileInfo);
 
 //add users to the datebase
-router.post('/postNewUser/:idToken', userController.postNewUser);
+router.post('/postNewUser', userController.postNewUser);
 
 module.exports = router;
