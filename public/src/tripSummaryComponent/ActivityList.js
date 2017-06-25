@@ -37,9 +37,11 @@ class ActivityList extends Component {
     // then set state
     axiosRoutes.getTripActivities(this.props.tripId)
       .then((res) => {
-        this.setState({
-          activityList: res.data
-        })
+        if(Array.isArray(res.data)) {
+          this.setState({
+            activityList: res.data
+          })
+        }
       })
       .catch(err => console.log(err))
   }
@@ -48,18 +50,20 @@ class ActivityList extends Component {
     setInterval(() => {
       axiosRoutes.getTripActivities(this.props.tripId)
         .then((res) => {
-          this.setState({
-            activityList: res.data
-          })
+          if(Array.isArray(res.data)) {
+            this.setState({
+              activityList: res.data
+            })
 
-          let topActivitiesArr = []
+            let topActivitiesArr = []
 
-          if(res.data.length > 3) {
-            topActivitiesArr = res.data.slice(0,3)
-          } else {
-            topActivitiesArr = res.data.slice(0, res.data.length)
+            if(res.data.length > 3) {
+              topActivitiesArr = res.data.slice(0,3)
+            } else {
+              topActivitiesArr = res.data.slice(0, res.data.length)
+            }
+            this.props.getTopActivities(topActivitiesArr)
           }
-          this.props.getTopActivities(topActivitiesArr)
         })
         .catch(err => console.log(err))
     }

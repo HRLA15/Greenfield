@@ -24,6 +24,9 @@ class NearbyHotels extends Component {
   
   constructor(props) {
     super(props)
+    this.state = {
+      hotels: []
+    }
 
     this.handleVoteClick = this.handleVoteClick.bind(this)
   }
@@ -34,9 +37,11 @@ class NearbyHotels extends Component {
     //set state using the data
     axiosRoutes.getTripNearbyHotels(this.props.tripId)
       .then((res) => {
-        this.setState({
-          hotels: res.data
-        })
+        if(Array.isArray(res.data)) {
+          this.setState({
+            hotels: res.data
+          })
+        }
       })
       .catch(err => console.log(err))
     
@@ -46,11 +51,13 @@ class NearbyHotels extends Component {
     setInterval(() => {
       axiosRoutes.getTripNearbyHotels(this.props.tripId)
         .then((res) => {
-          this.setState({
-            hotels: res.data
-          })
-          let topHotel = res.data.shift()
-          this.props.getTopHotel(topHotel)
+          if(Array.isArray(res.data)) {
+            this.setState({
+              hotels: res.data
+            })
+            let topHotel = res.data.shift()
+            this.props.getTopHotel(topHotel)
+          }
         })
         .catch(err => console.log(err))
     }
