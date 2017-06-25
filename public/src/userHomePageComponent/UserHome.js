@@ -72,11 +72,10 @@ class UserHome extends Component {
     return (
       <div>
       <div style={{display: 'flex', flexDirection: 'row'}}>
-        <div style={{flexGrow: 5, flexShrink: 5}}>
-        <UserUpcomingTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
+        {/*<UserUpcomingTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
         <UserPreviousTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
-        <UserUpcomingTripsList redirect={this.goTo.bind(this)}/>
-        <div style={{flexGrow: 1, flexShrink: 1}}>
+        <UserUpcomingTripsList redirect={this.goTo.bind(this)}/>*/}
+        <div style={{flexGrow: 2, flexShrink: 3}}>
         <UserUpcomingTripsList />
         <UserPreviousTripsList />
         </div>
