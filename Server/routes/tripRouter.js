@@ -11,6 +11,7 @@ router.get('/getTripNearbyHotels/:tripId', tripController.getTripNearbyHotels);
 
 // Post hotels from Google Maps
 router.post('/postTripNearbyHotels/:tripId', tripController.postTripNearbyHotels);
+router.delete('/deleteTripHotel/:tripId', tripController.deleteTripHotel);
 
 //Get the Nearby Activities from a particular trip
 router.get('/getTripActivities/:tripId', tripController.getTripActivities);
@@ -26,7 +27,15 @@ router.post('/hotelVote/:hotelId/:friendId', tripController.voteOnHotel)
 router.post('/userHotelVote/:hotelId/:userId', tripController.userVoteOnHotel);
 
 //Sum of the votes of each hotel for all users
-router.get('/sumOfVote/:hotelId', tripController.sumOfVote)
+router.get('/sumOfHotelVote', tripController.sumOfVoteHotel)
 
+//Post/update Activity for friends prevents friend from voting multiple times
+router.post('/activityVote/:activityId/:friendId', tripController.voteOnActivity)
+
+//Post/Update Activity for creator prevents creator from from voting multiple times
+router.post('/userActivityVote/:activityId/:userId', tripController.userVoteOnActivity);
+
+//Sum of the votes of each activity for all users
+router.get('/sumOfActivityVote', tripController.sumOfVoteActivity)
 
 module.exports = router;

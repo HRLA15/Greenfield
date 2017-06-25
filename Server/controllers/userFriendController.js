@@ -46,9 +46,9 @@ module.exports = {
     console.log('this is req paramasdfasdfasdfasdfasdfs', req.params)
     UserFriend.UserTrip.update({
       participantConfirmed: true
-    }, {where: {userId: req.params.userId, tripId: req.params.tripId, participantId: req.params.participantId}})
+    }, {where: {userId: req.params.userId, tripId: req.params.tripId, participantId: req.params.participantId}, returning: true})
       .then(confirmed => {
-        res.status(202).send(confirmed);
+        res.status(202).send(confirmed[1]);
       })
       .catch(err => {
         res.status(404).send(err);
@@ -77,13 +77,13 @@ module.exports = {
       tripId: req.params.tripId,
       participantId: req.params.participantId,
       userId: req.params.userId,
-      invited: true}})
+      invited: true}, returning: true})
         .spread((addfriend,created) => {
           UserFriend.UserTrip.update({
             participantId: req.params.participantId,
-          }, {where: {userId: req.params.userId, tripId: req.params.userId}})
+          }, {where: {participantId: req.params.participantId}, returning: true})
             .then(updated => {
-              res.status(202).send(updated);
+              res.status(202).send(updated[1]);
             })
             .catch(err => {
               res.status(404).send(err);
@@ -100,13 +100,13 @@ module.exports = {
       defaults: {
         friendId: req.params.friendId,
         userId: req.params.userId
-      }})
+      }, returning: true})
         .spread((addfriend, created) => {
           UserFriend.UserFriend.update({
             friendId: req.params.friendId
-          }, {where: {userId: req.params.userId, friendId: req.params.friendId}})
+          }, {where: {userId: req.params.userId, friendId: req.params.friendId}, returning: true})
             .then(updated => {
-              res.status(202).send(updated);
+              res.status(202).send(updated[1]);
             })
             .catch(err => {
               res.status(404).send(err);
