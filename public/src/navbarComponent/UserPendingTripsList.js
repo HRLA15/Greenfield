@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem'
 import SocialNotificationActive from 'material-ui/svg-icons/social/notifications-active'
 import {blue500, red500, greenA200} from 'material-ui/styles/colors'
 import { Redirect } from 'react-router-dom'
+import axiosRoutes from './navbarAxiosRoutes'
 
 const dummyData = [
   {
@@ -44,21 +45,15 @@ class PendingTrips extends Component {
     this.handleEntryClick = this.handleEntryClick.bind(this)
   }
 
-  componentWillMount() {
+  handleUpdate() {
     // axiosRoutes.getUserPendingTrips(this.props.userId)
     //   .then((res) => {
     //     this.setState({
-    //       pendingTrips = res.body
+    //       pendingTrips: res.data
     //     })
+        
     //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-    console.log('inside user pending trips', this.props.userId)
-  }
-
-  handleUpdate() {
-    console.log('get axios data')
+    //   .catch(err => console.log(err))
   }
 
   handleEntryClick(pendingTripId) {

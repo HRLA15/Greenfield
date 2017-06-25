@@ -48,11 +48,6 @@ class Navbar extends Component {
 
   }
 
-  componentDidMount() {
-    console.log('in nav bar user id is', this.props.userId)
-    console.log(localStorage.id_token)
-  }
-
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }

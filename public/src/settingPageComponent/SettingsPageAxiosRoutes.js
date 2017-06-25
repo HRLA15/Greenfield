@@ -1,7 +1,7 @@
 import axios from 'axios'
   
 module.exports = {
-
+  
   getOneUser: (idToken) => (
     //should return the userObj that matches auth0 token
     axios.get(`http://localhost:3000/getOneUser/${idToken}`)
