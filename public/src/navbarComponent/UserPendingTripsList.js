@@ -44,7 +44,7 @@ class PendingTrips extends Component {
     this.handleEntryClick = this.handleEntryClick.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // axiosRoutes.getUserPendingTrips(this.props.userId)
     //   .then((res) => {
     //     this.setState({

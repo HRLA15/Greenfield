@@ -2,6 +2,11 @@ import axios from 'axios'
 
 module.exports = {
 
+  // if you are editing use this call
+  getTripData: (tripId) => (
+    //should return tripObj with trip data
+    axios.get(`http://localhost:3000/getTripSummary/${tripId}`)
+  ),
   //trip database ID TITLE DESTINATION START/END DATE
   //post tripname
   // 
