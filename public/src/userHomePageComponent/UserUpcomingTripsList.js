@@ -5,7 +5,7 @@ import Subheader from 'material-ui/Subheader'
 import Input from 'material-ui/svg-icons/action/exit-to-app'
 import {GridList, GridTile} from 'material-ui/GridList';
 import Avatar from 'material-ui/Avatar';
-
+import axiosRoutes from './UserHomeAxiosRoutes'
 
 const dummyTripData = [
   {
@@ -77,18 +77,26 @@ class UserUpcomingTripsList extends Component {
     this.handleEntryClick = this.handleEntryClick.bind(this)
   }
 
-  // componentWillMount() {
-  //   axios.get()
-  //     .then((res) => {
-  //       this.setState({
-  //         upcomingTrips: res.body
-  //       })
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }
+  componentWillMount() {
+    axiosRoutes.getUserUpcomingTrips(this.props.userId)
+      .then((res) => {
+        this.setState({
+          upcomingTrips: res.data
+        })
+      })
+      .catch(err => console.log(err))
+  }
 
+  componentWillReceiveProps(nextProps) {
+    axiosRoutes.getUserUpcomingTrips(nextProps.userId)
+      .then((res) => {
+        this.setState({
+          upcomingTrips: res.data
+        })
+      })
+      .catch(err => console.log(err))
+  }
+  
   handleEntryClick(upcomingTripId) {
     //add redirect to the upcoming trip info page
     this.props.redirect(`event/${upcomingTripId}`)

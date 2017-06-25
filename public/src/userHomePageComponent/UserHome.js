@@ -27,15 +27,27 @@ class UserHome extends Component {
   }
 
   //once servers are working and auth0token is given uncomment below
-  // componentWillMount() {
-  //   axiosRoutes.getOneUser(localStorage.id_token)
-  //     .then((res) => {
-  //       this.setState({
-  //         userInfo: res.body
-  //       })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
+  componentWillMount() {
+    axiosRoutes.getOneUser(localStorage.id_token)
+      .then((res) => {
+        this.setState({
+          userInfo: res.data[0]
+        })
+      })
+      .catch(err => console.log(err))
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    axiosRoutes.getOneUser(localStorage.id_token)
+      .then((res) => {
+        this.setState({
+          userInfo: res.data[0]
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
@@ -60,8 +72,8 @@ class UserHome extends Component {
     return (
       <div style={{display: 'flex', flexDirection: 'row'}}>
         <div style={{flexGrow: 5, flexShrink: 5}}>
-        <UserUpcomingTripsList redirect={this.goTo.bind(this)}/>
-        <UserPreviousTripsList />
+        <UserUpcomingTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
+        <UserPreviousTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
         </div>
         <div style={{flexGrow: 1, flexShrink: 1}}>
         <UserSideBar />

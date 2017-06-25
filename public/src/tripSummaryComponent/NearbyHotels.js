@@ -33,15 +33,28 @@ class NearbyHotels extends Component {
     // axiosRoutes.getTripNearbyHotels(this.props.tripId)
     //   .then((res) => {
     //     this.setState({
-    //       hotels: res.body
+    //       hotels: res.data
     //     })
     //   })
     //   .catch(err => console.log(err))
     
-    //delete below and uncomment above once we get server and google places working
+    // delete below and uncomment above once we get server and google places working
     this.setState({
       hotels: dummyData
     })
+  }
+
+  componentDidMount() {
+    // setInterval(() => {
+    //   axiosRoutes.getTripNearbyHotels(this.props.tripId)
+    //     .then((res) => {
+    //       this.setState({
+    //         hotels: res.data
+    //       })
+    //     })
+    //     .catch(err => console.log(err))
+    // }
+    // , 1000)
   }
 
   render() {

@@ -37,16 +37,15 @@ class TripSummary extends Component {
   }
 
   componentWillMount() {
-
     // axiosRoutes.getTripData(this.props.match.params.tripId)
     //   .then((res) => {
-    //     if(res.body.userId === this.props.userId) {
+    //     if(res.data.userId === this.props.userId) {
     //       this.setState({
     //         isTripCreator: true
     //       })
     //     }
     //     this.setState({
-    //       tripData: res.body
+    //       tripData: res.data[0]
     //     })
     //   })
     //   .catch(err => console.log(err))
@@ -60,12 +59,19 @@ class TripSummary extends Component {
   
   
   componentWillReceiveProps(nextProps) {
-    //get confirmed friends, all places, tripInfo
-    console.log('received props', nextProps.match.params.tripId)
-  }
-  componentDidMount() {
-    //update every 10 seconds
-    //get confirmed friends, all places, this.props.match.params.tripId
+    // axiosRoutes.getTripData(nextProps.match.params.tripId)
+    //   .then((res) => {
+    //     if(res.data.userId === nextProps.userId) {
+    //       this.setState({
+    //         isTripCreator: true
+    //       })
+    //     }
+    //     this.setState({
+    //       tripData: res.data[0]
+    //     })
+    //   })
+    //   .catch(err => console.log(err))
+
   }
 
   handleEditButtonClick() {

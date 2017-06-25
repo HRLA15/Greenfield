@@ -32,12 +32,12 @@ class ActivityList extends Component {
   }
 
   componentWillMount() {
-    //make axios call using this.props.tripId to get all activities for a trip
-    //then set state
+    // make axios call using this.props.tripId to get all activities for a trip
+    // then set state
     // axiosRoutes.getTripActivities(this.props.tripId)
     //   .then((res) => {
     //     this.setState({
-    //       activityList: res.body
+    //       activityList: res.data
     //     })
     //   })
     //   .catch(err => console.log(err))
@@ -46,6 +46,19 @@ class ActivityList extends Component {
     this.setState({
       activityList: dummyData
     })
+  }
+
+  componentDidMount() {
+    // setInterval(() => {
+    //   axiosRoutes.getTripActivities(this.props.tripId)
+    //     .then((res) => {
+    //       this.setState({
+    //         activityList: res.data
+    //       })
+    //     })
+    //     .catch(err => console.log(err))
+    // }
+    // , 1000)
   }
 
   render() {

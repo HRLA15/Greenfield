@@ -31,10 +31,10 @@ export const makeMainRoutes = () => {
   let userId = null
   if(auth.isAuthenticated()) {
     postNewUser(localStorage.id_token)
-      .then((userInfo) => {
+      .then((res) => {
         getOneUser(localStorage.id_token)
-          .then((user) => {
-            userId = user.id
+          .then((res) => {
+            userId = res.data[0].id
           })
           .catch(err => console.log(err))
       })
