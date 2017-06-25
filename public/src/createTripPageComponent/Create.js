@@ -6,6 +6,7 @@ import axios from 'axios'
 import axiosRoutes from './CreateTripPageAxiosRoutes'
 import {Redirect} from 'react-router-dom'
 import {Button, Icon, Row, Input} from 'react-materialize'
+import FlatButton from 'material-ui/FlatButton'
 
 class Create extends Component {
   constructor(){
@@ -262,34 +263,36 @@ const { isAuthenticated } = this.props.auth;
 
           <div className="input field" style={{marginLeft: 30 + "px", marginTop: 30 + "px", marginRight: 30 + "px"}}>
             <Row>
-                <Input style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder="Trip Name" s={12} label="Trip Name" onChange={this.tripNameData}/>
-                <input id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder="Destination" s={12} label="Destination" onChange={this.handleFormSubmit}/>
-                <Input style={{fontSize: 15 + "px"}}placeholder="Description" s={12} label="Description" onChange={this.descriptionData}/>
+                <Input style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder="Trip Name" s={12} onChange={this.tripNameData}/>
+                <Input id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder="Destination" s={12} onChange={this.handleFormSubmit}/>
+                <Input style={{fontSize: 15 + "px"}}placeholder="Description" s={12} onChange={this.descriptionData}/>
             </Row>
           </div>
 
           <div id="bottomHalf" style={{marginLeft: 30 + "px", marginRight: 50 + "%"}}>
             {/*Dropdown calendars*/}
-            <span>From:</span>
-            <input style={{height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventFromDate}/>
-            <span> To:</span>
-            <input style={{height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventToDate}/>
+            <span style={{marginLeft: 2 + "%"}}>From:</span>
+            <input style={{marginLeft: 2 + "%", height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventFromDate}/>
+            <span style={{marginLeft: 2 + "%"}}> To:</span>
+            <input style={{marginLeft: 2 + "%",height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventToDate}/>
             <br></br>
+            <div id="invitedFriends">
+              <h4>Friends List</h4>
+              <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
+            </div> 
+
             
             {/*Invite friends pop up*/}
-            <button className="btn" onClick={this.inviteFriends}>Invite Friends</button>
+            <FlatButton label="Invite Friends" primary={true} onClick={this.inviteFriends}/>
             <br></br>
             
             {/*go to event page*/}
             
-              <button className="finalize" onClick = {this.finalize}>Finalize Trip</button>
+            <FlatButton label="Finalize Trip" primary={true} onClick = {this.finalize}/>
             
           </div>
 
           {/*Render Invited Friends*/}
-          <div id="invitedFriends">
-            <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
-          </div> 
 
 
       </div>
