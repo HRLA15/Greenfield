@@ -25,7 +25,10 @@ class ConfirmedFriends extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {open: false}
+    this.state = {
+      open: false,
+      friends: []
+    }
 
     this.handleToggle = this.handleToggle.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -34,9 +37,11 @@ class ConfirmedFriends extends Component {
   componentWillMount() {
     axiosRoutes.getTripFriendsList(this.props.tripId)
       .then((res) => {
-        this.setState({
-          friends: res.body
-        })
+        if(Array.isArray(res.data)) {
+          this.setState({
+            friends: res.data
+          })
+        }
       })
       .catch(err => console.log(err))
   }
@@ -45,13 +50,16 @@ class ConfirmedFriends extends Component {
     setTimeout(
       axiosRoutes.getTripFriendsList(this.props.tripId)
         .then((res) => {
-          this.setState({
-            friends: res.body
-          })
+          if(Array.isArray(res.data)) {
+            this.setState({
+              friends: res.data
+            })
+          }
         })
         .catch(err => console.log(err)),
       5000)
   }
+
   handleToggle() {
     this.setState({open: !this.state.open})
   }
