@@ -14,7 +14,7 @@ module.exports = {
   postUserProfileInfo: (req, res) => {
     console.log('this is req params', req.params)
     console.log('this is req body', req.body)
-    User.User.findOrCreate({where: {idToken: req.params.idToken}, 
+    User.User.findOrCreate({where: {id: req.params.userId}, 
       defaults: {
         firstName: req.body.firstName, 
         username: req.body.username,
@@ -40,7 +40,6 @@ module.exports = {
       })
   },
 
-
   postUserProfilePic: (req, res) => {
     User.User.findOrCreate({where: {id: req.params.userId}, defaults: {url: req.body.url}})
       .spread((user,created) => {
@@ -54,5 +53,18 @@ module.exports = {
             res.status(404).send(err);
           });
       });
-  };
+  },
+
+  postNewUser: (req, res) => {
+    User.User.findOrCreate({where: {idToken: req.params.idToken},
+      defaults: {
+        idToken: req.params.idToken,
+      }})
+        .spread((user, created) => {
+          res.status(202).send(user);
+        })
+        .catch(err => {
+          res.status(404).send(user);
+        })
+  }
 }
