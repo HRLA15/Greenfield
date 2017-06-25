@@ -35,40 +35,35 @@ class ActivityList extends Component {
   componentWillMount() {
     // make axios call using this.props.tripId to get all activities for a trip
     // then set state
-    // axiosRoutes.getTripActivities(this.props.tripId)
-    //   .then((res) => {
-    //     this.setState({
-    //       activityList: res.data
-    //     })
-    //   })
-    //   .catch(err => console.log(err))
-
-    //delete below and uncomment above once servers work
-    this.setState({
-      activityList: dummyData
-    })
+    axiosRoutes.getTripActivities(this.props.tripId)
+      .then((res) => {
+        this.setState({
+          activityList: res.data
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   componentDidMount() {
-    // setInterval(() => {
-    //   axiosRoutes.getTripActivities(this.props.tripId)
-    //     .then((res) => {
-    //       this.setState({
-    //         activityList: res.data
-    //       })
+    setInterval(() => {
+      axiosRoutes.getTripActivities(this.props.tripId)
+        .then((res) => {
+          this.setState({
+            activityList: res.data
+          })
 
-    //       let topActivitiesArr = []
+          let topActivitiesArr = []
 
-    //       if(res.data.length > 3) {
-    //         topActivitiesArr = res.data.slice(0,3)
-    //       } else {
-    //         topActivitiesArr = res.data.slice(0, res.data.length)
-    //       }
-    //       this.props.getTopActivities(topActivitiesArr)
-    //     })
-    //     .catch(err => console.log(err))
-    // }
-    // , 1000)
+          if(res.data.length > 3) {
+            topActivitiesArr = res.data.slice(0,3)
+          } else {
+            topActivitiesArr = res.data.slice(0, res.data.length)
+          }
+          this.props.getTopActivities(topActivitiesArr)
+        })
+        .catch(err => console.log(err))
+    }
+    , 1000)
   }
 
   handleVoteClick(activityId) {

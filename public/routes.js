@@ -32,6 +32,7 @@ export const makeMainRoutes = () => {
   if(auth.isAuthenticated()) {
     postNewUser(localStorage.id_token)
       .then((res) => {
+        console.log('the new user?!', res.data)
         getOneUser(localStorage.id_token)
           .then((res) => {
             userId = res.data[0].id

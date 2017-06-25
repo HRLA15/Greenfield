@@ -39,21 +39,23 @@ class PendingTrips extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pendingTrips: dummyData
+      pendingTrips: []
     }
 
     this.handleEntryClick = this.handleEntryClick.bind(this)
   }
 
   handleUpdate() {
-    // axiosRoutes.getUserPendingTrips(this.props.userId)
-    //   .then((res) => {
-    //     this.setState({
-    //       pendingTrips: res.data
-    //     })
-        
-    //   })
-    //   .catch(err => console.log(err))
+    axiosRoutes.getUserPendingTrips(this.props.userId)
+      .then((res) => {
+        if(Array.isArray(res.data)) {
+          this.setState({
+            pendingTrips: res.data
+          })
+        }
+        console.log('the call happened')
+      })
+      .catch(err => console.log(err))
   }
 
   handleEntryClick(pendingTripId) {

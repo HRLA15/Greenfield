@@ -32,30 +32,25 @@ class ConfirmedFriends extends Component {
   }
 
   componentWillMount() {
-    // axiosRoutes.getTripFriendsList(this.props.tripId)
-    //   .then((res) => {
-    //     this.setState({
-    //       friends: res.body
-    //     })
-    //   })
-    //   .catch(err => console.log(err))
-
-    //uncomment above and delete lines below once servers are set up
-    this.setState({
-      friends: dummyData
-    })
+    axiosRoutes.getTripFriendsList(this.props.tripId)
+      .then((res) => {
+        this.setState({
+          friends: res.body
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   componentDidMount() {
-    // setTimeout(
-    //   axiosRoutes.getTripFriendsList(this.props.tripId)
-    //     .then((res) => {
-    //       this.setState({
-    //         friends: res.body
-    //       })
-    //     })
-    //     .catch(err => console.log(err)),
-    //   5000)
+    setTimeout(
+      axiosRoutes.getTripFriendsList(this.props.tripId)
+        .then((res) => {
+          this.setState({
+            friends: res.body
+          })
+        })
+        .catch(err => console.log(err)),
+      5000)
   }
   handleToggle() {
     this.setState({open: !this.state.open})
