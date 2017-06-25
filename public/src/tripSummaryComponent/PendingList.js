@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PendingListEntry from './PendingListEntry'
-import confirmedFunList from './confirmedFunList'
 import ConfirmedHotelList from './ConfirmedHotelList'
 import ConfirmedRestaurantList from './ConfirmedRestaurantList'
 import ConfirmedFunList from './ConfirmedFunList'
+
 class PendingList extends React.Component{
   constructor(props){
     super(props);
@@ -86,7 +86,15 @@ class PendingList extends React.Component{
         </table>
 
 
-        <table>
+        <div>
+          {this.state.showConfirmedHotels? "Confirmed Hotel List:" : null}
+          {this.state.showConfirmedHotels?
+                <ConfirmedHotelList confirmedHotelList={this.state.confirmedHotelList}/>
+            :null
+            }
+        </div>
+
+        {/*<table>
           <thead>
             <tr>
               <td>{this.state.showConfirmedHotels? "Confirmed Hotel List:" : null}</td>
@@ -99,7 +107,7 @@ class PendingList extends React.Component{
             :null
             }
           </tbody>
-        </table>
+        </table>*/}
 
 
 

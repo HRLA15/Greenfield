@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PendingList from './PendingList'
-
+import {Grid, Row, Col, Image, Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap'
 class GoogleMap extends Component{
   constructor(props){
     super(props)
@@ -17,7 +17,8 @@ class GoogleMap extends Component{
     // this.initAutocomplete = this.initAutocomplete.bind(this);
     // this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleSelectionClick = this.handleSelectionClick.bind(this);
-    this.addToPending = this.addToPending.bind(this)
+    // this.addToPending = this.addToPending.bind(this)
+    this.handleAddToConfirmList=this.handleAddToConfirmList.bind(this)
   }
 
   componentDidMount(){
@@ -107,44 +108,73 @@ class GoogleMap extends Component{
     this.initialize();
   }
 
-  addToPending(){
-    var tempArray = this.state.pendingList;
-    tempArray.push(this.state.markerClicked);
+  // addToPending(){
+  //   var tempArray = this.state.pendingList;
+  //   tempArray.push(this.state.markerClicked);
 
-    this.setState({
-      pendingList:tempArray
-    })
-    // console.log('this is the pendingList after click', this.state.pendingList)
+  //   this.setState({
+  //     pendingList:tempArray
+  //   })
+  //   // console.log('this is the pendingList after click', this.state.pendingList)
+  // }
+
+
+  handleAddToConfirmList(type, markerClicked){
+    console.log("should add to type:", type);
+    console.log("the event that got pick is ", markerClicked)
+    
+
+    if(type =="hotel"){
+      //post request to 
+
+    }else{
+      
+    }
+
   }
+
+
+
 
   render(){
     return(
       <div>
-        <div id="map2" style={{width:700+"px", height:500+"px"}}></div>
-        <div>
-          Search for :
-          <button name="Hotels" value="hotel" onClick={() => {this.handleSelectionClick("hotel")}}>Hotels</button>
-          <button name="Restaurants" value="restaurant" onClick={() => {this.handleSelectionClick("restaurant")}}>Restaurants</button>
-          <button name="Store" value="store" onClick={() =>{this.handleSelectionClick("store")}}>Stores</button> 
-
-        </div>
-        <div>
-            {this.state.markerClicked.name}
-            <br></br>
-            {this.state.markerClicked.address}
-            <br></br>
-            <img src={this.state.markerClicked.photo}></img>
-            <br></br>
-            {this.state.markerClicked.showAddButton ? <button onClick={this.addToPending}>Add to PendingList</button> : null}
+        <Grid>
+          <Row>
+            <Col xs={12} md={6} id="map2" style={{width:500+"px", height:500+"px"}}></Col>
+            <Col xs={12} md={6}>
+                  
+                  <Image  width={400} height={400} src={this.state.markerClicked.photo} rounded></Image>
+                  <br></br>
+                  {this.state.markerClicked.name}
+                  <br></br>
+                  {this.state.markerClicked.address}
+                  <br></br>
+                  {this.state.markerClicked.showAddButton ? 
+                    <Button bsStyle="primary" onClick={()=>{this.handleAddToConfirmList(this.state.querySelection, this.state.markerClicked)}}>Add to Suggestions</Button> 
+                    : null
+                  }
+            </Col>
+          </Row>
+          <Row md={6}>
+            <Col xs={12} md={6}>
             
-        </div>
+            <h1>Search for :</h1>
+            <Button bsStyle="info" name="Hotels" value="hotel" onClick={() => {this.handleSelectionClick("hotel")}}>Hotels</Button>
+            <Button bsStyle="info" name="Restaurants" value="restaurant" onClick={() => {this.handleSelectionClick("restaurant")}}>Restaurants</Button>
+            <Button bsStyle="info" name="Store" value="store" onClick={() =>{this.handleSelectionClick("store")}}>Stores</Button> 
+            </Col>
+          </Row>
+        </Grid>
+        
+        <div>
         {this.state.pendingList.length > 0 ? 
           <PendingList queryType={this.state.querySelection} 
-                       pendingList={this.state.pendingList}
+                      pendingList={this.state.pendingList}
           /> 
           : null
         }
-        
+        </div>
       </div>
     )
   }
