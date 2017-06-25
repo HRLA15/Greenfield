@@ -96,7 +96,7 @@ const User = db.define('user',{
     allowNull: true,
   },
   idToken: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false,
   },
   url: {
