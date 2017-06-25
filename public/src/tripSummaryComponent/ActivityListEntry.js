@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-const ActivityListEntry = ({activity}) => (
+const ActivityListEntry = ({activity, handleVoteClick}) => (
   <tr>
-    <td>{activity.name}</td>
+    <td onClick={() => (handleVoteClick(activity.id))}>{activity.name}</td>
   </tr>
 )
 

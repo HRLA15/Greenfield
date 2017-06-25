@@ -27,13 +27,17 @@ class TripSummary extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isTripCreator: false,
+      isTripCreator: true,
       tripData: {},
       pendingList :[],
       querySelection:'',
+      topHotel: {},
+      topActivities: []
     }
     this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
-    this.handleAddToPending = this.handleAddToPending.bind(this);
+    this.handleAddToPending = this.handleAddToPending.bind(this)
+    this.getTopHotel = this.getTopHotel.bind(this)
+    this.getTopActivities = this.getTopActivities.bind(this)
   }
 
   componentWillMount() {
@@ -57,7 +61,10 @@ class TripSummary extends Component {
     console.log('Mounted trip id is ', this.props.match.params.tripId)
   }
   
-  
+  goTo(route) {
+    this.props.history.replace(`/${route}`)
+  }
+
   componentWillReceiveProps(nextProps) {
     // axiosRoutes.getTripData(nextProps.match.params.tripId)
     //   .then((res) => {
@@ -78,12 +85,25 @@ class TripSummary extends Component {
     //<Link to={`/create/${tripId}`}></Link>
     //props.match.params.tripId
     // using router /create/:tripId
+    this.goTo.call(this, `edit/${this.state.tripData.id}`)
     console.log('LINK BACK TO THE CREATE PAGE')
   }
+
   handleAddToPending(){
     this.state.pendingList.push(this.state.hotelClicked);
   }
 
+  getTopHotel(topHotel) {
+    this.setState({
+      topHotel: topHotel
+    })
+  }
+
+  getTopActivities(topActivitiesArr) {
+    this.setState({
+      topActivities: topActivitiesArr
+    })
+  }
 
   render() {    
     
@@ -108,14 +128,30 @@ class TripSummary extends Component {
         <h1>{this.state.tripData.title}</h1>
         <h4>{`Start Date: ${this.state.tripData.startDate} End Date: ${this.state.tripData.endDate}`}</h4>
         <p>{this.state.tripData.destination}</p>
-        <GoogleMap  handleSelectionClick={this.handleSelectionClick}
-                    querySelection={this.state.querySelection ? this.state.querySelection : "hotel"}
+        <GoogleMap
+          tripId={this.state.tripData.id}
+          handleSelectionClick={this.handleSelectionClick}
+          querySelection={this.state.querySelection ? this.state.querySelection : "hotel"}
                    />
       
       {editButton}
-      <ConfirmedFriends tripId={this.state.tripData.id} />
-      <ActivityList tripId={this.state.tripData.id} />
-      <NearbyHotels tripId={this.state.tripData.id} />
+      <ConfirmedFriends 
+        tripId={this.state.tripData.id} 
+        topHotel={this.state.topHotel}
+        topActivities={this.state.topActivities}
+      />
+      <ActivityList 
+        tripId={this.state.tripData.id}
+        userId={this.props.userId}
+        creatorId={this.state.tripData.userId}
+        getTopActivities={this.getTopActivities}
+      />
+      <NearbyHotels
+        tripId={this.state.tripData.id}
+        userId={this.props.userId}
+        creatorId={this.state.tripData.userId}
+        getTopHotel={this.getTopHotel}
+      />
       
 
       </div>

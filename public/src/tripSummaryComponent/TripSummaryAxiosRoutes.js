@@ -22,39 +22,22 @@ module.exports = {
     axios.post(`http://localhost:3000/postTripActivity/${tripId}`, {
       name: activityInfo.name,
       address: activityInfo.address,
-      url: activityInfo.url,
-      longitude: activityInfo.longitude,
-      latitude: activityInfo.latitude
+      url: activityInfo.photo,
     })
-  ),
-  deleteTripActivity: (activityId) => (
-    //should be able to delete activity given the activity id
-    axios.delete(`http://localhost:3000/deleteTripActivity/${activityId}`)
   ),
   postTripHotel: (tripId, hotelInfo) => (
     //should post one activity to match with the given tripId
     axios.post(`http://localhost:3000/postTripHotel/${tripId}`, {
       name: hotelInfo.name,
       address: hotelInfo.address,
-      latitude: hotelInfo.latitude,
-      longitude: hotelInfo.longitude
+      url: hotelInfo.photo
     })
   ),
-  deleteTripHotel: (hotelId) => (
-    //should be able to delete activity given the activity id
-    axios.delete(`http://localhost:3000/deleteTripHotel/${hotelId}`)
-  ),
-  addVoteToHotel: (hotelId, userId) => (
+  addVoteToHotel: (hotelId, userId, creatorId) => (
     axios.post(`http://localhost:3000/addVoteToHotel/${hotelId}/${userId}/${creatorId}`)
   ),
-  addVoteToActivity: (activityId, userId) => (
+  addVoteToActivity: (activityId, userId, creatorId) => (
     axios.post(`http://localhost:3000/addVoteToHotel/${activityId}/${userId}/${creatorId}`)
-  ),
-  getTopFiveHotels: (tripId) => (
-    axios.get(`http://localhost:3000/getTopFiveHotels/${tripId}`)
-  ),
-  getTopFiveActivities: (tripId) => (
-    axios.get(`http://localhost:3000/getTopFiveActivities/${tripId}`)
   ),
   deleteUserPendingTrip: (userId, tripId) => (
   //should remove pendingTripObj from pendingTrip table given the tripId

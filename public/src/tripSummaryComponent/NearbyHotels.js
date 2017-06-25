@@ -24,6 +24,8 @@ class NearbyHotels extends Component {
   
   constructor(props) {
     super(props)
+
+    this.handleVoteClick = this.handleVoteClick.bind(this)
   }
 
   componentWillMount() {
@@ -51,10 +53,21 @@ class NearbyHotels extends Component {
     //       this.setState({
     //         hotels: res.data
     //       })
+    //       let topHotel = res.data.shift()
+    //       this.props.getTopHotel(topHotel)
     //     })
     //     .catch(err => console.log(err))
     // }
     // , 1000)
+  }
+  handleVoteClick(hotelId) {
+    console.log('you voted')
+    axiosRoutes.addVoteToHotel(hotelId, this.props.userId, this.props.creatorId)
+      .then((res) => {
+        alert('Thanks for Voting!')
+        console.log(res.data)
+      })
+      .catch(err => console.log(err))
   }
 
   render() {
@@ -69,7 +82,10 @@ class NearbyHotels extends Component {
         <tbody>
           {
             this.state.hotels.map((hotel) => (
-              <NearbyHotelsEntry hotelObj={hotel} />
+              <NearbyHotelsEntry 
+                hotelObj={hotel} 
+                handleVoteClick={this.handleVoteClick}
+              />
             ))
           }
         </tbody>

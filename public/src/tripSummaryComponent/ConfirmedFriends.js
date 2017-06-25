@@ -20,6 +20,7 @@ const dummyData = [
   }
 ]
 // will have tripId passed into props
+// and has top hotel obj and top activities array passed in
 class ConfirmedFriends extends Component {
 
   constructor(props) {

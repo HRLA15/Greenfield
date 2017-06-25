@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PendingList from './PendingList'
 import {Grid, Row, Col, Image, Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap'
+import axiosRoutes from './TripSummaryAxiosRoutes'
 class GoogleMap extends Component{
   constructor(props){
     super(props)
@@ -120,15 +121,20 @@ class GoogleMap extends Component{
 
 
   handleAddToConfirmList(type, markerClicked){
-    console.log("should add to type:", type);
-    console.log("the event that got pick is ", markerClicked)
     
-
     if(type =="hotel"){
       //post request to 
-
+      axiosRoutes.postTripHotel(this.props.tripId, markerClicked)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch(err => console.log(err))
     }else{
-      
+      axiosRoutes.postTripActivity(this.props.tripId, markerClicked)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch(err => console.log(err))
     }
 
   }
