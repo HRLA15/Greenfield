@@ -6,9 +6,9 @@ const userTripController = require('../controllers/userTripController')
 router.get('/getAllUserTrips/:userId', userTripController.getAllUserTrips);
 
 // add the trip that the user has created -- trip can only be created once and only by one person
-router.post('/postUserTrip/:userId/:tripId', userTripController.postUserTrip);
+router.post('/postUserTrip/:userId', userTripController.postUserTrip);
 
-// get the completed trip for user
+// get the completed trip for user.... if the end date of the trip already has ended when they created the trip
 router.get('/getCompletedUserTrip/:userId', userTripController.getCompletedTrips);
 
 // get friend completed trip
