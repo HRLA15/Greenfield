@@ -58,17 +58,21 @@ class UserHome extends Component {
     // }
 
     return (
+      <div>
       <div style={{display: 'flex', flexDirection: 'row'}}>
+<<<<<<< HEAD
         <div style={{flexGrow: 5, flexShrink: 5}}>
         <UserUpcomingTripsList redirect={this.goTo.bind(this)}/>
+=======
+        <div style={{flexGrow: 1, flexShrink: 1}}>
+        <UserUpcomingTripsList />
+>>>>>>> "Updated user profile page"
         <UserPreviousTripsList />
         </div>
         <div style={{flexGrow: 1, flexShrink: 1}}>
         <UserSideBar />
         </div>
-        <Link to ="/create">
-        <button className="test">Create</button>
-        </Link>
+      </div>
       </div>
     )
   }
