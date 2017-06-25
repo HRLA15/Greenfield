@@ -55,7 +55,7 @@ const styles = {
     opacity: 0.7
   },
   gridList: {
-    width: 90 + "%",
+    width: 100 + "%",
     height: 100 + "%",
     overflowY: 'auto',
   },
@@ -108,7 +108,7 @@ class UserPreviousTripsList extends Component {
     <div style={styles.root}>
     <GridList
       cols={1}
-      cellHeight={80}
+      cellHeight={100}
       style={styles.gridList}
     >
       <Subheader style={{fontSize: 30 + "px", textAlign: "left"}}>Previous Trips</Subheader>

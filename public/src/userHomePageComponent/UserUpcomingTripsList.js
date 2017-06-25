@@ -59,10 +59,10 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    width: 90 + "%",
+    // marginTop: 20 + "px",
+    width: 100 + "%",
     height: 100 + "%",
     overflowY: 'auto',
-    flexGrow: 2
   },
 };
 
@@ -109,7 +109,7 @@ class UserUpcomingTripsList extends Component {
     <div style={styles.root}>
     <GridList
       cols={1}
-      cellHeight={150}
+      cellHeight={175}
       style={styles.gridList}
     >
       <Subheader style={{fontSize: 30 + "px", textAlign: "left"}}>Upcoming Trips</Subheader>
@@ -130,7 +130,7 @@ class UserUpcomingTripsList extends Component {
           {/*<IconButton style ={{marginTop: 5 + "%"}} onClick={()=>{console.log("clicked nigga")}}><Input color="white" /></IconButton>*/}
           </div>
           }
-          cols={tile.fearued ? 1:1}
+
           >
           <img src={tile.img} />
         </GridTile>
