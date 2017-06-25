@@ -52,7 +52,7 @@ const styles = {
     flexWrap: 'wrap',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    opacity: 0.5
+    opacity: 0.7
   },
   gridList: {
     width: 90 + "%",

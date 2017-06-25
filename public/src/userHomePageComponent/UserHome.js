@@ -70,17 +70,20 @@ class UserHome extends Component {
     // }
 
     return (
+      <div>
       <div style={{display: 'flex', flexDirection: 'row'}}>
         <div style={{flexGrow: 5, flexShrink: 5}}>
         <UserUpcomingTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
         <UserPreviousTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
+        <UserUpcomingTripsList redirect={this.goTo.bind(this)}/>
+        <div style={{flexGrow: 1, flexShrink: 1}}>
+        <UserUpcomingTripsList />
+        <UserPreviousTripsList />
         </div>
         <div style={{flexGrow: 1, flexShrink: 1}}>
         <UserSideBar />
         </div>
-        <Link to ="/create">
-        <button className="test">Create</button>
-        </Link>
+      </div>
       </div>
     )
   }
