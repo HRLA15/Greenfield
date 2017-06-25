@@ -76,8 +76,8 @@ class TripSummary extends Component {
   }
   handleAddToPending(){
     this.state.pendingList.push(this.state.hotelClicked);
-    
   }
+
 
   render() {    
     
@@ -99,17 +99,19 @@ class TripSummary extends Component {
 
     return (
       <div>
-        <GoogleMap  handleSelectionClick={this.handleSelectionClick}
-                    querySelection={this.state.querySelection ? this.state.querySelection : "hotel"}
-                   />
         <h1>{this.state.tripData.title}</h1>
         <h4>{`Start Date: ${this.state.tripData.startDate} End Date: ${this.state.tripData.endDate}`}</h4>
         <p>{this.state.tripData.destination}</p>
+        <GoogleMap  handleSelectionClick={this.handleSelectionClick}
+                    querySelection={this.state.querySelection ? this.state.querySelection : "hotel"}
+                   />
       
       {editButton}
       <ConfirmedFriends tripId={this.state.tripData.id} />
       <ActivityList tripId={this.state.tripData.id} />
       <NearbyHotels tripId={this.state.tripData.id} />
+      
+
       </div>
     )
 
