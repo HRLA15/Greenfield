@@ -15,7 +15,8 @@ class PendingList extends React.Component{
       showConfirmedFuns:false,
       confirmedHotelList:[],
       confirmedRestaurantList:[],
-      confirmedFunList:[]
+      confirmedFunList:[],
+      showConfirmButton:true,
     }
 
     this.handleListEntryClick = this.handleListEntryClick.bind(this);
@@ -30,27 +31,31 @@ class PendingList extends React.Component{
   handleAddToConfirmList(type, event){
     console.log("should add to type:", type);
     console.log("the event that got pick is ", event)
+    
 
     if(type =="hotel"){
       var tempHotelList = this.state.confirmedHotelList
       tempHotelList.push(event)
       this.setState({
         showConfirmedHotels:true,
-        confirmedHotelList:tempHotelList
+        confirmedHotelList:tempHotelList,
+        showConfirmButton : !this.state.showConfirmButton
       })
     }else if(type =="restaurant"){
       var tempRestaurantList = this.state.confirmedRestaurantList
       tempRestaurantList.push(event)
       this.setState({
         showConfirmedRestaurants:true,
-        confirmedRestaurantList:tempRestaurantList
+        confirmedRestaurantList:tempRestaurantList,
+        showConfirmButton:!this.state.showConfirmButton
       })
     }else{
       var tempFunList = this.state.confirmedFunList
       tempFunList.push(event)
       this.setState({
         showConfirmedFuns:true,
-        confirmedFunList:tempFunList
+        confirmedFunList:tempFunList,
+        showConfirmButton:!this.state.showConfirmButton
       })
     }
 
