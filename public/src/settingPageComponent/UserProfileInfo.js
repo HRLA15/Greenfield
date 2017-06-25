@@ -1,4 +1,22 @@
 import React, { Component } from 'react'
+import TextField from 'material-ui/TextField'
+import {orange500, blue500} from 'material-ui/styles/colors'
+import FlatButton from 'material-ui/FlatButton'
+
+const textFieldStyles = {
+  errorStyle: {
+    color: orange500,
+  },
+  underlineStyle: {
+    borderColor: orange500,
+  },
+  floatingLabelStyle: {
+    color: orange500,
+  },
+  floatingLabelFocusStyle: {
+    color: blue500,
+  },
+}
 
 class UserProfileInfo extends Component {
   constructor(props) {
@@ -79,14 +97,39 @@ class UserProfileInfo extends Component {
           this.props.handleCancelClick()
         }}>Cancel</button>
       </form>
+      
       )
     } else {
       display = (
-      <div>
-        <textarea rows="4" cols="50" readOnly>
+      <div style={{marginLeft: 20 + "px"}}>
+        <TextField
+          defaultValue= {this.props.userInfo.username}
+          hintText="Username"
+          floatingLabelText="Username"
+          floatingLabelFixed={true}
+        /><br />
+        <TextField
+          defaultValue= {this.props.userInfo.firstName}
+          hintText="First Name"
+          floatingLabelText="First Name"
+          floatingLabelFixed={true}
+        /><br />
+        <TextField
+          defaultValue= {this.props.userInfo.lastName}
+          hintText="Last Name"
+          floatingLabelText="Last Name"
+          floatingLabelFixed={true}
+        /><br />
+        <TextField
+          defaultValue= {this.props.userInfo.email}
+          hintText="Email"
+          floatingLabelText="Email"
+          floatingLabelFixed={true}
+        /><br />
+        {/*<textarea rows="4" cols="50" readOnly>
           {`Username: ${this.props.userInfo.username}\nFirst Name: ${this.props.userInfo.firstName}\nLastName: ${this.props.userInfo.lastName}\nEmail: ${this.props.userInfo.email}`}
-        </textarea>
-        <button onClick={this.props.handleEditClick}>Edit</button>
+        </textarea>*/}
+        <FlatButton label="Edit" primary={true} onClick={this.props.handleEditClick}/>
       </div>
       )
     }
