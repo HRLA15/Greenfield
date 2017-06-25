@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem'
 import FlatButton from 'material-ui/FlatButton'
 import ActionHome from 'material-ui/svg-icons/action/home'
 import {blue500, red500, greenA200} from 'material-ui/styles/colors'
-import Earth from 'material-ui/svg-icons/social/public'
+import Flight from 'material-ui/svg-icons/device/airplanemode-active'
 import PendingTrips from './UserPendingTripsList'
 
 
@@ -81,7 +81,7 @@ class Navbar extends Component {
           }>TRIP PLANNER</span>}
           titleStyle={{textAlign: "center"}}
           iconElementRight={isAuthenticated() ? <Logged goTo={this.goTo.bind(this)} logout={this.logout.bind(this)}/> : <Login login={this.login.bind(this)}/>}
-          iconElementLeft={isAuthenticated() ? <PendingTrips userId={this.props.userId} router={this.goTo.bind(this)}/> : <Earth color="green"/>}
+          iconElementLeft={isAuthenticated() ? <PendingTrips userId={this.props.userId} router={this.goTo.bind(this)}/> : <Flight/>}
           style={appBarStyle}
         />
       </div>

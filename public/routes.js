@@ -11,7 +11,7 @@ import Landing from './src/LandingPage'
 import Navbar from './src/navbarComponent/Navbar'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import axiosGetOneUser from './src/userHomePageComponent/UserHomeAxiosRoutes'
+import { getOneUser, postNewUser } from './src/userHomePageComponent/UserHomeAxiosRoutes'
 import Settings from './src/settingPageComponent/UserProfile'
 
 const auth = new Auth();
@@ -30,12 +30,15 @@ export const makeMainRoutes = () => {
   injectTapEventPlugin()
   let userId = null
   if(auth.isAuthenticated()) {
-    // axiosGetOneUser(localStorage.id_token)
-    //   .then((userInfo) => {
-    //     userId = userInfo.id
-    //   })
-    //   .catch(err => console.log(err))
-    userId = 1
+    postNewUser(localStorage.id_token)
+      .then((userInfo) => {
+        getOneUser(localStorage.id_token)
+          .then((user) => {
+            userId = user.id
+          })
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
   }
 
   return (
