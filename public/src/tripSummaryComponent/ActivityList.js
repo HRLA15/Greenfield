@@ -28,7 +28,8 @@ class ActivityList extends Component {
 
   constructor(props) {
     super(props)
-
+  
+    this.handleVoteClick = this.handleVoteClick.bind(this)
   }
 
   componentWillMount() {
@@ -55,10 +56,29 @@ class ActivityList extends Component {
     //       this.setState({
     //         activityList: res.data
     //       })
+
+    //       let topActivitiesArr = []
+
+    //       if(res.data.length > 3) {
+    //         topActivitiesArr = res.data.slice(0,3)
+    //       } else {
+    //         topActivitiesArr = res.data.slice(0, res.data.length)
+    //       }
+    //       this.props.getTopActivities(topActivitiesArr)
     //     })
     //     .catch(err => console.log(err))
     // }
     // , 1000)
+  }
+
+  handleVoteClick(activityId) {
+    console.log('you voted')
+    axiosRoutes.addVoteToHotel(activityId, this.props.userId, this.props.creatorId)
+      .then((res) => {
+        alert('Thanks for Voting!')
+        console.log(res.data)
+      })
+      .catch(err => console.log(err))
   }
 
   render() {
@@ -73,7 +93,7 @@ class ActivityList extends Component {
           <tbody>
             {
               this.state.activityList.map((activity) => (
-                <ActivityListEntry activity={activity} />
+                <ActivityListEntry activity={activity} handleVoteClick={this.handleVoteClick}/>
               ))
             }
           </tbody>

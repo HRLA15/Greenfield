@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-const NearbyHotelsEntry = ({hotelObj}) => (
+const NearbyHotelsEntry = ({hotelObj, handleVoteClick}) => (
   <tr>
-    <td><a href={hotelObj.website} target="_blank">{`Hotel Name: ${hotelObj.hotelName}`}</a> </td>
+    <td onClick={() => (handleVoteClick(hotelObj.id))}>{hotelObj.hotelName}</td>
   </tr>
 )
 

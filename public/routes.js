@@ -55,6 +55,7 @@ export const makeMainRoutes = () => {
           <Route path="/create" render={(props) => <Create auth={auth} userId={userId} {...props}/>}/>
           <Route path="/event/:tripId" render={(props) => <Event auth={auth} userId={userId} {...props}/>}/>
           <Route path="/settings" render={(props) => <Settings auth={auth} userId={userId} {...props}/>}/>
+          <Route path="/edit/:tripId" render={(props) => <Create auth={auth} userId={userId} {...props}/>}/>
           {/*<Route path="/event" render={(props) => <Event auth={auth} {...props}/>}/>*/}
        
         </div>
