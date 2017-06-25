@@ -3,6 +3,7 @@ const userController = require('../controllers/userController');
 
 // get the user by auth0 token
 router.get('/getOneUser/:idToken', userController.getOneUser)
+
 // add user profile pic/ update if he has already created a useraccount
 router.post('/postUserProfilePic/:userId', userController.postUserProfilePic)
 
