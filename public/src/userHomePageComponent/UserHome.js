@@ -60,13 +60,8 @@ class UserHome extends Component {
     return (
       <div>
       <div style={{display: 'flex', flexDirection: 'row'}}>
-<<<<<<< HEAD
-        <div style={{flexGrow: 5, flexShrink: 5}}>
-        <UserUpcomingTripsList redirect={this.goTo.bind(this)}/>
-=======
-        <div style={{flexGrow: 1, flexShrink: 1}}>
+        <div style={{flexGrow: 2, flexShrink: 3}}>
         <UserUpcomingTripsList />
->>>>>>> "Updated user profile page"
         <UserPreviousTripsList />
         </div>
         <div style={{flexGrow: 1, flexShrink: 1}}>
