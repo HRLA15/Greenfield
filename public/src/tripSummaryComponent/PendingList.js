@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PendingListEntry from './PendingListEntry'
-import confirmedFunList from './confirmedFunList'
 import ConfirmedHotelList from './ConfirmedHotelList'
 import ConfirmedRestaurantList from './ConfirmedRestaurantList'
 import ConfirmedFunList from './ConfirmedFunList'
