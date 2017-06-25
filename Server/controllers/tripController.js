@@ -214,8 +214,6 @@ module.exports = {
 
   sumOfVoteHotel: (req, res) => {
     Trip.Hotel.findAll({
-//  [sequelize.fn('SUM', (sequelize.fn('COALESCE', (sequelize.col('base_income')), 0), sequelize.literal('+'), sequelize.fn('COALESCE', (sequelize.col('user_taxes')), 0))), 'total_sal']],
-
       attributes: ['name', 'url' , 'address', [Sequelize.fn('SUM', (Sequelize.fn('COALESCE', (Sequelize.col('hotelvotes.vote')),0))), 'count']],
       order: [Sequelize.literal('count DESC NULLS LAST')],
       include: [{
