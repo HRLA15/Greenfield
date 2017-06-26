@@ -15,10 +15,14 @@ export default class Auth {
       responseType: 'token id_token',
       scope: 'openid'
     });
+    this.state = {
+      sub: {}
+    }
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
+    this.getUserInfo = this.getUserInfo.bind(this)
   }
 
   login() {
@@ -32,13 +36,16 @@ export default class Auth {
         this.setSession(authResult);
         history.replace('/home');
       } else if (err) {
-        history.replace('/home');
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }
 
+  getUserInfo() {
+    return this.service
+  }
+  
   setSession(authResult) {
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());

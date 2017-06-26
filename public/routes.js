@@ -29,34 +29,39 @@ let handleCreateInputToEvent = ()=>{
 export const makeMainRoutes = () => {
   injectTapEventPlugin()
   let userId = null
+
   if(auth.isAuthenticated()) {
-    postNewUser(localStorage.id_token)
+    auth.getUserInfo().client.userInfo(localStorage.access_token, function (err, user) {
+      userId = user.sub
+      postNewUser(user.sub)
       .then((res) => {
         console.log('the new user?!', res.data)
-        getOneUser(localStorage.id_token)
+        getOneUser(user.sub)
           .then((res) => {
-            userId = res.data[0].id
+            console.log('get one user?!', res.data)
+            localStorage.setItem('userId', res.data[0].id)
           })
           .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
+    })
   }
-
+  
   return (
       <BrowserRouter history={history}>
         <MuiThemeProvider>
         <div>
-          <Route path="/" render={(props) => <Navbar auth={auth} userId={userId} {...props} />} />
+          <Route path="/" render={(props) => <Navbar auth={auth} userId={localStorage.userId} {...props} />} />
           <Route exact={true} path="/" component={Landing}/>
-          <Route path="/home" render={(props) => <Home auth={auth} userId={userId} {...props} />} />
+          <Route path="/home" render={(props) => <Home auth={auth} userId={localStorage.userId} {...props} />} />
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
-            return <Home auth={auth} userId={userId} {...props} /> 
+            return <Home auth={auth} userId={localStorage.userId} {...props} /> 
           }}/>
-          <Route path="/create" render={(props) => <Create auth={auth} userId={userId} {...props}/>}/>
-          <Route path="/event/:tripId" render={(props) => <Event auth={auth} userId={userId} {...props}/>}/>
-          <Route path="/settings" render={(props) => <Settings auth={auth} userId={userId} {...props}/>}/>
-          <Route path="/edit/:tripId" render={(props) => <Create auth={auth} userId={userId} {...props}/>}/>
+          <Route path="/create" render={(props) => <Create auth={auth} userId={localStorage.userId} {...props}/>}/>
+          <Route path="/event/:tripId" render={(props) => <Event auth={auth} userId={localStorage.userId} {...props}/>}/>
+          <Route path="/settings" render={(props) => <Settings auth={auth} userId={localStorage.userId} {...props}/>}/>
+          <Route path="/edit/:tripId" render={(props) => <Create auth={auth} userId={localStorage.userId} {...props}/>}/>
           {/*<Route path="/event" render={(props) => <Event auth={auth} {...props}/>}/>*/}
        
         </div>

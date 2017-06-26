@@ -62,7 +62,9 @@ class Create extends Component {
   //   }
   // }
 componentWillMount() {
-  console.log('MOUNTED CREATE')
+  console.log('user id is', this.props.userId)
+  console.log(this.props.location.pathname)
+  
 }
 
 componentDidMount() {
@@ -133,11 +135,11 @@ componentDidMount() {
       endDate: this.state.toDate
     }
     //post request to database
-    axiosRoutes.postTripInfo(tripInfo)
+    axiosRoutes.postTripInfo(tripInfo, this.props.userId)
       .then((res) => {
         axiosRoutes.postInvitedFriends
         //using the new trip info we will redirect them from here
-        this.goTo.call(this, res.body.id)
+        this.goTo.call(this, res.data.id)
 
         console.log(res.body)
       })
