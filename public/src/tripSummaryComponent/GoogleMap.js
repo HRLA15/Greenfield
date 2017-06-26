@@ -137,19 +137,20 @@ class GoogleMap extends Component{
 
 
   handleAddToConfirmList(type, markerClicked){
-    
     if(type =="hotel"){
       //post request to
       console.log(markerClicked)
       axiosRoutes.postTripHotel(this.props.tripId, markerClicked)
         .then((res) => {
           console.log(res)
+          this.props.toggleHandler()
         })
         .catch(err => console.log(err))
     }else{
       axiosRoutes.postTripActivity(this.props.tripId, markerClicked)
         .then((res) => {
           console.log(res)
+          this.props.toggleHandler()
         })
         .catch(err => console.log(err))
     }
@@ -161,7 +162,6 @@ class GoogleMap extends Component{
 
   render(){
     // this.initialize();
-    console.log('these are the props line 154 in googlemap ', this.props)
     // var obj = {lat: this.props.tripLat, lng: this.props.tripLng}
     // this.setState({ searchedLocation: Object.assign(this.state.searchedLocation, obj )})
     return(

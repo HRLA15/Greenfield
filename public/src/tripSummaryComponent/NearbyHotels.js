@@ -58,50 +58,51 @@ class NearbyHotels extends Component {
 
     this.handleVoteClick = this.handleVoteClick.bind(this)
   }
+  
+  componentWillReceiveProps(nextProps) {
 
-  // componentWillMount() {
-  //   //make axios call to get all the hotels for a give trip id or
-  //   // use google place call to get all hotels near the location
-  //   //set state using the data
-  //   console.log('nearby hotel props', this.props)
-  //   axiosRoutes.getTripNearbyHotels(this.props.tripId)
-  //     .then((res) => {
-  //       if(Array.isArray(res.data)) {
-  //         console.log('gaygaygay')
-  //         this.setState({
-  //           hotels: res.data
-  //         })
-  //       }
-  //     })
-  //     .catch(err => console.log(err))
-    
-  // }
+        if(nextProps.toggle !== this.state.toggle) {
+
+          this.setState({
+            toggle: nextProps.toggle
+          })
+
+          axiosRoutes.getTopFiveHotels(this.props.tripId)
+            .then((res) => {
+              if(Array.isArray(res.data)) {
+                let topHotelArr = []
+
+                if(res.data.length > 3) {
+                  topHotelArr = res.data.slice(0,3)
+                } else {
+                  topHotelArr = res.data.slice(0, res.data.length)
+                }
+                this.props.getTopHotel(topHotelArr)
+              }
+            })
+            .catch(err => console.log(err))
+
+          axiosRoutes.getTripNearbyHotels(this.props.tripId)
+            .then((res) => {
+              if(Array.isArray(res.data[0].hotels)) {
+                this.setState({
+                  hotels: res.data[0].hotels
+                })
+              }
+            })
+            .catch(err => console.log(err))
+        }
+  }
 
   componentDidMount() {
-    const interval = setInterval(() => {
-      axiosRoutes.getTripNearbyHotels(this.props.tripId)
-        .then((res) => {
-          console.log('we in here')
-          if(Array.isArray(res.data)) {
-            console.log('is an arr res.data', res.data[0].hotels)
-            this.setState({
-              hotels: res.data[0].hotels
-            })
-            let topHotel = res.data.shift()
-            this.props.getTopHotel(topHotel)
-          }
-        })
-        .catch(err => console.log(err))
-    }
-    , 1000)
-    this.setState({
-      interval: interval
-    })
+      this.setState({
+        toggle: !this.props.toggle
+      })
   }
 
-  componentWillUnmount() {
-    clearInterval(this.state.interval)
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.state.interval)
+  // }
 
   handleVoteClick(hotelId) {
     console.log('you voted')

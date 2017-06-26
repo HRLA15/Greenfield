@@ -13,6 +13,12 @@ module.exports = {
     //should return array of hotel obj for a given tripId
     axios.get(`http://localhost:3000/getTripNearbyHotels/${tripId}`)
   ),
+  getTopFiveHotels: (tripId) => (
+    axios.get(`http://localhost:3000/getTopFiveHotels/${tripId}`)
+  ),
+  getTopFiveActivities: (tripId) => (
+    axios.get(`http://localhost:3000/getTopFiveActivities/${tripId}`)
+  ),
   getTripActivities: (tripId) => (
     //should return array of activityo obj for a given tripId
     axios.get(`http://localhost:3000/getTripActivities/${tripId}`)

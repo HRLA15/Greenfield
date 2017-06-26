@@ -31,7 +31,7 @@ class TripSummary extends Component {
       tripData: {},
       pendingList :[],
       querySelection:'',
-      topHotel: {},
+      topHotel: [],
       topActivities: [],
       toggle: false
     }
@@ -39,6 +39,7 @@ class TripSummary extends Component {
     this.handleAddToPending = this.handleAddToPending.bind(this)
     this.getTopHotel = this.getTopHotel.bind(this)
     this.getTopActivities = this.getTopActivities.bind(this)
+    this.toggleHandler = this.toggleHandler.bind(this)
   }
 
   componentDidMount() {
@@ -60,10 +61,14 @@ class TripSummary extends Component {
       this.setState({
         toggle: !this.state.toggle
         })
-    }, 2000)
+    }, 1000)
   
   }
-  
+  toggleHandler() {
+    this.setState({
+      toggle: !this.state.toggle
+    })
+  }
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
@@ -85,20 +90,19 @@ class TripSummary extends Component {
   }
 
   handleEditButtonClick() {
-    //<Link to={`/create/${tripId}`}></Link>
-    //props.match.params.tripId
-    // using router /create/:tripId
     this.goTo.call(this, `edit/${this.state.tripData.id}`)
-    console.log('LINK BACK TO THE CREATE PAGE')
   }
 
   handleAddToPending(){
     this.state.pendingList.push(this.state.hotelClicked);
   }
 
-  getTopHotel(topHotel) {
+  getTopHotel(topHotelArr) {
+    console.log('top hotels', topHotelArr)
+    console.log(topHotelArr)
+    
     this.setState({
-      topHotel: topHotel
+      topHotel: topHotelArr
     })
   }
 
@@ -132,6 +136,7 @@ class TripSummary extends Component {
         <p>{this.state.tripData.destination}</p>
         <GoogleMap
           tripId={this.props.match.params.tripId}
+          toggleHandler={this.toggleHandler}
         />
       
       {editButton}
@@ -141,6 +146,7 @@ class TripSummary extends Component {
         topHotel={this.state.topHotel}
         topActivities={this.state.topActivities}
         toggle={this.state.toggle}
+        toggleHandler={this.toggleHandler}
       />
       <ActivityList 
         tripId={this.state.tripData.id}
