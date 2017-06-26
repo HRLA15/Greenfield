@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import CreateTripButton from './CreateTripButton'
 import axiosRoutes from './UserHomeAxiosRoutes'
 import { Redirect, Link } from 'react-router-dom'
-import {List, ListItem} from 'material-ui/list'
+import {List, ListItem} from 'material-ui/List'
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import ContentSend from 'material-ui/svg-icons/content/send';

@@ -65,7 +65,7 @@ class UserHome extends Component {
 
   render() {
     let clicked = this.state.redirect
-
+    console.log('user id', this.props.userId)
     // if(clicked) {
     //   return (
     //     <Redirect to={{
