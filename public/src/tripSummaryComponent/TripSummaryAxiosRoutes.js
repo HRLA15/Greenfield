@@ -33,11 +33,11 @@ module.exports = {
       url: hotelInfo.photo
     })
   ),
-  addVoteToHotel: (hotelId, userId, creatorId) => (
-    axios.post(`http://localhost:3000/addVoteToHotel/${hotelId}/${userId}/${creatorId}`)
+  addVoteToHotel: (hotelId, userId) => (
+    axios.post(`http://localhost:3000/addVoteToHotel/${hotelId}/${userId}`)
   ),
-  addVoteToActivity: (activityId, userId, creatorId) => (
-    axios.post(`http://localhost:3000/addVoteToHotel/${activityId}/${userId}/${creatorId}`)
+  addVoteToActivity: (activityId, userId) => (
+    axios.post(`http://localhost:3000/addVoteToHotel/${activityId}/${userId}`)
   ),
   deleteUserPendingTrip: (userId, tripId) => (
   //should remove pendingTripObj from pendingTrip table given the tripId

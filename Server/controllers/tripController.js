@@ -1,6 +1,5 @@
 const Trip = require('../../Database/models/models');
 const Sequelize = require('sequelize')
-
 module.exports = {
   getTripData: (req, res) => {
     Trip.Trip.findAll({where: {id: req.params.tripId }})
@@ -14,7 +13,6 @@ module.exports = {
   
   postTripData: (req, res) => {
     let tripData = req.body;
-
     Trip.Trip.create({
       title: tripData.title,
       destination: tripData.destination,
@@ -62,7 +60,6 @@ module.exports = {
     //     .catch(err => [
     //       res.status(404).send(err);
     //     ])
-
   deleteTripHotel: (req, res) => {
     Trip.Hotel.destroy({where: {id: id.params.hotelId}})
       .then(deleted => {
@@ -72,10 +69,8 @@ module.exports = {
         res.status(404).send(err);
       })
   },
-
   updateTripData: (req, res) => {
     let tripData = req.body;
-
     Trip.Trip.update({
       title: tripData.title,
       destination: tripData.destination,
@@ -99,10 +94,8 @@ module.exports = {
         res.status(404).send(err);
       })
   },
-
   getTripNearbyHotels: (req, res) => {
     let tripData = req.body;
-
     Trip.Trip.findAll({
       include: [{
         model: Trip.Hotel,
@@ -116,10 +109,8 @@ module.exports = {
         res.status(404).send(err);
       })
   },
-
   postTripNearbyHotels: (req, res) => {
     let tripData = req.body;
-
     Trip.Hotel.findOrCreate({where: {address: req.body.address},
     defaults: {
       name: tripData.name,
@@ -134,10 +125,8 @@ module.exports = {
         res.status(404).send(err);
       })
   },
-
   getTripActivities: (req, res) => {
     let tripData = req.body;
-
     Trip.Trip.findAll({
       include: [{
         model: Trip.Activity,
@@ -151,10 +140,8 @@ module.exports = {
       res.status(404).send(err);
     })
   },
-
   postTripActivity: (req, res) => {
     let tripData = req.body;
-
     Trip.Activity.findOrCreate({where: {address: req.body.address},
       defaults: {
         name: tripData.name,
@@ -169,10 +156,8 @@ module.exports = {
           res.status(404).send(err);
         })
     },
-
   deleteTripActivity: (req, res) => {
     let tripData = req.body;
-
     Trip.Activity.destroy({where: {id: req.params.activityId}})
       .then(activity => {
         res.status(202).send('deleted');
@@ -181,7 +166,6 @@ module.exports = {
         res.status(404).send(err);
       })
   },
-
   voteOnHotel: (req, res) => {
     Trip.HotelVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, activityId: req.params.hotelId}})
       .spread((hotel, created) => {
@@ -197,7 +181,6 @@ module.exports = {
           })
       })
   },
-
   userVoteOnHotel: (req, res) => {
     Trip.HotelVote.findOrCreate({where: {userId: req.params.userId}, default: {vote: 1, hotelId: req.params.hotelId}})
       .spread((hotel, created) => {
@@ -213,8 +196,7 @@ module.exports = {
           })
       })
   },
-
-  voteOnActivity: (req, res) => {
+  friendVoteOnActivity: (req, res) => {
     Trip.ActivityVote.findOrCreate({where: {friendId: req.params.friendId}, default: {vote: 1, hotelId: req.params.hotelId}})
       .spread((hotel, created) => {
         Trip.ActivityVote.update({
@@ -229,8 +211,7 @@ module.exports = {
           })
       })
   },
-
-  userVoteOnActivity: (req, res) => {
+  voteOnActivity: (req, res) => {
     Trip.ActivityVote.findOrCreate({where: {userId: req.params.userId}, default: {vote: 1, activityId: req.params.activityId}})
       .spread((hotel, created) => {
         Trip.ActivityVote.update({
@@ -245,7 +226,6 @@ module.exports = {
           })
       })
   },
-
   sumOfVoteHotel: (req, res) => {
     Trip.Hotel.findAll({
       where: {tripId: req.params.tripId},
@@ -266,7 +246,6 @@ module.exports = {
         res.status(404).send(err);
       })
   },
-
   sumOfVoteActivity: (req, res) => {
     Trip.Activity.findAll({
       where: {tripId: req.params.tripId},

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PendingList from './PendingList'
 import {Grid, Row, Col, Image, Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap'
 import axiosRoutes from './TripSummaryAxiosRoutes'
+
 class GoogleMap extends Component{
   constructor(props){
     super(props)
@@ -22,8 +23,11 @@ class GoogleMap extends Component{
     this.handleAddToConfirmList=this.handleAddToConfirmList.bind(this)
   }
 
-  componentDidMount(){
+  componentWillReceiveProps(){
+    console.log('these are the props ', this.prop)
     this.initialize();
+  }
+  componentWillMount() {
   }
 
   handleMarkerClicked(place){
@@ -61,17 +65,20 @@ class GoogleMap extends Component{
   }
 
   initialize() {
-    var queryLocation = {};
-    var losAngeles = new google.maps.LatLng(34.052235, -118.243683);
+    // const {tripLat, tripLng} = this.props;
+    console.log('these are the prroppposss in intitialize ', this.props)
+    var queryLocation = new google.maps.LatLng(this.props.tripLat, this.props.tripLng);
     // console.log("what is pyrmont", losAngeles);
     // console.log("searchedLocation in initilize locations:", this.state.searchedLocation);
     // console.log("type of this.state.searchedLocation", typeof this.state.searchedLocation);
-    
-    if (typeof this.state.searchedLocation.lat === "function"){
-      queryLocation = this.state.searchedLocation;
-    }else{
-      queryLocation = losAngeles;
-    }
+    var losAngeles = new google.maps.LatLng(46.471979, -90.247285);
+
+    // if (typeof this.state.searchedLocation.lat === "function"){
+    //   queryLocation = queryLocation
+    // }else{
+    //   queryLocation = losAngeles;
+    // }
+
     var map = new google.maps.Map(document.getElementById('map2'), {
       center: queryLocation,
       zoom: 15
@@ -144,6 +151,9 @@ class GoogleMap extends Component{
 
 
   render(){
+    console.log('these are the props line 154 in googlemap ', this.props)
+    // var obj = {lat: this.props.tripLat, lng: this.props.tripLng}
+    // this.setState({ searchedLocation: Object.assign(this.state.searchedLocation, obj )})
     return(
       <div>
         <Grid>

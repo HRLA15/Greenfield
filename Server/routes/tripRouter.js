@@ -15,15 +15,15 @@ router.get('/getTripActivities/:tripId', tripController.getTripActivities);
 router.post('/postTripActivity/:tripId', tripController.postTripActivity);
 router.delete('/deleteTripActivity/:activityId', tripController.deleteTripActivity);
 //Post/update HotelVote for friends prevents friend from voting multiple times
-router.post('/addVoteToHotel/:hotelId/:userId', tripController.voteOnHotel)
+router.post('/addVoteToHotel/:hotelId/:userId', tripController.userVoteOnHotel)
 //Post/Update HoteVote for user prevents user from from voting multiple times
-// router.post('/userHotelVote/:hotelId/:userId', tripController.userVoteOnHotel);
-//Sum of the votes of each hotel for all users
+// router.post('/userHotelVote/:hotelId/:friendId', tripController.voteOnHotel);
+//Sum of the votes of each hotel for all users -- gets all of the hotels not the top 5... the endpoint is just called top 5
 router.get('/getTopFiveHotels/:tripId', tripController.sumOfVoteHotel)
 //Post/update Activity for friends prevents friend from voting multiple times
 router.post('/addVoteToActivity/:activityId/:userId', tripController.voteOnActivity)
 //Post/Update Activity for creator prevents creator from from voting multiple times
-router.post('/userActivityVote/:activityId/:userId', tripController.userVoteOnActivity);
+// router.post('/friendActivityVote/:activityId/:friendId', tripController.userVoteOnActivity);
 //Sum of the votes of each activity for all users
 router.get('/getTopFiveActivities/:tripId', tripController.sumOfVoteActivity)
 module.exports = router;

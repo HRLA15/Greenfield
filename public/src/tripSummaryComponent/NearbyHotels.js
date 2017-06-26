@@ -31,24 +31,26 @@ class NearbyHotels extends Component {
     this.handleVoteClick = this.handleVoteClick.bind(this)
   }
 
-  componentWillMount() {
-    //make axios call to get all the hotels for a give trip id or
-    // use google place call to get all hotels near the location
-    //set state using the data
-    axiosRoutes.getTripNearbyHotels(this.props.tripId)
-      .then((res) => {
-        if(Array.isArray(res.data)) {
-          this.setState({
-            hotels: res.data
-          })
-        }
-      })
-      .catch(err => console.log(err))
+  // componentWillMount() {
+  //   //make axios call to get all the hotels for a give trip id or
+  //   // use google place call to get all hotels near the location
+  //   //set state using the data
+  //   console.log('nearby hotel props', this.props)
+  //   axiosRoutes.getTripNearbyHotels(this.props.tripId)
+  //     .then((res) => {
+  //       if(Array.isArray(res.data)) {
+  //         console.log('gaygaygay')
+  //         this.setState({
+  //           hotels: res.data
+  //         })
+  //       }
+  //     })
+  //     .catch(err => console.log(err))
     
-  }
+  // }
 
   componentDidMount() {
-    const interval = setInterval(() => {
+    // const interval = setInterval(() => {
       axiosRoutes.getTripNearbyHotels(this.props.tripId)
         .then((res) => {
           console.log('we in here')
@@ -62,20 +64,20 @@ class NearbyHotels extends Component {
           }
         })
         .catch(err => console.log(err))
-    }
-    , 1000)
-    this.setState({
-      interval: interval
-    })
+    // }
+    // , 1000)
+    // this.setState({
+    //   interval: interval
+    // })
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.interval)
+    // clearInterval(this.state.interval)
   }
 
   handleVoteClick(hotelId) {
     console.log('you voted')
-    axiosRoutes.addVoteToHotel(hotelId, this.props.userId, this.props.creatorId)
+    axiosRoutes.addVoteToHotel(hotelId, this.props.userId)
       .then((res) => {
         alert('Thanks for Voting!')
         console.log(res.data)
