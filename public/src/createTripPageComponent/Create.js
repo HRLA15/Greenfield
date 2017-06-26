@@ -52,11 +52,13 @@ class Create extends Component {
       description: '',
 
       friendsData: [{
-        name: 'Jay'
+        name: 'Jon'
       },{
-        name: 'Jose'
+        name: 'Michael'
       },{
-        name: 'Amanda'
+        name: 'Will'
+      }, {
+        name: 'Sho'
       }],
 
       longitude: '',
@@ -314,10 +316,10 @@ const { isAuthenticated } = this.props.auth;
 
           <div className="input field" style={{marginLeft: 30 + "px", marginTop: 30 + "px", marginRight: 30 + "px"}}>
             <Row>
-                <Input style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder="Trip Name" s={12} onChange={this.tripNameData}/>
-                <Input id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder="Destination" s={12} onChange={this.handleFormSubmit}/>
-                <Input style={{fontSize: 15 + "px"}}placeholder="Description" s={12} onChange={this.descriptionData}/>
-                <Input style={{fontSize: 15 + "px"}}placeholder="ImageURL" s={12} onChange={this.urlData}/>
+                <Input defaultValue={this.state.tripName} style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder="Trip Name" s={12} onChange={this.tripNameData}/>
+                <Input defaultValue={this.state.location} id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder="Destination" s={12} onChange={this.handleFormSubmit}/>
+                <Input defaultValue={this.state.description} style={{fontSize: 15 + "px"}}placeholder="Description" s={12} onChange={this.descriptionData}/>
+                <Input defaultValue={this.state.url} style={{fontSize: 15 + "px"}}placeholder="ImageURL" s={12} onChange={this.urlData}/>
             </Row>
           </div>
 
@@ -329,9 +331,9 @@ const { isAuthenticated } = this.props.auth;
           <div id="bottomHalf" style={{marginLeft: 30 + "px", marginRight: 50 + "%"}}>
 
             <span style={{marginLeft: 2 + "%"}}>From:</span>
-            <input style={{marginLeft: 2 + "%", height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventFromDate}/>
+            <input defaultValue={this.state.fromDate} style={{marginLeft: 2 + "%", height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventFromDate}/>
             <span style={{marginLeft: 2 + "%"}}> To:</span>
-            <input style={{marginLeft: 2 + "%",height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventToDate}/>
+            <input defaultValue={this.state.toDate} style={{marginLeft: 2 + "%",height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventToDate}/>
             <br></br>
             <div id="invitedFriends">
             </div> 

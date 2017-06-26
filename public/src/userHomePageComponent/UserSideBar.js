@@ -51,11 +51,11 @@ class UserSideBar extends Component {
             <ListItem primaryText="Create" leftIcon={<ContentSend />} />
             </Link>
             <ListItem primaryText="Friends" leftIcon={<ActionGrade />} onClick={this.handleClick} />
-            <ListItem primaryText="My Trips" leftIcon={<ContentInbox />} />
+            {/*<ListItem primaryText="My Trips" leftIcon={<ContentInbox />} />*/}
           </List>
           <Divider />
           <List>
-            <ListItem primaryText="Invites" rightIcon={<ActionInfo />} />
+            {/*{<ListItem primaryText="Invites" rightIcon={<ActionInfo />} />*/}
             <ListItem primaryText="Jay is hot" rightIcon={<ActionInfo />} />
           </List>
       </div>
