@@ -51,7 +51,13 @@ class Create extends Component {
 
       description: '',
 
-      friendsData: '',
+      friendsData: [{
+        name: 'Jay'
+      },{
+        name: 'Jose'
+      },{
+        name: 'Amanda'
+      }],
 
       longitude: '',
 
@@ -94,13 +100,14 @@ componentWillMount() {
 }
 
 componentDidMount() {
-  axiosRoutes.getUserFriends()
-    .then((res)=>{
-      this.setState({friendsData: res.data[0].friend})
-    })
-    .catch((err) =>{
-      console.log(err)
-    })
+  // axiosRoutes.getUserFriends(localStorage.userId, tripId)
+  //   .then((res)=>{
+  //     this.setState({friendsData: res.data[0].friend})
+  //     console.log("FRRRRIIIIIIENDSSSS", res.data[0])
+  //   })
+  //   .catch((err) =>{
+  //     console.log(err)
+  //   })
 }
 
   goTo(route) {
@@ -132,7 +139,7 @@ componentDidMount() {
 //Invite friends list invite button
   invite(friend){
     for (var i = 0; i < this.state.friends.length; i++) {
-      if (friend.id === this.state.friends[i].id) {
+      if (friend.name === this.state.friends[i].name) {
         return alert('Friend already invited')
       }
     }
@@ -353,17 +360,17 @@ const { isAuthenticated } = this.props.auth;
 
 const Friends = ({friends, uninviteFriend}) => (
   <div>
-  {friends.map((friend, key) => {
+  {friends.map((friend, key) => (
     <div>
     <Chip
       style={styles.chip}
         >
         <Avatar src="http://orig12.deviantart.net/e40f/f/2012/239/a/d/aang_facebook_default_profile_picture_by_redjanuary-d5cm82l.png" />
-        {friend.id}
+        {friend.name}
     <FlatButton label="Uninvite" primary={true} onClick={() => {uninviteFriend(friend)}} />
         </Chip>
     </div>
-  })
+  ))
   }
   </div>
 )

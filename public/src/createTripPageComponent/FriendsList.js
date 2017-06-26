@@ -27,7 +27,7 @@ const FriendsList = ({friendsData, friends, invite, done, hideInvite}) => (
           style={styles.chip}
         >
           <Avatar src="http://orig12.deviantart.net/e40f/f/2012/239/a/d/aang_facebook_default_profile_picture_by_redjanuary-d5cm82l.png" />
-          {friend.id}
+          {friend.name}
       <FlatButton label="Invite" primary={true} onClick={() => {
         invite(friend)}}/>
         </Chip>
