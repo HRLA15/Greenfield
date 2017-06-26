@@ -13,9 +13,6 @@ module.exports = {
 
   postTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/postTripSummary`, {
-
-  postTripInfo: (tripData) => (
-    axios.post(`http://localhost:3000/postTripSummary`, {
       title: tripData.title,
       destination: tripData.destination,
       startDate: tripData.startDate,
@@ -23,7 +20,8 @@ module.exports = {
       description: tripData.description,
       url: tripData.url
     })
-  },
+  ),
+
   postUserTrip: (userId, tripId) => (
     axios.post(`http://localhost:3000/postUserTrip/${userId}/${tripId}`)
   ),
@@ -48,4 +46,4 @@ module.exports = {
       invitedFriendsArr: invitedFriendsArr
     }
   )
-}
+    }

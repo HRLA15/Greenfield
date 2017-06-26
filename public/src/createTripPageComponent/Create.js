@@ -96,6 +96,8 @@ componentDidMount() {
     .catch((err) =>{
       console.log(err)
     })
+}
+
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
