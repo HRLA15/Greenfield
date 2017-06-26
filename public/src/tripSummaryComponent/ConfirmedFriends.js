@@ -42,6 +42,7 @@ class ConfirmedFriends extends Component {
   componentWillMount() {
     axiosRoutes.getTripFriendsList(this.props.tripId)
       .then((res) => {
+        console.log('friends data?', res.data)
         if(Array.isArray(res.data)) {
           this.setState({
             friends: res.data
@@ -94,18 +95,6 @@ class ConfirmedFriends extends Component {
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
-          {/*<Card>
-            <CardHeader
-              title="URL Avatar"
-              subtitle="Subtitle"
-              avatar="images/jsa-128.jpg"
-            />
-            <CardMedia
-              overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-            >
-              <img src={this.props.trip.url} alt="" />
-            </CardMedia>
-          </Card>*/}
         {
           this.state.friends.map((friendObj) => (
             <MenuItem onTouchTap={this.handleClose}>{friendObj.participant.username}</MenuItem>
