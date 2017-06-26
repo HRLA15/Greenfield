@@ -49,32 +49,29 @@ class ActivityList extends Component {
   }
 
   componentDidMount() {
-    // setInterval(() => {
-    //   axiosRoutes.getTripActivities(this.props.tripId)
-    //     .then((res) => {
-    //       if(Array.isArray(res.data)) {
-    //         this.setState({
-    //           activityList: res.data
-    //         })
+      axiosRoutes.getTripActivities(this.props.tripId)
+        .then((res) => {
+          if(Array.isArray(res.data)) {
+            this.setState({
+              activityList: res.data[0].activities
+            })
 
-    //         let topActivitiesArr = []
+            let topActivitiesArr = []
 
-    //         if(res.data.length > 3) {
-    //           topActivitiesArr = res.data.slice(0,3)
-    //         } else {
-    //           topActivitiesArr = res.data.slice(0, res.data.length)
-    //         }
-    //         this.props.getTopActivities(topActivitiesArr)
-    //       }
-    //     })
-    //     .catch(err => console.log(err))
-    // }
-    // , 1000)
+            if(res.data.length > 3) {
+              topActivitiesArr = res.data.slice(0,3)
+            } else {
+              topActivitiesArr = res.data.slice(0, res.data.length)
+            }
+            this.props.getTopActivities(topActivitiesArr)
+          }
+        })
+        .catch(err => console.log(err))
   }
 
   handleVoteClick(activityId) {
     console.log('you voted')
-    axiosRoutes.addVoteToHotel(activityId, this.props.userId)
+    axiosRoutes.addVoteToActivity(activityId, this.props.userId)
       .then((res) => {
         alert('Thanks for Voting!')
         console.log(res.data)

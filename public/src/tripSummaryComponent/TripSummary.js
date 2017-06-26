@@ -32,7 +32,8 @@ class TripSummary extends Component {
       pendingList :[],
       querySelection:'',
       topHotel: {},
-      topActivities: []
+      topActivities: [],
+      toggle: false
     }
     this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
     this.handleAddToPending = this.handleAddToPending.bind(this)
@@ -43,16 +44,24 @@ class TripSummary extends Component {
   componentDidMount() {
     axiosRoutes.getTripData(this.props.match.params.tripId)
       .then((res) => {
-        console.log('trip data', res.data[0])
-        // if(res.data[0].id === this.props.userId) {
-          this.setState({ isTripCreator: true }, () => {
-             this.setState({ tripData: Object.assign(this.state.tripData, res.data[0]) }, () => {
-               console.log('thisis the trip data in the CWM in trip summary ', this.state.tripData)
-             })
+      if(res.data[0].id === this.props.userId) {
+        this.setState({ isTripCreator: true }, () => {
+          this.setState({ tripData: Object.assign(this.state.tripData, res.data[0]) }, () => {
           })
-        // }
+        })
+      } else {
+        this.setState({ tripData: Object.assign(this.state.tripData, res.data[0]) }, () => {
+          })
+      }
       })
       .catch(err => console.log(err))
+    
+    window.setTimeout(() => {
+      this.setState({
+        toggle: !this.state.toggle
+        })
+    }, 2000)
+  
   }
   
   goTo(route) {
@@ -60,7 +69,6 @@ class TripSummary extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('when am i firing')
     axiosRoutes.getTripData(nextProps.match.params.tripId)
       .then((res) => {
         if(res.data.userId === nextProps.userId) {
@@ -101,7 +109,6 @@ class TripSummary extends Component {
   }
 
   render() {    
-    console.log('this is the state in line 104 ', this.state.tripData)
     const { isAuthenticated } = this.props.auth
 
     if(!isAuthenticated()) {
@@ -133,18 +140,21 @@ class TripSummary extends Component {
         userId={this.props.userId}
         topHotel={this.state.topHotel}
         topActivities={this.state.topActivities}
+        toggle={this.state.toggle}
       />
       <ActivityList 
         tripId={this.state.tripData.id}
         userId={this.props.userId}
         creatorId={this.state.tripData.userId}
         getTopActivities={this.getTopActivities}
+        toggle={this.state.toggle}
       />
       <NearbyHotels
         tripId={this.state.tripData.id}
         userId={this.props.userId}
         creatorId={this.state.tripData.userId}
         getTopHotel={this.getTopHotel}
+        toggle={this.state.toggle}
       />
       
 
