@@ -17,10 +17,6 @@ router.post('/addFriend/:userId/:friendId', userFriendController.addFriend)
 router.post('/friendTripConfirmation/:userId/:tripId/:participantId', userFriendController.friendTripConfirmation)
 
 // get all friends that are attending the trip
-<<<<<<< HEAD
-router.get('/getTripFriendsList/:userId/:tripId', userFriendController.getConfirmedParticipants)
-=======
 router.get('/getTripFriendsList/:tripId', userFriendController.getConfirmedParticipants)
->>>>>>> changed the routes to match frontend endpoints
 
 module.exports = router;
