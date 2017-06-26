@@ -1,7 +1,5 @@
 import axios from 'axios'
-
 module.exports = {
-
   // if you are editing use this call
   getTripData: (tripId) => (
     //should return tripObj with trip data
@@ -10,7 +8,6 @@ module.exports = {
   //trip database ID TITLE DESTINATION START/END DATE
   //post tripname
   // 
-
   postTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/postTripSummary`, {
       title: tripData.title,
@@ -18,10 +15,11 @@ module.exports = {
       startDate: tripData.startDate,
       endDate: tripData.endDate,
       description: tripData.description,
-      url: tripData.url
+      url: tripData.url,
+      latitude: tripData.latitude,
+      longitude: tripData.longitude
     })
   ),
-
   postUserTrip: (userId, tripId) => (
     axios.post(`http://localhost:3000/postUserTrip/${userId}/${tripId}`)
   ),
@@ -37,11 +35,11 @@ module.exports = {
   //get friends from user for invite
   //query so we get all users that have not yet been invited to the trip
   // not including the triphost user id
-  getUserFriends: (userId) => (
-    axios.get(`http://localhost:3000/getUserFriends/${userId}`)
+  getUserFriends: (userId, tripId) => (
+    axios.get(`http://localhost:3000/getUserFriends/${userId}/${tripId}`)
   ),
   //post invited friends
   addFriendToTrip: (userId, tripId, participantId) => (
     axios.post(`http://localhost:3000/addFriendToTrip/${userId}/${tripId}/${participantId}`)
   )
-    }
+}
