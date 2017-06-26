@@ -39,9 +39,7 @@ module.exports = {
     axios.get(`http://localhost:3000/getUserFriends/${userId}/${tripId}`)
   ),
   //post invited friends
-  postInvitedFriends: (invitedFriendsArr, tripId) => (
-    axios.post(`http://localhost:3000/postInvitedFriends/${tripId}`), {
-      invitedFriendsArr: invitedFriendsArr
-    }
+  addFriendToTrip: (userId, tripId, participantId) => (
+    axios.post(`http://localhost:3000/addFriendToTrip/${userId}/${tripId}/${participantId}`)
   )
 }

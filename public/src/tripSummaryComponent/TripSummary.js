@@ -27,7 +27,7 @@ class TripSummary extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isTripCreator: true,
+      isTripCreator: false,
       tripData: {},
       pendingList :[],
       querySelection:'',
@@ -43,6 +43,7 @@ class TripSummary extends Component {
   componentWillMount() {
     axiosRoutes.getTripData(this.props.match.params.tripId)
       .then((res) => {
+        console.log('tripdata', res.data)
         if(res.data.userId === this.props.userId) {
           this.setState({
             isTripCreator: true

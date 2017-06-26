@@ -18,7 +18,7 @@ module.exports = {
   },
 
   postUserTrip: (req, res) => {
-    UserTrip.UserTrip.findOrCreate({where: {tripId: req.params.tripId, endDate: {$gt: Sequelize.NOW}},
+    UserTrip.UserTrip.findOrCreate({where: {tripId: req.params.tripId},
       defaults: {
         userId: req.params.userId,
         tripId: req.params.tripId

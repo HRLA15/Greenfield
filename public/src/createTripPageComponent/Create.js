@@ -21,7 +21,14 @@ class Create extends Component {
 
       showInvite: true,
       //Invited Friends storage
-      friends: [],
+      friends: [{
+        id: 5,
+        username: 'jyi1991',
+        firstName: 'jon',
+        lastName: 'jake',
+        idToken: 'dfd',
+        url: 'dfdfd'
+      }],
 
       display: false,
 
@@ -138,12 +145,14 @@ componentDidMount() {
       .then((res) => {
         axiosRoutes.postUserTrip(this.props.userId, res.data.id)
           .then((res) => {
-            let tripId = res.data.id
-            axiosRoutes.postInvitedFriends(this.state.friends, res.data.id)
-              .then((res) => {
-                this.goTo.call(this, `event/${tripId}`)
-              })
-              .catch(err => console.log(err))
+            this.state.friends.forEach((friend) => {
+              axiosRoutes.addFriendToTrip(this.props.userId, res.data.tripId, friend.id)
+                .then((res) => {
+                  console.log(res)
+                })
+                .catch(err => console.log(err))
+            })
+            this.goTo.call(this, `event/${res.data.tripId}`)
           })
           .catch(err => console.log(err))
       })
@@ -312,7 +321,7 @@ const Friends = ({friends, uninviteFriend}) => (
   <div>
   {friends.map((friend, key) => {
     return <div>
-    <p>{friend}
+    <p>{friend.firstName}
     <button className="uninvite" onClick={() => {uninviteFriend(friend)}}>Uninvite</button>
     </p>
     </div>

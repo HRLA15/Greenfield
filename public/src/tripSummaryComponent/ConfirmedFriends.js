@@ -37,6 +37,7 @@ class ConfirmedFriends extends Component {
   componentWillMount() {
     axiosRoutes.getTripFriendsList(this.props.tripId)
       .then((res) => {
+        console.log('friends data?', res.data)
         if(Array.isArray(res.data)) {
           this.setState({
             friends: res.data
