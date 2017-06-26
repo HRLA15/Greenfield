@@ -80,9 +80,11 @@ class UserUpcomingTripsList extends Component {
   componentWillMount() {
     axiosRoutes.getUserUpcomingTrips(this.props.userId)
       .then((res) => {
-        this.setState({
-          upcomingTrips: res.data
-        })
+        if(Array.isArray(res.data)) {
+          this.setState({
+            upcomingTrips: res.data
+          })
+        }
       })
       .catch(err => console.log(err))
   }
@@ -90,9 +92,11 @@ class UserUpcomingTripsList extends Component {
   componentWillReceiveProps(nextProps) {
     axiosRoutes.getUserUpcomingTrips(nextProps.userId)
       .then((res) => {
-        this.setState({
-          upcomingTrips: res.data
-        })
+        if(Array.isArray(res.data)) {
+          this.setState({
+            upcomingTrips: res.data
+          })
+        }
       })
       .catch(err => console.log(err))
   }

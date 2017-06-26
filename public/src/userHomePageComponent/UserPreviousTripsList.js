@@ -76,9 +76,11 @@ class UserPreviousTripsList extends Component {
   componentWillMount() {
     axiosRoutes.getUserPreviousTrips(this.props.userId)
       .then((res) => {
-        this.setState({
-          previousTrips: res.data
-        })
+        if(Array.isArray(res.data)) {
+          this.setState({
+            previousTrips: res.data
+          })
+        }
       })
       .catch(err => {
         console.log(err)
@@ -88,9 +90,11 @@ class UserPreviousTripsList extends Component {
   componentWillReceiveProps(nextProps) {
     axiosRoutes.getUserPreviousTrips(nextProps.userId)
       .then((res) => {
-        this.setState({
-          previousTrips: res.data
-        })
+        if(Array.isArray(res.data)) {
+          this.setState({
+            previousTrips: res.data
+          })
+        }
       })
       .catch(err => {
         console.log(err)

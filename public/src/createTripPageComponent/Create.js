@@ -64,13 +64,12 @@ class Create extends Component {
 componentWillMount() {
   console.log('user id is', this.props.userId)
   console.log(this.props.location.pathname)
-  
+
 }
 
 componentDidMount() {
   // axiosRoutes.getUserFriends()
   //   .then((res)=>{
-  //     console.log('res.body in componentdidmount = ', res.data[0].friend)
   //     this.setState({friendsData: res.data[0].friend})
   //   })
   //   .catch((err) =>{
@@ -139,9 +138,7 @@ componentDidMount() {
       .then((res) => {
         axiosRoutes.postInvitedFriends
         //using the new trip info we will redirect them from here
-        this.goTo.call(this, res.data.id)
-
-        console.log(res.body)
+        this.goTo.call(this, `event/${res.data.id}`)
       })
       .catch((err)=> {
         //take this out once we get servers linked

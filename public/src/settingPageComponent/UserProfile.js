@@ -31,7 +31,7 @@ class UserProfile extends Component {
   }
 
   componentWillMount() {
-    axiosRoutes.getOneUser(localStorage.id_token)
+    axiosRoutes.getOneUser(localStorage.userSub)
       .then((res) => {
         this.setState({
           userInfo: res.data[0]

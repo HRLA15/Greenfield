@@ -47,17 +47,17 @@ class ConfirmedFriends extends Component {
   }
 
   componentDidMount() {
-    setTimeout(
-      axiosRoutes.getTripFriendsList(this.props.tripId)
-        .then((res) => {
-          if(Array.isArray(res.data)) {
-            this.setState({
-              friends: res.data
-            })
-          }
-        })
-        .catch(err => console.log(err)),
-      5000)
+    // setTimeout(
+    //   axiosRoutes.getTripFriendsList(this.props.tripId)
+    //     .then((res) => {
+    //       if(Array.isArray(res.data)) {
+    //         this.setState({
+    //           friends: res.data
+    //         })
+    //       }
+    //     })
+    //     .catch(err => console.log(err)),
+    //   5000)
   }
 
   handleToggle() {
