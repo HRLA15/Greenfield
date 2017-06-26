@@ -3,14 +3,14 @@ import UserProfilePic from './UserProfilePic'
 import UserProfileInfo from './UserProfileInfo'
 import axiosRoutes from './SettingsPageAxiosRoutes'
 
-const dummyData = {
-  id: 1,
-  username: 'jayIsSexy1000',
-  firstName: 'Jay',
-  lastName: 'Sexy',
-  email: 'wowjayishawt@trumpin.com',
-  profilePic: []
-}
+// const dummyData = {
+//   id: 1,
+//   username: 'jayIsSexy1000',
+//   firstName: 'Jay',
+//   lastName: 'Sexy',
+//   email: 'wowjayishawt@trumpin.com',
+//   profilePic: []
+// }
 
 class UserProfile extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class UserProfile extends Component {
     this.state = {
       editPic: false,
       edit: false,
-      userInfo: dummyData
+      userInfo: {}
     }
     //once server works do userInfo: this.props.userInfo
 
@@ -33,6 +33,7 @@ class UserProfile extends Component {
   componentWillMount() {
     axiosRoutes.getOneUser(localStorage.userSub)
       .then((res) => {
+        console.log(res.data)
         this.setState({
           userInfo: res.data[0]
         })
