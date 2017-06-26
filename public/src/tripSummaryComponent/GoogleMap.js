@@ -123,7 +123,8 @@ class GoogleMap extends Component{
   handleAddToConfirmList(type, markerClicked){
     
     if(type =="hotel"){
-      //post request to 
+      //post request to
+      console.log(markerClicked)
       axiosRoutes.postTripHotel(this.props.tripId, markerClicked)
         .then((res) => {
           console.log(res)

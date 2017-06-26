@@ -51,9 +51,11 @@ class NearbyHotels extends Component {
     const interval = setInterval(() => {
       axiosRoutes.getTripNearbyHotels(this.props.tripId)
         .then((res) => {
+          console.log('we in here')
           if(Array.isArray(res.data)) {
+            console.log('is an arr res.data', res.data[0].hotels)
             this.setState({
-              hotels: res.data
+              hotels: res.data[0].hotels
             })
             let topHotel = res.data.shift()
             this.props.getTopHotel(topHotel)

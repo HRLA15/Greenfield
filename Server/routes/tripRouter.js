@@ -10,7 +10,7 @@ router.post('/editTripSummary/:tripId', tripController.updateTripData);
 router.get('/getTripNearbyHotels/:tripId', tripController.getTripNearbyHotels);
 
 // Post hotels from Google Maps
-router.post('/postTripNearbyHotels/:tripId', tripController.postTripNearbyHotels);
+router.post('/postTripHotel/:tripId', tripController.postTripNearbyHotels);
 router.delete('/deleteTripHotel/:tripId', tripController.deleteTripHotel);
 
 //Get the Nearby Activities from a particular trip
