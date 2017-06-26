@@ -56,7 +56,7 @@ module.exports = {
 
   getConfirmedParticipants: (req, res) => {
     UserFriend.UserTrip.findAll({
-      where: {confirmed: true},
+      where: {participantConfirmed: true},
       include: [{
         model: UserFriend.User, as: 'participant'
       }]

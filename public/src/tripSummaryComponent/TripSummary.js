@@ -43,8 +43,8 @@ class TripSummary extends Component {
   componentWillMount() {
     axiosRoutes.getTripData(this.props.match.params.tripId)
       .then((res) => {
-        console.log('tripdata', res.data)
-        if(res.data.userId === this.props.userId) {
+        console.log('trip data', res.data[0])
+        if(res.data[0].userId === this.props.userId) {
           this.setState({
             isTripCreator: true
           })
@@ -54,7 +54,6 @@ class TripSummary extends Component {
         })
       })
       .catch(err => console.log(err))
-
   }
   
   goTo(route) {
@@ -118,7 +117,7 @@ class TripSummary extends Component {
     if(this.state.isTripCreator) {
       editButton = <EditButton handleEditButtonClick={this.handleEditButtonClick} />
     }
-
+    
     return (
       <div>
         <h1>{this.state.tripData.title}</h1>
@@ -126,9 +125,11 @@ class TripSummary extends Component {
         <p>{this.state.tripData.destination}</p>
         <GoogleMap
           tripId={this.state.tripData.id}
+          tripLat={this.state.tripData.latitude}
+          tripLng={this.state.tripData.longitude}
           handleSelectionClick={this.handleSelectionClick}
           querySelection={this.state.querySelection ? this.state.querySelection : "hotel"}
-                   />
+        />
       
       {editButton}
       <ConfirmedFriends 

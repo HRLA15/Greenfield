@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PendingList from './PendingList'
 import {Grid, Row, Col, Image, Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap'
 import axiosRoutes from './TripSummaryAxiosRoutes'
+
 class GoogleMap extends Component{
   constructor(props){
     super(props)
@@ -23,7 +24,10 @@ class GoogleMap extends Component{
   }
 
   componentDidMount(){
-    this.initialize();
+    console.log('google map props', this.props)
+    this.initialize(this.props);
+  }
+  componentWillMount() {
   }
 
   handleMarkerClicked(place){
@@ -60,18 +64,21 @@ class GoogleMap extends Component{
     });
   }
 
-  initialize() {
-    var queryLocation = {};
-    var losAngeles = new google.maps.LatLng(34.052235, -118.243683);
+  initialize(props) {
+    console.log('the trip props', props)
+
+    var queryLocation = new google.maps.LatLng(props.tripLat, props.tripLng);
     // console.log("what is pyrmont", losAngeles);
     // console.log("searchedLocation in initilize locations:", this.state.searchedLocation);
     // console.log("type of this.state.searchedLocation", typeof this.state.searchedLocation);
-    
+    var losAngeles = new google.maps.LatLng(0, 0);
+
     if (typeof this.state.searchedLocation.lat === "function"){
       queryLocation = this.state.searchedLocation;
     }else{
       queryLocation = losAngeles;
     }
+
     var map = new google.maps.Map(document.getElementById('map2'), {
       center: queryLocation,
       zoom: 15

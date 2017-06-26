@@ -35,10 +35,12 @@ class ConfirmedFriends extends Component {
   }
 
   componentWillMount() {
+    console.log('confirmed friends props', this.props)
     axiosRoutes.getTripFriendsList(this.props.tripId)
       .then((res) => {
-        console.log('friends data?', res.data)
+        console.log('friends data?', res.data[0].participant.username)
         if(Array.isArray(res.data)) {
+          console.log('is an array')
           this.setState({
             friends: res.data
           })
@@ -85,7 +87,7 @@ class ConfirmedFriends extends Component {
         >
         {
           this.state.friends.map((friendObj) => (
-            <MenuItem onTouchTap={this.handleClose}>{friendObj.name}</MenuItem>
+            <MenuItem onTouchTap={this.handleClose}>{friendObj.participant.username}</MenuItem>
           ))
         }
         </Drawer>
