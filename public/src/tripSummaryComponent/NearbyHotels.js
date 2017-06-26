@@ -71,9 +71,9 @@ class NearbyHotels extends Component {
     // })
   }
 
-  componentWillUnmount() {
+  // componentWillUnmount() {
     // clearInterval(this.state.interval)
-  }
+  // }
 
   handleVoteClick(hotelId) {
     console.log('you voted')

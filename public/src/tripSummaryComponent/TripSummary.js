@@ -46,7 +46,7 @@ class TripSummary extends Component {
         console.log('trip data', res.data[0])
         // if(res.data[0].id === this.props.userId) {
           this.setState({ isTripCreator: true }, () => {
-             this.setState({ tripData: res.data[0] }, () => {
+             this.setState({ tripData: Object.assign(this.state.tripData, res.data[0]) }, () => {
                console.log('thisis the trip data in the CWM in trip summary ', this.state.tripData)
              })
           })
@@ -101,7 +101,7 @@ class TripSummary extends Component {
   }
 
   render() {    
-    
+    console.log('this is the state in line 104 ', this.state.tripData)
     const { isAuthenticated } = this.props.auth
 
     if(!isAuthenticated()) {
@@ -124,11 +124,7 @@ class TripSummary extends Component {
         <h4>{`Start Date: ${this.state.tripData.startDate} End Date: ${this.state.tripData.endDate}`}</h4>
         <p>{this.state.tripData.destination}</p>
         <GoogleMap
-          tripId={this.state.tripData.id}
-          tripLat={this.state.tripData.latitude}
-          tripLng={this.state.tripData.longitude}
-          handleSelectionClick={this.handleSelectionClick}
-          querySelection={this.state.querySelection ? this.state.querySelection : "hotel"}
+          tripId={this.props.match.params.tripId}
         />
       
       {editButton}
@@ -159,3 +155,8 @@ class TripSummary extends Component {
 }
 
 export default TripSummary
+            {/*tripId={this.state.tripData.id}
+            tripLat={this.state.tripData.latitude}
+            tripLng={this.state.tripData.longitude}
+            handleSelectionClick={this.handleSelectionClick}
+            querySelection={this.state.querySelection ? this.state.querySelection : "hotel"}*/}
