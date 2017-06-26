@@ -131,7 +131,8 @@ class TripSummary extends Component {
       
       {editButton}
       <ConfirmedFriends 
-        tripId={this.state.tripData.id} 
+        tripId={this.state.tripData.id}
+        userId={this.props.userId}
         topHotel={this.state.topHotel}
         topActivities={this.state.topActivities}
       />

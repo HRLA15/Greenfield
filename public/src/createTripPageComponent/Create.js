@@ -134,11 +134,18 @@ componentDidMount() {
       endDate: this.state.toDate
     }
     //post request to database
-    axiosRoutes.postTripInfo(tripInfo, this.props.userId)
+    axiosRoutes.postTripInfo(tripInfo)
       .then((res) => {
-        axiosRoutes.postInvitedFriends
-        //using the new trip info we will redirect them from here
-        this.goTo.call(this, `event/${res.data.id}`)
+        axiosRoutes.postUserTrip(this.props.userId, res.data.id)
+          .then((res) => {
+            let tripId = res.data.id
+            axiosRoutes.postInvitedFriends(this.state.friends, res.data.id)
+              .then((res) => {
+                this.goTo.call(this, `event/${tripId}`)
+              })
+              .catch(err => console.log(err))
+          })
+          .catch(err => console.log(err))
       })
       .catch((err)=> {
         //take this out once we get servers linked
