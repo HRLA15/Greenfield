@@ -5,7 +5,7 @@ module.exports = {
     //should return tripObj with trip data
     axios.get(`http://localhost:3000/getTripSummary/${tripId}`)
   ),
-  getTripFriendsList: (tripId) => (
+  getTripFriendsList: (userId, tripId) => (
     //should return array of users/friends obj that are confirmed for given trip
     axios.get(`http://localhost:3000/getTripFriendsList/${tripId}`)
   ),

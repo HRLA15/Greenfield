@@ -21,7 +21,14 @@ class Create extends Component {
 
       showInvite: true,
       //Invited Friends storage
-      friends: [],
+      friends: [{
+        id: 5,
+        username: 'jyi1991',
+        firstName: 'jon',
+        lastName: 'jake',
+        idToken: 'dfd',
+        url: 'dfdfd'
+      }],
 
       display: false,
 
@@ -134,11 +141,20 @@ componentDidMount() {
       endDate: this.state.toDate
     }
     //post request to database
-    axiosRoutes.postTripInfo(tripInfo, this.props.userId)
+    axiosRoutes.postTripInfo(tripInfo)
       .then((res) => {
-        axiosRoutes.postInvitedFriends
-        //using the new trip info we will redirect them from here
-        this.goTo.call(this, `event/${res.data.id}`)
+        axiosRoutes.postUserTrip(this.props.userId, res.data.id)
+          .then((res) => {
+            this.state.friends.forEach((friend) => {
+              axiosRoutes.addFriendToTrip(this.props.userId, res.data.tripId, friend.id)
+                .then((res) => {
+                  console.log(res)
+                })
+                .catch(err => console.log(err))
+            })
+            this.goTo.call(this, `event/${res.data.tripId}`)
+          })
+          .catch(err => console.log(err))
       })
       .catch((err)=> {
         //take this out once we get servers linked
@@ -305,7 +321,7 @@ const Friends = ({friends, uninviteFriend}) => (
   <div>
   {friends.map((friend, key) => {
     return <div>
-    <p>{friend}
+    <p>{friend.firstName}
     <button className="uninvite" onClick={() => {uninviteFriend(friend)}}>Uninvite</button>
     </p>
     </div>
