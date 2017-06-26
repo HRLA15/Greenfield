@@ -18,6 +18,6 @@ router.post('/addFriend/:userId/:friendId', userFriendController.addFriend)
 router.post('/friendTripConfirmation/:userId/:tripId/:participantId', userFriendController.friendTripConfirmation)
 
 // get all friends that are attending the trip
-router.get('/allConfirmedParticipants/:userId/:tripId', userFriendController.getConfirmedParticipants)
+router.get('/getTripFriendsList/:userId/:tripId', userFriendController.getConfirmedParticipants)
 
 module.exports = router;

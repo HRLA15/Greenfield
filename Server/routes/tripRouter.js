@@ -4,7 +4,7 @@ const tripController = require('../controllers/tripController')
 //Trip Detail
 router.get('/getTripSummary/:tripId', tripController.getTripData);
 router.post('/postTripSummary', tripController.postTripData);
-router.put('/putTripSummary/:tripId', tripController.updateTripData);
+router.post('/editTripSummary/:tripId', tripController.updateTripData);
 
 // Get the Nearby Hotels particular trip
 router.get('/getTripNearbyHotels/:tripId', tripController.getTripNearbyHotels);
