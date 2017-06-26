@@ -78,7 +78,7 @@ class NearbyHotels extends Component {
   // }
 
   componentDidMount() {
-    // const interval = setInterval(() => {
+    const interval = setInterval(() => {
       axiosRoutes.getTripNearbyHotels(this.props.tripId)
         .then((res) => {
           console.log('we in here')
@@ -92,16 +92,16 @@ class NearbyHotels extends Component {
           }
         })
         .catch(err => console.log(err))
-    // }
-    // , 1000)
-    // this.setState({
-    //   interval: interval
-    // })
+    }
+    , 5000)
+    this.setState({
+      interval: interval
+    })
   }
 
-  // componentWillUnmount() {
-    // clearInterval(this.state.interval)
-  // }
+  componentWillUnmount() {
+    clearInterval(this.state.interval)
+  }
 
   handleVoteClick(hotelId) {
     console.log('you voted')
@@ -118,10 +118,11 @@ class NearbyHotels extends Component {
     <div>
       <h5>Hotels</h5>
       <GridList style={styles.gridList} cols={2.2}>
-      {dummyData.map((tile) => (
+      {this.state.hotels.map((tile) => (
         <GridTile
           onClick={()=>{this.handleVoteClick(tile.id)}}
           style={{borderRadius: 3 + "px", marginLeft: -3 + "px"}}
+          key={tile.id}
           title={tile.name}
           titleStyle={styles.titleStyle}
           titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
