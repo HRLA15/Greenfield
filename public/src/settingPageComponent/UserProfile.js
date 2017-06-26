@@ -5,10 +5,10 @@ import axiosRoutes from './SettingsPageAxiosRoutes'
 
 const dummyData = {
   id: 1,
-  username: 'trumpin',
-  firstName: 'Donald',
-  lastName: 'Trump',
-  email: 'MakeAmericaGreatAgain@trumpin.com',
+  username: 'jayIsSexy1000',
+  firstName: 'Jay',
+  lastName: 'Sexy',
+  email: 'wowjayishawt@trumpin.com',
   profilePic: []
 }
 

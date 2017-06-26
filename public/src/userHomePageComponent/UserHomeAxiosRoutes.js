@@ -22,6 +22,9 @@ module.exports = {
   getUserPreviousTrips: (userId) => (
     //should return array of previousTrips for a given userId
     axios.get(`http://localhost:3000/getUserPreviousTrips/${userId}`)
+  ),
+  getUserFriends: (userId) => (
+    axios.get(`http://localhost:3000/getUserFriends/${userId}`)
   )
   
 }

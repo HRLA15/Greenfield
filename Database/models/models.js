@@ -26,7 +26,7 @@ const Trip = db.define('trip',{
   },
   destination: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   description: {
     type: Sequelize.STRING,
@@ -224,6 +224,7 @@ UserFriend.sync();
 // HotelVote.sync({force: true});
 // ActivityVote.sync({force: true});
 // UserFriend.sync({force: true});
+
 module.exports = {
   User,
   Trip,

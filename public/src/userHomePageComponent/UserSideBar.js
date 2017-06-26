@@ -10,18 +10,34 @@ import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import Divider from 'material-ui/Divider';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import Avatar from 'material-ui/Avatar';
+import UsersFriends from './UsersFriends'
 
 
 class UserSideBar extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    this.state = {
+      display: false
+    }
 
-
+    this.handleClick = this.handleClick.bind(this)
   }
 
+  handleClick() {
+    if(this.state.display === false) {
+      this.setState({display: true})
+    } else {
+      this.setState({display: false})
+    }
+  }
 
   render() {
+    if(this.state.display === true) {
+      return <div style={{marginTop: 50 + "px"}}>
+      <UsersFriends handleClick={this.handleClick} display={this.state.display} friends={this.props.friends} />
+      </div>
+    }
 
     return (
       <div>
@@ -33,7 +49,7 @@ class UserSideBar extends Component {
             <Link to ='/create'>
             <ListItem primaryText="Create" leftIcon={<ContentSend />} />
             </Link>
-            <ListItem primaryText="Friends" leftIcon={<ActionGrade />} />
+            <ListItem primaryText="Friends" leftIcon={<ActionGrade />} onClick={this.handleClick} />
             <ListItem primaryText="My Trips" leftIcon={<ContentInbox />} />
           </List>
           <Divider />
