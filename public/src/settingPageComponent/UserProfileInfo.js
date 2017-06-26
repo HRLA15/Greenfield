@@ -129,7 +129,7 @@ class UserProfileInfo extends Component {
         {/*<textarea rows="4" cols="50" readOnly>
           {`Username: ${this.props.userInfo.username}\nFirst Name: ${this.props.userInfo.firstName}\nLastName: ${this.props.userInfo.lastName}\nEmail: ${this.props.userInfo.email}`}
         </textarea>*/}
-        <FlatButton label="Edit" primary={true} onClick={this.props.handleEditClick}/>
+        {/*<FlatButton label="Edit" primary={true} onClick={this.props.handleEditClick}/>*/}
       </div>
       )
     }

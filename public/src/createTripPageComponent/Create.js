@@ -7,32 +7,59 @@ import axiosRoutes from './CreateTripPageAxiosRoutes'
 import {Redirect} from 'react-router-dom'
 import {Button, Icon, Row, Input} from 'react-materialize'
 import FlatButton from 'material-ui/FlatButton'
+import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
+import FontIcon from 'material-ui/FontIcon';
+import SvgIconFace from 'material-ui/svg-icons/action/face';
+import {blue300, indigo900} from 'material-ui/styles/colors';
+import Dropzone from 'react-dropzone'
+
+const styles = {
+  chip: {
+    margin: 4,
+  },
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+};
+
 class Create extends Component {
   constructor(){
     super();
     this.state = {
+
       // hideInvite: false,
+
       fromDate: '',
+
       toDate: '',
+
       showInvite: true,
       //Invited Friends storage
-      friends: [{
-        id: 5,
-        username: 'jyi1991',
-        firstName: 'jon',
-        lastName: 'jake',
-        idToken: 'dfd',
-        url: 'dfdfd'
-      }],
+      friends: [],
+
       display: false,
+
       // displayEventPage: false,
+
       //Trip info
+
       tripName: '',
+
       location: '',
+
       description: '',
+
       friendsData: '',
+
+      longitude: '',
+
       latitude: '',
-      longitude: ''
+
+      accepted: [],
+
+      url: ''
     }
     
     this.inviteFriends = this.inviteFriends.bind(this)
@@ -47,8 +74,11 @@ class Create extends Component {
     this.descriptionData = this.descriptionData.bind(this)
     this.initAutocomplete = this.initAutocomplete.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.onDrop = this.onDrop.bind(this)
+    this.urlData = this.urlData.bind(this)
     // this.hideInvite = this.hideInvite.bind(this)
   }
+
   // hideInvite(){
   //   if(this.state.hideInvite === false){
   //   this.setState({hideInvite: true})
@@ -60,27 +90,33 @@ class Create extends Component {
 componentWillMount() {
   console.log('user id is', this.props.userId)
   console.log(this.props.location.pathname)
+
 }
+
 componentDidMount() {
-  // axiosRoutes.getUserFriends()
-  //   .then((res)=>{
-  //     this.setState({friendsData: res.data[0].friend})
-  //   })
-  //   .catch((err) =>{
-  //     console.log(err)
-  //   })
+  axiosRoutes.getUserFriends()
+    .then((res)=>{
+      this.setState({friendsData: res.data[0].friend})
+    })
+    .catch((err) =>{
+      console.log(err)
+    })
 }
+
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
+  
 //auth0 login
   login() {
     this.props.auth.login();
   }
+
 //Invite Frinends Button
   inviteFriends(){
     this.setState({display: true})
   }
+
 //Uninvite Friends button
   uninviteFriend(friend){
     for(var i = 0; i < this.state.friends.length; i++) {
@@ -92,25 +128,35 @@ componentDidMount() {
     console.log(this.state.friends)
     console.log(friend + ' was uninvited')
   }
+
 //Invite friends list invite button
   invite(friend){
     for (var i = 0; i < this.state.friends.length; i++) {
-      if (friend.name === this.state.friends[i]) {
+      if (friend.id === this.state.friends[i].id) {
         return alert('Friend already invited')
       }
     }
     console.log('Clicked on friend')
     console.log(friend)
-    this.state.friends.push(friend.name)
+    this.state.friends.push(friend)
     this.setState({
       friends: this.state.friends
     })
   }
+
 //When finished inviting friends Button
   done(){
     this.setState({display: false})
     console.log(this.state.friends)
   }
+
+
+ onDrop(accepted) {
+    this.setState({
+      accepted: accepted
+    })
+  }
+
 //grab all trip data and put it into an object to pass into database
 // title, destination, startDate, endDate
   finalize() {
@@ -120,15 +166,16 @@ componentDidMount() {
       description: this.state.description,
       startDate: this.state.fromDate,
       endDate: this.state.toDate,
+      longitude: this.state.longitude,
       latitude: this.state.latitude,
-      longitude: this.state.longitude
+      url: this.state.url
     }
     //post request to database
-    console.log('this is not a post', tripInfo)
     axiosRoutes.postTripInfo(tripInfo)
       .then((res) => {
         axiosRoutes.postUserTrip(this.props.userId, res.data.id)
           .then((res) => {
+            console.log(tripInfo)
             this.state.friends.forEach((friend) => {
               axiosRoutes.addFriendToTrip(this.props.userId, res.data.tripId, friend.id)
                 .then((res) => {
@@ -139,14 +186,17 @@ componentDidMount() {
             this.goTo.call(this, `event/${res.data.tripId}`)
           })
           .catch(err => console.log(err))
+          console.log(tripInfo)
       })
       .catch((err)=> {
         //take this out once we get servers linked
-        this.goTo.call(this, 'event/1')
+        // this.goTo.call(this, 'event/1')
         console.log(err)
         console.log(tripInfo)
       })
+
   }
+
 //Event listeners to populate fields onchange
   tripNameData(events) {
     this.setState({tripName: events.target.value})
@@ -168,9 +218,14 @@ componentDidMount() {
     this.setState({toDate: events.target.value})
     console.log(this.state.toDate)
   };
+  urlData(events) {
+    this.setState({url: events.target.value})
+  }
+
 handleFormSubmit(){
     this.initAutocomplete();
   }
+
  initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
     // location types.
@@ -195,14 +250,23 @@ handleFormSubmit(){
       this.setState({
         searchedLocation : autocomplete.getPlace().geometry.location,
         location: autocomplete.getPlace().formatted_address,
-        latitude: autocomplete.getPlace().geometry.location.lat(),
-        longitude: autocomplete.getPlace().geometry.location.lng()
+        longitude: autocomplete.getPlace().geometry.location.lng(),
+        latitude: autocomplete.getPlace().geometry.location.lat()
       })
+
     });
     
  }
+
   render() {
-    console.log(this.props.location)
+    let pic = null
+    let previewPic = null
+
+    if(this.state.accepted.length > 0) {
+      previewPic = this.state.accepted[0].preview
+    }
+
+    // console.log(this.props.location)
   //Invite Friends List on "Invite Friends" click
   //Popup friends list/invite list
     if (this.state.display === true) {
@@ -210,6 +274,7 @@ handleFormSubmit(){
       <div>
         <h1>Friends List</h1>
         <FriendsList 
+        friendsData = {this.state.friendsData}
         friends = {this.state.friendsData} 
         invite = {this.invite}
         done = {this.done}
@@ -218,21 +283,7 @@ handleFormSubmit(){
       </div>
       )
   }
-  /*if (this.state.displayEventPage === true) {
-    return (
-      <div>
-        <EventPage 
-        tripName={this.state.tripName} 
-        location={this.state.location} 
-        description={this.state.description} 
-        toDate={this.state.toDate}
-        fromDate={this.state.fromDate}
-        friends={this.state.friends}
-        displayEventPage={this.finalize}
-        />
-      </div>
-    )
-  }*/
+
 const { isAuthenticated } = this.props.auth;
         
         if (!isAuthenticated()) {
@@ -242,60 +293,79 @@ const { isAuthenticated } = this.props.auth;
           }} />
           )
         }
+
     return (
       <div> 
-          {/*<div id="topHalf">
-            <h2>Create Trip</h2>
-            <input id="tripName" type = 'text' placeholder = "Trip name" ></input>
-          <br></br>
-            <input id="location" type = 'text' placeholder = 'Location/Address' onChange={this.locationNameData}></input>
-          <br></br>
-            <textarea name="description" placeholder ="Description Details" onChange={this.descriptionData}></textarea>
-          </div>*/}
+        
+        <Dropzone
+          accept="image/jpeg, image/png"
+          onDrop={this.onDrop.bind(this)}
+          style={{border: "solid 3px white", backgroundColor: "white", height: 200 + "px", width: 100+ "%"}}
+        >
+          <img src={previewPic} style ={{marginTop: -40 + "px", backgroundSize: "cover", backgroundColor: "#f2f2f2", borderRadius: 5, width: 100 + "%"}} height="260"/>
+        </Dropzone>
+
           <div className="input field" style={{marginLeft: 30 + "px", marginTop: 30 + "px", marginRight: 30 + "px"}}>
             <Row>
                 <Input style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder="Trip Name" s={12} onChange={this.tripNameData}/>
                 <Input id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder="Destination" s={12} onChange={this.handleFormSubmit}/>
                 <Input style={{fontSize: 15 + "px"}}placeholder="Description" s={12} onChange={this.descriptionData}/>
+                <Input style={{fontSize: 15 + "px"}}placeholder="ImageURL" s={12} onChange={this.urlData}/>
             </Row>
           </div>
+
+          <div id="friendsList" style={{position: "absolute", marginTop: 20 + "px", marginLeft: 60 + "%"}}>
+            <h4>Invited Friends</h4>
+            <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
+          </div>
+
           <div id="bottomHalf" style={{marginLeft: 30 + "px", marginRight: 50 + "%"}}>
-            {/*Dropdown calendars*/}
+
             <span style={{marginLeft: 2 + "%"}}>From:</span>
             <input style={{marginLeft: 2 + "%", height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventFromDate}/>
             <span style={{marginLeft: 2 + "%"}}> To:</span>
             <input style={{marginLeft: 2 + "%",height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventToDate}/>
             <br></br>
             <div id="invitedFriends">
-              <h4>Friends List</h4>
-              <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
             </div> 
+
             
-            {/*Invite friends pop up*/}
+
             <FlatButton label="Invite Friends" primary={true} onClick={this.inviteFriends}/>
             <br></br>
             
-            {/*go to event page*/}
+
             
             <FlatButton label="Finalize Trip" primary={true} onClick = {this.finalize}/>
             
           </div>
-          {/*Render Invited Friends*/}
+
+
+
+
       </div>
     ) 
+
   } //end render bracket
 } //end Create component bracket
+
 //Render invited friends onto Create Page
+
 const Friends = ({friends, uninviteFriend}) => (
   <div>
   {friends.map((friend, key) => {
-    return <div>
-    <p>{friend.firstName}
-    <button className="uninvite" onClick={() => {uninviteFriend(friend)}}>Uninvite</button>
-    </p>
+    <div>
+    <Chip
+      style={styles.chip}
+        >
+        <Avatar src="http://orig12.deviantart.net/e40f/f/2012/239/a/d/aang_facebook_default_profile_picture_by_redjanuary-d5cm82l.png" />
+        {friend.id}
+    <FlatButton label="Uninvite" primary={true} onClick={() => {uninviteFriend(friend)}} />
+        </Chip>
     </div>
   })
   }
   </div>
 )
+
 export default Create

@@ -21,7 +21,7 @@ class UserProfilePic extends Component {
     
     let previewPic = null
 
-    if(this.props.userInfo.url.length > 0 && this.state.accepted.length < 1) {
+    if(this.state.accepted.length < 1) {
       previewPic = this.props.userInfo.url
     }
 
@@ -29,7 +29,7 @@ class UserProfilePic extends Component {
       previewPic = this.state.accepted[0].preview
     }
 
-    if(this.props.editPic || this.props.userInfo.url.length < 1) {
+    if(this.props.editPic) {
       pic = (
 
       <div>
@@ -60,8 +60,8 @@ class UserProfilePic extends Component {
     } else {
       pic = (
         <div>
-        <img src={this.props.userInfo.profilePic} alt="Upload Your Picture.."/>
-        <button onClick={this.props.handleEditPicClick}>Edit</button>
+        {/*<img src={this.props.userInfo.profilePic} alt="Upload Your Picture.."/>*/}
+        <FlatButton label="Edit Profile" primary={true} onClick={this.props.handleEditPicClick}/>
         </div>
       )
     }

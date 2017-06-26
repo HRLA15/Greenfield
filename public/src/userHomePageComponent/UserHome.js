@@ -8,6 +8,7 @@ import axiosRoutes from './UserHomeAxiosRoutes'
 import { Redirect, Link } from 'react-router-dom'
 import UserSideBar from './UserSideBar'
 import {Tabs, Tab} from 'material-ui/Tabs'
+import UsersFriends from './UsersFriends'
 //TODOS:
 
 const styles = {
@@ -25,14 +26,24 @@ class UserHome extends Component {
     super(props)
     this.state = {
       redirect: false,
-      userInfo: {}
+      userInfo: {},
+      friends: [],
+      display: false
     }
+
 
     this.handleCreateTripButtonClick = this.handleCreateTripButtonClick.bind(this)
   }
 
   //once servers are working and auth0token is given uncomment below
   componentWillMount() {
+
+    axiosRoutes.getUserFriends(localStorage.userId)
+      .then((res) => {
+        this.setState({friends: res.data[0].friend})
+        console.log("Friends", this.state.friends)
+      })
+
     axiosRoutes.getOneUser(localStorage.userSub)
       .then((res) => {
         this.setState({
@@ -74,6 +85,12 @@ class UserHome extends Component {
     //   )
     // }
 
+    if(this.state.display === true) {
+      return <div>
+      <UsersFriends friends={this.state.friends} />
+      </div>
+    }
+
     return (
       <div>
         {/*<UserUpcomingTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
@@ -95,7 +112,7 @@ class UserHome extends Component {
           </Tabs>
         </div>
           <div style={{flexGrow: 1, flexShrink: 1, marginTop: 45 + "px", marginLeft: 40 + "px"}}>
-          <UserSideBar />
+          <UserSideBar friends={this.state.friends}/>
           </div>
         </div>
       </div>

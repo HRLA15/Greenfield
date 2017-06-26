@@ -74,7 +74,7 @@ class ActivityList extends Component {
 
   handleVoteClick(activityId) {
     console.log('you voted')
-    axiosRoutes.addVoteToHotel(activityId, this.props.userId, this.props.creatorId)
+    axiosRoutes.addVoteToHotel(activityId, this.props.userId)
       .then((res) => {
         alert('Thanks for Voting!')
         console.log(res.data)
