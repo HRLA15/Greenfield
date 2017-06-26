@@ -9,7 +9,6 @@ router.post('/editTripSummary/:tripId', tripController.updateTripData);
 // Get the Nearby Hotels particular trip
 router.get('/getTripNearbyHotels/:tripId', tripController.getTripNearbyHotels);
 
-
 //*** NEED TO ADD LATITUDE LONGITUDE TO HOTEL AND ACTIVITY */
 // Post hotels from Google Maps -- prevents you from posting the same hotel with the same address
 router.post('/postTripHotel/:tripId', tripController.postTripNearbyHotels);
