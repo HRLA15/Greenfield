@@ -28,38 +28,32 @@ class Create extends Component {
   constructor(){
     super();
     this.state = {
-
       // hideInvite: false,
-
       fromDate: '',
-
       toDate: '',
-
       showInvite: true,
       //Invited Friends storage
       friends: [],
-
       display: false,
-
       // displayEventPage: false,
 
       //Trip info
-
       tripName: '',
-
       location: '',
-
       description: '',
-
       friendsData: '',
-
       longitude: '',
-
       latitude: '',
-
       accepted: [],
+      url: '',
 
-      url: ''
+      holderTripName: 'Trip Name',
+      holderDestination: 'Destination',
+      holderDescription: 'Description',
+      holderImg: 'ImageURL',
+      holderStartDate: '',
+      holderEndDate: ''
+
     }
     
     this.inviteFriends = this.inviteFriends.bind(this)
@@ -88,8 +82,31 @@ class Create extends Component {
   //   }
   // }
 componentWillMount() {
-  console.log('user id is', this.props.userId)
-  console.log(this.props.location.pathname)
+
+  const urlArr = this.props.location.pathname.split('/')
+
+  if(urlArr[1] == "edit") {
+    const tripId = parseInt(urlArr[2])
+
+    axiosRoutes.getTripData(tripId)
+      .then((res) => {
+        let url = 'ImageURL'
+        if(res.data[0].url !== '') {
+          url = res.data[0].url
+        } 
+        this.setState ({
+          holderTripName: res.data[0].title,
+          holderDestination: res.data[0].destination,
+          holderDescription: res.data[0].description,
+          holderStartDate: res.data[0].startDate,
+          holderEndDate: res.data[0].endDate,
+          longitude: res.data[0].longitude,
+          latitude: res.data[0].latitude,
+          holderImg: url
+        })
+      })
+      .catch((err) => console.log(err))
+  }
 
 }
 
@@ -201,6 +218,7 @@ componentDidMount() {
   tripNameData(events) {
     this.setState({tripName: events.target.value})
     console.log('Trip Name: ',events.target.value)
+    console.log(this.state.description)
   };
   locationNameData(events) {
     this.setState({location: events.target.value})
@@ -307,10 +325,10 @@ const { isAuthenticated } = this.props.auth;
 
           <div className="input field" style={{marginLeft: 30 + "px", marginTop: 30 + "px", marginRight: 30 + "px"}}>
             <Row>
-                <Input style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder="Trip Name" s={12} onChange={this.tripNameData}/>
-                <Input id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder="Destination" s={12} onChange={this.handleFormSubmit}/>
-                <Input style={{fontSize: 15 + "px"}}placeholder="Description" s={12} onChange={this.descriptionData}/>
-                <Input style={{fontSize: 15 + "px"}}placeholder="ImageURL" s={12} onChange={this.urlData}/>
+                <Input style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder={this.state.holderTripName} s={12} onChange={this.tripNameData}/>
+                <Input id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder={this.state.holderDestination} s={12} onChange={this.handleFormSubmit}/>
+                <Input style={{fontSize: 15 + "px"}}placeholder={this.state.holderDescription} s={12} onChange={this.descriptionData}/>
+                <Input style={{fontSize: 15 + "px"}}placeholder={this.state.holderImg} s={12} onChange={this.urlData}/>
             </Row>
           </div>
 
@@ -322,9 +340,9 @@ const { isAuthenticated } = this.props.auth;
           <div id="bottomHalf" style={{marginLeft: 30 + "px", marginRight: 50 + "%"}}>
 
             <span style={{marginLeft: 2 + "%"}}>From:</span>
-            <input style={{marginLeft: 2 + "%", height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventFromDate}/>
+            <input style={{marginLeft: 2 + "%", height: 50 + "px", fontSize: 15 + "px"}} type="date" placeholder={this.state.holderStartDate} onChange={this.eventFromDate}/>
             <span style={{marginLeft: 2 + "%"}}> To:</span>
-            <input style={{marginLeft: 2 + "%",height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventToDate}/>
+            <input style={{marginLeft: 2 + "%",height: 50 + "px", fontSize: 15 + "px"}} type="date" placeholder={this.state.holderEndDate} onChange={this.eventToDate}/>
             <br></br>
             <div id="invitedFriends">
             </div> 
