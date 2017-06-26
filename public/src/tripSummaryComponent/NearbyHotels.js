@@ -48,7 +48,7 @@ class NearbyHotels extends Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
+    const interval = setInterval(() => {
       axiosRoutes.getTripNearbyHotels(this.props.tripId)
         .then((res) => {
           if(Array.isArray(res.data)) {
@@ -62,7 +62,15 @@ class NearbyHotels extends Component {
         .catch(err => console.log(err))
     }
     , 1000)
+    this.setState({
+      interval: interval
+    })
   }
+
+  componentWillUnmount() {
+    clearInterval(this.state.interval)
+  }
+
   handleVoteClick(hotelId) {
     console.log('you voted')
     axiosRoutes.addVoteToHotel(hotelId, this.props.userId, this.props.creatorId)

@@ -53,7 +53,6 @@ class PendingTrips extends Component {
             pendingTrips: res.data
           })
         }
-        console.log('the call happened')
       })
       .catch(err => console.log(err))
   }

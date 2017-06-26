@@ -33,7 +33,7 @@ class UserHome extends Component {
 
   //once servers are working and auth0token is given uncomment below
   componentWillMount() {
-    axiosRoutes.getOneUser(localStorage.id_token)
+    axiosRoutes.getOneUser(localStorage.userSub)
       .then((res) => {
         this.setState({
           userInfo: res.data[0]
@@ -43,7 +43,7 @@ class UserHome extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    axiosRoutes.getOneUser(localStorage.id_token)
+    axiosRoutes.getOneUser(localStorage.userSub)
       .then((res) => {
         this.setState({
           userInfo: res.data[0]

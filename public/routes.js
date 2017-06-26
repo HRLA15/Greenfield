@@ -40,6 +40,7 @@ export const makeMainRoutes = () => {
           .then((res) => {
             console.log('get one user?!', res.data)
             localStorage.setItem('userId', res.data[0].id)
+            localStorage.setItem('userSub', res.data[0].idToken)
           })
           .catch(err => console.log(err))
       })

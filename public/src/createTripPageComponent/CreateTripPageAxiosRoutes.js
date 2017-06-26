@@ -12,15 +12,19 @@ module.exports = {
   // 
   postTripInfo: (tripData, userId) => {
     console.log('The tripData', tripData)
-    
-    return axios.post(`http://localhost:3000/postTripSummary/${userId}`, {
+
+    return axios.post(`http://localhost:3000/postTripSummary`, {
       title: tripData.title,
       destination: tripData.destination,
       startDate: tripData.startDate,
       endDate: tripData.endDate,
-      description: tripData.description
+      description: tripData.description,
+      url: tripData.url
     })
   },
+  postUserTrip: (userId, tripId) => (
+    axios.post(`http://localhost:3000/postUserTrip/${userId}/${tripId}`)
+  ),
   editTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/editTripSummary/${tripData.id}`, {
       title: tripData.title,
