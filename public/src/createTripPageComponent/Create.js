@@ -87,22 +87,10 @@ componentWillMount() {
 }
 
 componentDidMount() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  // axiosRoutes.getUserFriends()
-  //   .then((res)=>{
-  //     this.setState({friendsData: res.data[0].friend})
-  //   })
-  //   .catch((err) =>{
-  //     console.log(err)
-  //   })
-=======
   console.log('User ID', this.props.userId)
   axiosRoutes.getUserFriends(this.props.userId)
-=======
   console.log('User ID', localStorage.userId)
   axiosRoutes.getUserFriends(localStorage.userId)
->>>>>>> "Edited create page"
     .then((res)=>{
       console.log('res.body in componentdidmount = ', res.data[0].friend)
       this.setState({friendsData: res.data[0].friend})
@@ -110,11 +98,11 @@ componentDidMount() {
     .catch((err) =>{
       console.log(err)
     })
->>>>>>> "Worked on routes for create page"
-}
+
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
+  
 //auth0 login
   login() {
     this.props.auth.login();
