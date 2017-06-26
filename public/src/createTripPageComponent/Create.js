@@ -87,8 +87,6 @@ componentWillMount() {
 }
 
 componentDidMount() {
-  console.log('User ID', this.props.userId)
-  axiosRoutes.getUserFriends(this.props.userId)
   console.log('User ID', localStorage.userId)
   axiosRoutes.getUserFriends(localStorage.userId)
     .then((res)=>{
@@ -98,7 +96,6 @@ componentDidMount() {
     .catch((err) =>{
       console.log(err)
     })
-
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
