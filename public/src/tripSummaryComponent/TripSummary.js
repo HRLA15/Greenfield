@@ -40,18 +40,17 @@ class TripSummary extends Component {
     this.getTopActivities = this.getTopActivities.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axiosRoutes.getTripData(this.props.match.params.tripId)
       .then((res) => {
         console.log('trip data', res.data[0])
-        if(res.data[0].userId === this.props.userId) {
-          this.setState({
-            isTripCreator: true
+        // if(res.data[0].id === this.props.userId) {
+          this.setState({ isTripCreator: true }, () => {
+             this.setState({ tripData: res.data[0] }, () => {
+               console.log('thisis the trip data in the CWM in trip summary ', this.state.tripData)
+             })
           })
-        }
-        this.setState({
-          tripData: res.data[0]
-        })
+        // }
       })
       .catch(err => console.log(err))
   }
@@ -61,6 +60,7 @@ class TripSummary extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('when am i firing')
     axiosRoutes.getTripData(nextProps.match.params.tripId)
       .then((res) => {
         if(res.data.userId === nextProps.userId) {

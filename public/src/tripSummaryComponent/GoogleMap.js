@@ -23,9 +23,9 @@ class GoogleMap extends Component{
     this.handleAddToConfirmList=this.handleAddToConfirmList.bind(this)
   }
 
-  componentDidMount(){
-    console.log('google map props', this.props)
-    this.initialize(this.props);
+  componentWillReceiveProps(){
+    console.log('these are the props ', this.prop)
+    this.initialize();
   }
   componentWillMount() {
   }
@@ -64,20 +64,20 @@ class GoogleMap extends Component{
     });
   }
 
-  initialize(props) {
-    console.log('the trip props', props)
-
-    var queryLocation = new google.maps.LatLng(props.tripLat, props.tripLng);
+  initialize() {
+    // const {tripLat, tripLng} = this.props;
+    console.log('these are the prroppposss in intitialize ', this.props)
+    var queryLocation = new google.maps.LatLng(this.props.tripLat, this.props.tripLng);
     // console.log("what is pyrmont", losAngeles);
     // console.log("searchedLocation in initilize locations:", this.state.searchedLocation);
     // console.log("type of this.state.searchedLocation", typeof this.state.searchedLocation);
-    var losAngeles = new google.maps.LatLng(0, 0);
+    var losAngeles = new google.maps.LatLng(46.471979, -90.247285);
 
-    if (typeof this.state.searchedLocation.lat === "function"){
-      queryLocation = this.state.searchedLocation;
-    }else{
-      queryLocation = losAngeles;
-    }
+    // if (typeof this.state.searchedLocation.lat === "function"){
+    //   queryLocation = queryLocation
+    // }else{
+    //   queryLocation = losAngeles;
+    // }
 
     var map = new google.maps.Map(document.getElementById('map2'), {
       center: queryLocation,
@@ -151,6 +151,9 @@ class GoogleMap extends Component{
 
 
   render(){
+    console.log('these are the props line 154 in googlemap ', this.props)
+    // var obj = {lat: this.props.tripLat, lng: this.props.tripLng}
+    // this.setState({ searchedLocation: Object.assign(this.state.searchedLocation, obj )})
     return(
       <div>
         <Grid>

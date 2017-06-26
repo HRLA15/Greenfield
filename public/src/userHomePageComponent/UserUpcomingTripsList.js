@@ -88,17 +88,29 @@ class UserUpcomingTripsList extends Component {
       })
       .catch(err => console.log(err))
   }
+
   componentDidMount() {
+    const interval = setInterval(() => {
       axiosRoutes.getUserUpcomingTrips(this.props.userId)
-    .then((res) => {
-      if(Array.isArray(res.data)) {
-        this.setState({
-          upcomingTrips: res.data
-        })
-      }
+      .then((res) => {
+        if(Array.isArray(res.data)) {
+          this.setState({
+            upcomingTrips: res.data
+          })
+        }
+      })
+      .catch(err => console.log(err))
+    }
+    , 5000)
+    this.setState({
+      interval: interval
     })
-    .catch(err => console.log(err))
   }
+
+  componentWillUnmount() {
+    clearInterval(this.state.interval)
+  }
+
   componentWillReceiveProps(nextProps) {
     axiosRoutes.getUserUpcomingTrips(nextProps.userId)
       .then((res) => {
