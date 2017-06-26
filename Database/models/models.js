@@ -45,6 +45,14 @@ const Trip = db.define('trip',{
     type: Sequelize.STRING,
     allowNull: true
   },
+  latitude:{
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  longitude: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   currentDate: {
   type: Sequelize.DATEONLY,
   allowNull: false,

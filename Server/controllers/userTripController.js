@@ -30,6 +30,26 @@ module.exports = {
           res.status(404).send(err);
         })
   },
+    // UserTrip.UserTrip.findOrCreate({
+    //   where: { userId: req.params.userId},
+    //   include: [{
+    //     model: UserTrip.Trip,
+    //     where: {endDate: {$gt: Sequelize.fn('NOW')}}
+    //     title: req.body.title,
+    //     destination: req.body.destination,
+    //     description: req.body.description,
+    //     startDate: req.body.startDate,
+    //     endDate: req.body.endDate,
+    //   }],
+    //   defaults: {
+    //   }
+    // })
+    //   .spread((trip, created) => {
+    //     res.status(202).send(trip);
+    //   })
+    //   .catch(err => {
+    //     res.status(404).send(err);
+    //   })
 
   getCompletedTrips: (req, res) => {
     UserTrip.UserTrip.findAll({
@@ -52,7 +72,7 @@ module.exports = {
       where: {userId: req.params.userId, userConfirmed: true, participantConfirmed: true, invited: true},
       include: [{
         model: UserTrip.Trip,
-        where: {endDate: {$lt: Sequelize.col('currentDate'), endDate: {$gt: Sequelize.NOW}}}
+        where: {endDate: {$lt: Sequelize.col('currentDate'), endDate: {$gt: Sequelize.fn('NOW')}}}
       }]
     })
       .then(completedtrip => {
@@ -113,7 +133,7 @@ module.exports = {
   },
 
   deletePendingFriendTrip: (req, res) => {
-    UserTrip.UserTrip.destroy({where: {participantId: req.params.participandId, invited: true, userConfirmed: true, participantConfirmed: false}})
+    UserTrip.UserTrip.destroy({where: {tripId: req.params.tripId, participantId: req.params.participandId, invited: true, userConfirmed: true, participantConfirmed: false}})
       .then(() => {
         res.sendStatus(200);
       })
