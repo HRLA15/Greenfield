@@ -93,7 +93,7 @@ class NearbyHotels extends Component {
         })
         .catch(err => console.log(err))
     }
-    , 5000)
+    , 1000)
     this.setState({
       interval: interval
     })

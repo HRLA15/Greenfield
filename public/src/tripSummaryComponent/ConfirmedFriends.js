@@ -4,6 +4,7 @@ import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 const dummyData = [
   {
@@ -85,6 +86,23 @@ class ConfirmedFriends extends Component {
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
+        <h1>{console.log("TOP HOTEL", this.props.topHotel)}</h1>
+
+         <Card>
+            <CardHeader
+              title={this.props.topHotel.title}
+              subtitle="Subtitle"
+              avatar="images/jsa-128.jpg"
+            />
+            <CardMedia
+              overlay={<CardTitle title={this.props.topHotel.title} subtitle="Overlay subtitle" />}
+            >
+              <img src={this.props.topHotel.url} alt="" />
+            </CardMedia>
+          </Card>
+
+        {this.props.topHotel.title}
+
         {
           this.state.friends.map((friendObj) => (
             <MenuItem onTouchTap={this.handleClose}>{friendObj.participant.username}</MenuItem>

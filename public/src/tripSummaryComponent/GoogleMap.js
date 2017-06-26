@@ -166,10 +166,9 @@ class GoogleMap extends Component{
     // this.setState({ searchedLocation: Object.assign(this.state.searchedLocation, obj )})
     return(
       <div>
-        <Grid>
-          <Row>
             <Col xs={12} id="map2" style={{width:500+"px", height:500+"px"}}></Col>
             <Col xs={12}>
+            <h1>Preview</h1>
                   <Image  width={400} height={400} src={this.state.markerClicked.photo} rounded></Image>
                   <br></br>
                   {this.state.markerClicked.name}
@@ -181,8 +180,7 @@ class GoogleMap extends Component{
                     : null
                   }
             </Col>
-          </Row>
-          <Row>
+
             <Col xs={12}>
             
             <h1>Search for :</h1>
@@ -190,8 +188,6 @@ class GoogleMap extends Component{
             <Button bsStyle="info" name="Restaurants" value="restaurant" onClick={() => {this.handleSelectionClick("restaurant")}}>Restaurants</Button>
             <Button bsStyle="info" name="Store" value="store" onClick={() =>{this.handleSelectionClick("store")}}>Stores</Button> 
             </Col>
-          </Row>
-        </Grid>
         
         <div>
         {this.state.pendingList.length > 0 ? 
