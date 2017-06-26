@@ -11,11 +11,15 @@ module.exports = {
   //post tripname
   // 
 <<<<<<< HEAD
+<<<<<<< HEAD
   postTripInfo: (tripData, userId) => {
     console.log('The tripData', tripData)
 
     return axios.post(`http://localhost:3000/postTripSummary`, {
 =======
+=======
+
+>>>>>>> "Edited create page"
   postTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/postTripSummary`, {
 >>>>>>> "Worked on routes for create page"
@@ -26,9 +30,12 @@ module.exports = {
       description: tripData.description,
       url: tripData.url
     })
+<<<<<<< HEAD
   },
   postUserTrip: (userId, tripId) => (
     axios.post(`http://localhost:3000/postUserTrip/${userId}/${tripId}`)
+=======
+>>>>>>> "Edited create page"
   ),
   editTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/editTripSummary/${tripData.id}`, {

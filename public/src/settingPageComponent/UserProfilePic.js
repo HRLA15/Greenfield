@@ -60,7 +60,7 @@ class UserProfilePic extends Component {
     } else {
       pic = (
         <div>
-        <img src={this.props.userInfo.url} alt="Upload Your Picture.."/>
+        <img src={this.props.userInfo.profilePic} alt="Upload Your Picture.."/>
         <button onClick={this.props.handleEditPicClick}>Edit</button>
         </div>
       )
