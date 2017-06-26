@@ -45,15 +45,15 @@ class TripSummary extends Component {
   componentDidMount() {
     axiosRoutes.getTripData(this.props.match.params.tripId)
       .then((res) => {
-      if(res.data[0].id === this.props.userId) {
+      // if(res.data[0].id === this.props.userId) {
         this.setState({ isTripCreator: true }, () => {
           this.setState({ tripData: Object.assign(this.state.tripData, res.data[0]) }, () => {
           })
         })
-      } else {
-        this.setState({ tripData: Object.assign(this.state.tripData, res.data[0]) }, () => {
-          })
-      }
+      // } else {
+      //   this.setState({ tripData: Object.assign(this.state.tripData, res.data[0]) }, () => {
+      //     })
+      // }
       })
       .catch(err => console.log(err))
     
