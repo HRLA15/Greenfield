@@ -9,33 +9,34 @@ router.post('/editTripSummary/:tripId', tripController.updateTripData);
 // Get the Nearby Hotels particular trip
 router.get('/getTripNearbyHotels/:tripId', tripController.getTripNearbyHotels);
 
-// Post hotels from Google Maps
+//*** NEED TO ADD LATITUDE LONGITUDE TO HOTEL AND ACTIVITY */
+// Post hotels from Google Maps -- prevents you from posting the same hotel with the same address
 router.post('/postTripHotel/:tripId', tripController.postTripNearbyHotels);
-router.delete('/deleteTripHotel/:tripId', tripController.deleteTripHotel);
+router.delete('/deleteTripHotel/:hotelId', tripController.deleteTripHotel);
 
 //Get the Nearby Activities from a particular trip
 router.get('/getTripActivities/:tripId', tripController.getTripActivities);
 
-//Post/Delete Activities
+//Post/Delete Activities -- prevents you from posting the same activity with the address
 router.post('/postTripActivity/:tripId', tripController.postTripActivity);
-router.delete('/deleteTripActivity/:tripId', tripController.deleteTripActivity);
+router.delete('/deleteTripActivity/:activityId', tripController.deleteTripActivity);
 
 //Post/update HotelVote for friends prevents friend from voting multiple times
-router.post('/hotelVote/:hotelId/:friendId', tripController.voteOnHotel)
+router.post('/addVoteToHotel/:hotelId/:userId', tripController.voteOnHotel)
 
 //Post/Update HoteVote for user prevents user from from voting multiple times
-router.post('/userHotelVote/:hotelId/:userId', tripController.userVoteOnHotel);
+// router.post('/userHotelVote/:hotelId/:userId', tripController.userVoteOnHotel);
 
 //Sum of the votes of each hotel for all users
-router.get('/sumOfHotelVote', tripController.sumOfVoteHotel)
+router.get('/getTopFiveHotels/:tripId', tripController.sumOfVoteHotel)
 
 //Post/update Activity for friends prevents friend from voting multiple times
-router.post('/activityVote/:activityId/:friendId', tripController.voteOnActivity)
+router.post('/addVoteToActivity/:activityId/:userId', tripController.voteOnActivity)
 
 //Post/Update Activity for creator prevents creator from from voting multiple times
 router.post('/userActivityVote/:activityId/:userId', tripController.userVoteOnActivity);
 
 //Sum of the votes of each activity for all users
-router.get('/sumOfActivityVote', tripController.sumOfVoteActivity)
+router.get('/getTopFiveActivities/:tripId', tripController.sumOfVoteActivity)
 
 module.exports = router;

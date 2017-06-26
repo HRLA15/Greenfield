@@ -43,10 +43,9 @@ module.exports = {
   },
 
   friendTripConfirmation: (req, res) => {
-    console.log('this is req paramasdfasdfasdfasdfasdfs', req.params)
     UserFriend.UserTrip.update({
       participantConfirmed: true
-    }, {where: {userId: req.params.userId, tripId: req.params.tripId, participantId: req.params.participantId}, returning: true})
+    }, {where: {tripId: req.params.tripId}, returning: true})
       .then(confirmed => {
         res.status(202).send(confirmed[1]);
       })
@@ -75,7 +74,7 @@ module.exports = {
     UserFriend.UserTrip.findOrCreate({where: {participantId: req.params.participantId},
       defaults: {
       tripId: req.params.tripId,
-      participantId: req.params.participantId,
+      participantId: req.body.id,
       userId: req.params.userId,
       invited: true}, returning: true})
         .spread((addfriend,created) => {
@@ -115,5 +114,16 @@ module.exports = {
         .catch(err => {
           console.log('there is an error with adding friends', err);
         })
+  },
+
+  inviteFriend: (req, res) => {
+    console.log('this is the invited friends that is getting passed in', req.body.data)
+    UserFriend.UserTrip.bulkCreate(req.body.data)
+      .then(invite => {
+        res.status(202).send(invite);
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      })
   }
 }

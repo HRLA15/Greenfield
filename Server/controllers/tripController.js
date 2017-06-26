@@ -9,7 +9,7 @@ module.exports = {
       })
       .catch(err => {
         res.status(404).send(err);
-      }, {where: {id: req.params.tripId }})
+      })
   },
   
   postTripData: (req, res) => {
@@ -20,6 +20,8 @@ module.exports = {
       destination: tripData.destination,
       startDate: tripData.startDate,
       endDate: tripData.endDate,
+      latitude: tripData.latitude,
+      longitude: tripData.longitude,
       description: tripData.description,
       url: tripData.url
     })
@@ -30,9 +32,39 @@ module.exports = {
         res.status(404).send(err);
       })
   },
+    // Trip.Trip.findOrCreate({
+    //   where: {title: tripData.title},
+    //   defaults: {
+    //     title: tripData.title,
+    //     destination: tripData.destination,
+    //     startDate: tripData.startDate,
+    //     endDate: tripData.endDate,
+    //     description: tripData.description,
+    //     url: tripData.url,
+    //     id: req.params.tripId
+    //   }})
+    //     .spread((trip, created) => {
+    //       Trip.Trip.update({
+    //         title: tripData.title,
+    //         destination: tripData.destination,
+    //         startDate: tripData.startDate,
+    //         endDate: tripData.endDate,
+    //         description: tripData.description,
+    //         url: tripData.url
+    //       }, {where: {id: req.body.tripId}})
+    //         .then(update => {
+    //           res.status(202).send(err);
+    //         })
+    //         .catch(err => {
+    //           res.status(404).send(err);
+    //         })
+    //     })
+    //     .catch(err => [
+    //       res.status(404).send(err);
+    //     ])
 
   deleteTripHotel: (req, res) => {
-    Trip.Hotel.destroy({where: {tripId: id.params.tripId}})
+    Trip.Hotel.destroy({where: {id: id.params.hotelId}})
       .then(deleted => {
         res.status(202).send('deleted');
       })
@@ -49,6 +81,8 @@ module.exports = {
       destination: tripData.destination,
       startDate: tripData.startDate,
       endDate: tripData.endDate,
+      latitude: tripData.latitude,
+      longitude: tripData.longitude,
       description: tripData.description,
       url: tripData.url,
     }, {where: {id: req.params.tripId}, returning: true })
@@ -139,7 +173,7 @@ module.exports = {
   deleteTripActivity: (req, res) => {
     let tripData = req.body;
 
-    Trip.Activity.destroy({where: {tripId: req.params.tripId}})
+    Trip.Activity.destroy({where: {id: req.params.activityId}})
       .then(activity => {
         res.status(202).send('deleted');
       })
@@ -214,6 +248,7 @@ module.exports = {
 
   sumOfVoteHotel: (req, res) => {
     Trip.Hotel.findAll({
+      where: {tripId: req.params.tripId},
       attributes: ['name', 'url' , 'address', [Sequelize.fn('SUM', (Sequelize.fn('COALESCE', (Sequelize.col('hotelvotes.vote')),0))), 'count']],
       order: [Sequelize.literal('count DESC NULLS LAST')],
       include: [{
@@ -234,6 +269,7 @@ module.exports = {
 
   sumOfVoteActivity: (req, res) => {
     Trip.Activity.findAll({
+      where: {tripId: req.params.tripId},
       attributes: ['name', 'url', 'address', [Sequelize.fn('SUM', (Sequelize.fn('COALESCE', (Sequelize.col('activityvotes.vote')),0))), 'count']],
       order: [Sequelize.literal('count DESC NULLS LAST')],
       include: [{
