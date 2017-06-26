@@ -73,6 +73,7 @@ class ConfirmedFriends extends Component {
     return (
       <div>
         <RaisedButton
+          style={{marginLeft: 20 + "px"}}
           label="Trip Summary"
           onTouchTap={this.handleToggle}
         />

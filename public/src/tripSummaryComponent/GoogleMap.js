@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import PendingList from './PendingList'
 import {Grid, Row, Col, Image, Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap'
 import axiosRoutes from './TripSummaryAxiosRoutes'
+import Paper from 'material-ui/Paper';
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton';
 
 class GoogleMap extends Component{
   constructor(props){
@@ -166,28 +169,36 @@ class GoogleMap extends Component{
     // this.setState({ searchedLocation: Object.assign(this.state.searchedLocation, obj )})
     return(
       <div>
-            <Col xs={12} id="map2" style={{width:500+"px", height:500+"px"}}></Col>
-            <Col xs={12}>
-            <h1>Preview</h1>
-                  <Image  width={400} height={400} src={this.state.markerClicked.photo} rounded></Image>
+
+        <div>
+          <div style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'row'}}>
+            <div id="map2" style={{borderRadius: 10 + "px", marginLeft: 20 + 'px', width: 60 + "%", height:500+"px"}}></div>
+              <div style ={{marginLeft: 20 + 'px'}}>
+                  <Image style={{marginLeft: 20 + 'px'}}  width={300} height={300} src={this.state.markerClicked.photo} rounded></Image>
                   <br></br>
+                  <div style={{marginLeft: 20 + "px"}}>
                   {this.state.markerClicked.name}
                   <br></br>
                   {this.state.markerClicked.address}
                   <br></br>
+                  </div>
                   {this.state.markerClicked.showAddButton ? 
-                    <Button bsStyle="primary" onClick={()=>{this.handleAddToConfirmList(this.state.querySelection, this.state.markerClicked)}}>Add to Suggestions</Button> 
+                    <RaisedButton style={{marginLeft: 20 + "px"}} label="Add to Suggestions" onClick={()=>{this.handleAddToConfirmList(this.state.querySelection, this.state.markerClicked)}}/>
                     : null
                   }
-            </Col>
 
-            <Col xs={12}>
-            
-            <h1>Search for :</h1>
-            <Button bsStyle="info" name="Hotels" value="hotel" onClick={() => {this.handleSelectionClick("hotel")}}>Hotels</Button>
-            <Button bsStyle="info" name="Restaurants" value="restaurant" onClick={() => {this.handleSelectionClick("restaurant")}}>Restaurants</Button>
-            <Button bsStyle="info" name="Store" value="store" onClick={() =>{this.handleSelectionClick("store")}}>Stores</Button> 
-            </Col>
+            <div style={{marginTop: 10 + "px", marginLeft: 20 + "px", display: 'flex', flexDirection: 'column'}}>
+
+            <RaisedButton style={{marginBottom: 3 + "px"}} primary={true} label="Hotels" onClick={() => {this.handleSelectionClick("hotel")}}/>
+            <RaisedButton style={{marginBottom: 3 + "px"}} primary={true} label="Restaurants" onClick={() => {this.handleSelectionClick("restaurant")}}/>
+            <RaisedButton style={{marginBottom: 3 + "px"}} primary={true} label="Store" onClick={() =>{this.handleSelectionClick("store")}}/>
+            </div>
+
+            </div>
+            </div> 
+
+
+        </div>
         
         <div>
         {this.state.pendingList.length > 0 ? 
