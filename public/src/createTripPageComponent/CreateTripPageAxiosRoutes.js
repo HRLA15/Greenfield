@@ -12,6 +12,7 @@ module.exports = {
   // 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   postTripInfo: (tripData, userId) => {
     console.log('The tripData', tripData)
 
@@ -23,6 +24,11 @@ module.exports = {
   postTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/postTripSummary`, {
 >>>>>>> "Worked on routes for create page"
+=======
+
+  postTripInfo: (tripData) => (
+    axios.post(`http://localhost:3000/postTripSummary`, {
+>>>>>>> 149200410317774f968130d230e9983f0a8e3a48
       title: tripData.title,
       destination: tripData.destination,
       startDate: tripData.startDate,
@@ -31,11 +37,14 @@ module.exports = {
       url: tripData.url
     })
 <<<<<<< HEAD
+<<<<<<< HEAD
   },
   postUserTrip: (userId, tripId) => (
     axios.post(`http://localhost:3000/postUserTrip/${userId}/${tripId}`)
 =======
 >>>>>>> "Edited create page"
+=======
+>>>>>>> 149200410317774f968130d230e9983f0a8e3a48
   ),
   editTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/editTripSummary/${tripData.id}`, {
