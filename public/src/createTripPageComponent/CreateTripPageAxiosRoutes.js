@@ -10,6 +10,7 @@ module.exports = {
   //trip database ID TITLE DESTINATION START/END DATE
   //post tripname
   // 
+
   postTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/postTripSummary`, {
       title: tripData.title,
@@ -18,7 +19,7 @@ module.exports = {
       endDate: tripData.endDate,
       description: tripData.description
     })
-  },
+  ),
   editTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/editTripSummary/${tripData.id}`, {
       title: tripData.title,

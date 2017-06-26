@@ -34,7 +34,7 @@ class UserSideBar extends Component {
             <ListItem primaryText="Create" leftIcon={<ContentSend />} />
             </Link>
             <ListItem primaryText="Friends" leftIcon={<ActionGrade />} />
-            <ListItem primaryText="Pending" leftIcon={<ContentInbox />} />
+            <ListItem primaryText="My Trips" leftIcon={<ContentInbox />} />
           </List>
           <Divider />
           <List>
