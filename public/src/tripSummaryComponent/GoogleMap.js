@@ -23,12 +23,21 @@ class GoogleMap extends Component{
     this.handleAddToConfirmList=this.handleAddToConfirmList.bind(this)
   }
 
-  componentWillReceiveProps(){
-    console.log('these are the props ', this.prop)
-    this.initialize();
+  componentDidMount(){
+    console.log('these are the props ', this.props)
+    axiosRoutes.getTripData(this.props.tripId)
+      .then(({ data }) => {
+        this.setState({ searchedLocation: data[0] }, () => {
+          this.initialize();
+        })
+      })
   }
-  componentWillMount() {
-  }
+  // componentWillReceiveProps(){
+  //   console.log('these are the props ', this.prop)
+  //   this.initialize();
+  // }
+  // componentWillMount() {
+  // }
 
   handleMarkerClicked(place){
     this.setState({
@@ -67,7 +76,7 @@ class GoogleMap extends Component{
   initialize() {
     // const {tripLat, tripLng} = this.props;
     console.log('these are the prroppposss in intitialize ', this.props)
-    var queryLocation = new google.maps.LatLng(this.props.tripLat, this.props.tripLng);
+    var queryLocation = new google.maps.LatLng(this.state.searchedLocation.latitude, this.state.searchedLocation.longitude);
     // console.log("what is pyrmont", losAngeles);
     // console.log("searchedLocation in initilize locations:", this.state.searchedLocation);
     // console.log("type of this.state.searchedLocation", typeof this.state.searchedLocation);
@@ -151,6 +160,7 @@ class GoogleMap extends Component{
 
 
   render(){
+    // this.initialize();
     console.log('these are the props line 154 in googlemap ', this.props)
     // var obj = {lat: this.props.tripLat, lng: this.props.tripLng}
     // this.setState({ searchedLocation: Object.assign(this.state.searchedLocation, obj )})
@@ -158,9 +168,8 @@ class GoogleMap extends Component{
       <div>
         <Grid>
           <Row>
-            <Col xs={12} md={6} id="map2" style={{width:500+"px", height:500+"px"}}></Col>
-            <Col xs={12} md={6}>
-                  
+            <Col xs={12} id="map2" style={{width:500+"px", height:500+"px"}}></Col>
+            <Col xs={12}>
                   <Image  width={400} height={400} src={this.state.markerClicked.photo} rounded></Image>
                   <br></br>
                   {this.state.markerClicked.name}
@@ -173,8 +182,8 @@ class GoogleMap extends Component{
                   }
             </Col>
           </Row>
-          <Row md={6}>
-            <Col xs={12} md={6}>
+          <Row>
+            <Col xs={12}>
             
             <h1>Search for :</h1>
             <Button bsStyle="info" name="Hotels" value="hotel" onClick={() => {this.handleSelectionClick("hotel")}}>Hotels</Button>
