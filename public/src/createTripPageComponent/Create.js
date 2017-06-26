@@ -9,8 +9,8 @@ import {Button, Icon, Row, Input} from 'react-materialize'
 import FlatButton from 'material-ui/FlatButton'
 
 class Create extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
 
       // hideInvite: false,
@@ -68,14 +68,15 @@ componentWillMount() {
 }
 
 componentDidMount() {
-  // axiosRoutes.getUserFriends()
-  //   .then((res)=>{
-  //     console.log('res.body in componentdidmount = ', res.data[0].friend)
-  //     this.setState({friendsData: res.data[0].friend})
-  //   })
-  //   .catch((err) =>{
-  //     console.log(err)
-  //   })
+  console.log('User ID', this.props.userId)
+  axiosRoutes.getUserFriends(this.props.userId)
+    .then((res)=>{
+      console.log('res.body in componentdidmount = ', res.data[0].friend)
+      this.setState({friendsData: res.data[0].friend})
+    })
+    .catch((err) =>{
+      console.log(err)
+    })
 }
   goTo(route) {
     this.props.history.replace(`/${route}`)
@@ -105,13 +106,13 @@ componentDidMount() {
 //Invite friends list invite button
   invite(friend){
     for (var i = 0; i < this.state.friends.length; i++) {
-      if (friend.name === this.state.friends[i]) {
+      if (friend.id === this.state.friends[i].id) {
         return alert('Friend already invited')
       }
     }
     console.log('Clicked on friend')
     console.log(friend)
-    this.state.friends.push(friend.name)
+    this.state.friends.push(friend)
     this.setState({
       friends: this.state.friends
     })
@@ -134,14 +135,23 @@ componentDidMount() {
       startDate: this.state.fromDate,
       endDate: this.state.toDate
     }
+
     //post request to database
     axiosRoutes.postTripInfo(tripInfo, this.props.userId)
       .then((res) => {
-        axiosRoutes.postInvitedFriends
+        // axiosRoutes.postInvitedFriends(this.state.friendsData, res.data.id)
+        //   .then((res) => {
+        //     console.log('SENT FRIENDS', res)
+        //   })
         //using the new trip info we will redirect them from here
+<<<<<<< HEAD
         this.goTo.call(this, res.data.id)
+=======
+        console.log('TRIP INFO', res)
+        console.log('TRIP ID', res.data.id)
+        this.goTo.call(this, `event/${res.data.id}`)
+>>>>>>> "Worked on routes for create page"
 
-        console.log(res.body)
       })
       .catch((err)=> {
         //take this out once we get servers linked
@@ -208,7 +218,7 @@ handleFormSubmit(){
  }
 
   render() {
-    console.log(this.props.location)
+    // console.log(this.props.location)
   //Invite Friends List on "Invite Friends" click
   //Popup friends list/invite list
     if (this.state.display === true) {
@@ -216,6 +226,7 @@ handleFormSubmit(){
       <div>
         <h1>Friends List</h1>
         <FriendsList 
+        friendsData = {this.state.friendsData}
         friends = {this.state.friendsData} 
         invite = {this.invite}
         done = {this.done}
@@ -280,7 +291,7 @@ const { isAuthenticated } = this.props.auth;
             <br></br>
             <div id="invitedFriends">
               <h4>Friends List</h4>
-              <Friends friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
+              <Friends friendsData={this.state.friendsData} friends={this.state.friends} uninviteFriend={this.uninviteFriend} />
             </div> 
 
             
@@ -308,8 +319,8 @@ const Friends = ({friends, uninviteFriend}) => (
   <div>
   {friends.map((friend, key) => {
     return <div>
-    <p>{friend}
-    <button className="uninvite" onClick={() => {uninviteFriend(friend)}}>Uninvite</button>
+    <p>{friend.id}
+    <FlatButton label="Uninvite" primary={true} onClick={() => {uninviteFriend(friend)}} />
     </p>
     </div>
   })

@@ -10,10 +10,8 @@ module.exports = {
   //trip database ID TITLE DESTINATION START/END DATE
   //post tripname
   // 
-  postTripInfo: (tripData, userId) => {
-    console.log('The tripData', tripData)
-    
-    return axios.post(`http://localhost:3000/postTripSummary/${userId}`, {
+  postTripInfo: (tripData) => (
+    axios.post(`http://localhost:3000/postTripSummary`, {
       title: tripData.title,
       destination: tripData.destination,
       startDate: tripData.startDate,
@@ -33,8 +31,8 @@ module.exports = {
   //get friends from user for invite
   //query so we get all users that have not yet been invited to the trip
   // not including the triphost user id
-  getUserFriends: (userId, tripId) => (
-    axios.get(`http://localhost:3000/getUserFriends/${userId}/${tripId}`)
+  getUserFriends: (userId) => (
+    axios.get(`http://localhost:3000/getUserFriends/${userId}`)
   ),
   //post invited friends
   postInvitedFriends: (invitedFriendsArr, tripId) => (
