@@ -9,14 +9,14 @@ router.post('/editTripSummary/:tripId', tripController.updateTripData);
 // Get the Nearby Hotels particular trip
 router.get('/getTripNearbyHotels/:tripId', tripController.getTripNearbyHotels);
 
-// Post hotels from Google Maps
+// Post hotels from Google Maps -- prevents you from posting the same hotel with the same address
 router.post('/postTripNearbyHotels/:tripId', tripController.postTripNearbyHotels);
 router.delete('/deleteTripHotel/:tripId', tripController.deleteTripHotel);
 
 //Get the Nearby Activities from a particular trip
 router.get('/getTripActivities/:tripId', tripController.getTripActivities);
 
-//Post/Delete Activities
+//Post/Delete Activities -- prevents you from posting the same activity with the address
 router.post('/postTripActivity/:tripId', tripController.postTripActivity);
 router.delete('/deleteTripActivity/:tripId', tripController.deleteTripActivity);
 
