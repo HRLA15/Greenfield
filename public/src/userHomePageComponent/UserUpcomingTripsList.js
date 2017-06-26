@@ -144,7 +144,7 @@ class UserUpcomingTripsList extends Component {
           onMouseOver={()=>{console.log("mouseOver")}}
           onClick={()=> this.handleEntryClick(tile.id)}
           style={{borderRadius: 5 + 'px'}}
-          key={tile.trip.url}
+          key={tile.url}
           title={tile.trip.title}
           subtitle={tile.trip.startDate}
           actionIcon={

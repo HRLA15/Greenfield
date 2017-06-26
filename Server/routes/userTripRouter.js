@@ -3,7 +3,7 @@ const userTripController = require('../controllers/userTripController')
 
 
 // get all the trips of a user
-router.get('/getAllUserTrips/:userId', userTripController.getAllUserTrips);
+router.get('/getAllUserCreatedTrips/:userId', userTripController.getAllUserTrips);
 
 // add the trip that the user has created -- trip can only be created once and only by one person
 router.post('/postUserTrip/:userId/:tripId', userTripController.postUserTrip);

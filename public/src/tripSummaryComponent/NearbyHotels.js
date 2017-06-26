@@ -1,22 +1,50 @@
 import React, { Component } from 'react'
 import NearbyHotelsEntry from './NearbyHotelsEntry'
 import axiosRoutes from './TripSummaryAxiosRoutes'
+import {GridList, GridTile} from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  gridList: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    overflowX: 'auto',
+  },
+  titleStyle: {
+    color: 'white',
+  },
+};
 
 const dummyData = [
   {
-    hotelName: 'Hilton',
-    website: 'http://www3.hilton.com/en/index.html',
-    location: 'China'
+    name: 'Hoelton',
+    url: 'https://exp.cdn-hotels.com/hotels/1000000/150000/140600/140596/140596_275_z.jpg',
+    address: 'China'
   },
   {
-    hotelName: 'Marriott',
-    website: 'http://www.marriott.com/default.mi',
-    location: 'China'
+    name: 'Marriohoe',
+    url: 'http://www.litorehotel.com/web/en/images/placeholders/1920x1200-0.jpg',
+    address: 'China'
   },
   {
-    hotelName: 'Trump Hotel',
-    website: 'https://www.trumphotels.com/',
-    location: 'China'
+    name: 'Jay Hoetel',
+    url: 'http://betterdailyhabits.com/wp-content/uploads/2015/06/hotel-generic.jpg',
+    address: 'China'
+  },
+  {
+  name: 'Hoelton',
+    url: 'https://exp.cdn-hotels.com/hotels/1000000/150000/140600/140596/140596_275_z.jpg',
+    address: 'China'
+  },
+  {
+  name: 'Hoelton',
+    url: 'https://exp.cdn-hotels.com/hotels/1000000/150000/140600/140596/140596_275_z.jpg',
+    address: 'China'
   }
 ]
 
@@ -88,7 +116,22 @@ class NearbyHotels extends Component {
   render() {
     return (
     <div>
-      <table>
+      <h5>Hotels</h5>
+      <GridList style={styles.gridList} cols={2.2}>
+      {dummyData.map((tile) => (
+        <GridTile
+          onClick={()=>{this.handleVoteClick(tile.id)}}
+          style={{borderRadius: 3 + "px", marginLeft: -3 + "px"}}
+          title={tile.name}
+          titleStyle={styles.titleStyle}
+          titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+        >
+          <img src={tile.url} />
+        </GridTile>
+      ))}
+    </GridList>
+
+      {/*<table>
         <thead>
           <tr>
             <td>Hotels:</td>
@@ -104,7 +147,8 @@ class NearbyHotels extends Component {
             ))
           }
         </tbody>
-      </table>
+      </table>*/}
+
     </div>
     )
   }
