@@ -1,21 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import FlatButton from 'material-ui/FlatButton'
 
-const FriendsList = ({friends, invite, done, hideInvite}) => (
+const FriendsList = ({friendsData, friends, invite, done, hideInvite}) => (
   
   <div>
-  {friends.map((friend, key) => {
+  {friendsData.map((friend, key) => {
     return <div>
       <span key={key}>
-      {friend.firstName}
+      {friend.id}
       </span>
-      <button className="btn" onClick={() => {
-        invite(friend)}}>Invite</button>
+
+      <FlatButton label="Invite" primary={true} onClick={() => {
+        invite(friend)}}/>
 
   </div>
 
   })}
-  <button className="doneBtn" onClick={done}>Finished</button>
+  <FlatButton label="Finished" primary={true} onClick={done}/>
   </div>
 )
 
