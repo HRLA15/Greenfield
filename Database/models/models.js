@@ -27,7 +27,7 @@ const Trip = db.define('trip',{
   },
   destination: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   description: {
     type: Sequelize.STRING,
