@@ -28,7 +28,8 @@ class UserHome extends Component {
       redirect: false,
       userInfo: {},
       friends: [],
-      display: false
+      display: false,
+      myTrips: []
     }
 
 
@@ -37,6 +38,12 @@ class UserHome extends Component {
 
   //once servers are working and auth0token is given uncomment below
   componentWillMount() {
+
+    axiosRoutes.getAllUserCreatedTrips(localStorage.userId)
+      .then((res)=> {
+        this.setState({myTrips: res.data})
+        console.log("myTrips: ", this.state.myTrips)
+      })
 
     axiosRoutes.getUserFriends(localStorage.userId)
       .then((res) => {
@@ -112,7 +119,7 @@ class UserHome extends Component {
           </Tabs>
         </div>
           <div style={{flexGrow: 1, flexShrink: 1, marginTop: 45 + "px", marginLeft: 40 + "px"}}>
-          <UserSideBar friends={this.state.friends}/>
+          <UserSideBar username={this.state.userInfo.username} friends={this.state.friends}/>
           </div>
         </div>
       </div>

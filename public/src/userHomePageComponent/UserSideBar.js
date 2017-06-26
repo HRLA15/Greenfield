@@ -41,6 +41,7 @@ class UserSideBar extends Component {
 
     return (
       <div>
+        <h5 style={{marginTop: 45 + "px"}}>{this.props.username}</h5>
         <Avatar style={{marginTop: 50 + "px", marginLeft: 20 + "px"}}
           src="http://www.provo2.com/health-fitness/wp-content/uploads/2010/11/default-avatar.jpg"
           size={100}
