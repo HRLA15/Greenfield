@@ -50,7 +50,7 @@ class PendingTrips extends Component {
       .then((res) => {
         if(Array.isArray(res.data)) {
           this.setState({
-            pendingTrips: res.data
+            pendingTrips: [res.data[0].trip]
           })
         }
       })

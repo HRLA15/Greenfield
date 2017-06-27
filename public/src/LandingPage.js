@@ -5,7 +5,6 @@ class Landing extends Component {
   constructor() {
     super()
   }
-
   render(){
     return (
     <div id="landing">

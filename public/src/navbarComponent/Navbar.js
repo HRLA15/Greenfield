@@ -73,7 +73,7 @@ class Navbar extends Component {
         <AppBar
           title={<span style={styles.title} onClick={
             isAuthenticated() ? this.goTo.bind(this, 'home') : this.goTo.bind(this, '')
-          }>TRIP PLANNER</span>}
+          }>Triplit</span>}
           titleStyle={{textAlign: "center"}}
           iconElementRight={isAuthenticated() ? <Logged goTo={this.goTo.bind(this)} logout={this.logout.bind(this)}/> : <Login login={this.login.bind(this)}/>}
           iconElementLeft={isAuthenticated() ? <PendingTrips userId={this.props.userId} router={this.goTo.bind(this)}/> : <Flight/>}

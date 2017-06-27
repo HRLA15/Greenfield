@@ -7,6 +7,8 @@ import FontIcon from 'material-ui/FontIcon';
 import SvgIconFace from 'material-ui/svg-icons/action/face';
 import {blue300, indigo900} from 'material-ui/styles/colors';
 
+//This file is meant to render friends list onto create page
+
 const styles = {
   chip: {
     margin: 4,
@@ -27,7 +29,7 @@ const FriendsList = ({friendsData, friends, invite, done, hideInvite}) => (
           style={styles.chip}
         >
           <Avatar src="http://orig12.deviantart.net/e40f/f/2012/239/a/d/aang_facebook_default_profile_picture_by_redjanuary-d5cm82l.png" />
-          {friend.id}
+          {friend.name}
       <FlatButton label="Invite" primary={true} onClick={() => {
         invite(friend)}}/>
         </Chip>

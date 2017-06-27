@@ -5,9 +5,6 @@ module.exports = {
     //should return tripObj with trip data
     axios.get(`http://localhost:3000/getTripSummary/${tripId}`)
   ),
-  //trip database ID TITLE DESTINATION START/END DATE
-  //post tripname
-  // 
   postTripInfo: (tripData) => (
     axios.post(`http://localhost:3000/postTripSummary`, {
       title: tripData.title,

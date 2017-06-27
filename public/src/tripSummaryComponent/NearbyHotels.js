@@ -122,7 +122,7 @@ class NearbyHotels extends Component {
       {this.state.hotels.map((tile) => (
         <GridTile
           onClick={()=>{this.handleVoteClick(tile.id)}}
-          style={{borderRadius: 3 + "px", marginLeft: -3 + "px"}}
+          style={{borderRadius: 3 + "px", marginRight: 1 + "px", marginLeft: 1 + "px"}}
           key={tile.id}
           title={tile.name}
           titleStyle={styles.titleStyle}

@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom'
 import GMapQuerySelect from './GMapQuerySelect'
 import GoogleMap from './GoogleMap'
 import PendingList from './PendingList'
+import Divider from 'material-ui/Divider';
 //title, destionation, startdate, enddate, isCompleted, userId
 const trip = {
   id:1,
@@ -129,15 +130,17 @@ class TripSummary extends Component {
     
     return (
       <div>
-        <h1>{this.state.tripData.title}</h1>
-        <h4>{`Start Date: ${this.state.tripData.startDate} End Date: ${this.state.tripData.endDate}`}</h4>
-        <p>{this.state.tripData.destination}</p>
+        <h2 style={{marginTop: 20 + "px", marginLeft: 10 + "px"}}>{this.state.tripData.title}</h2>
+        <div style={{borderRadius: 1 + "px", marginTop: -31 + "px", marginLeft: 20 + "px", width: 96 + "%", backgroundImage: `url(${this.state.topHotel.url})`, backgroundSize: 'cover'}}>
+          <br></br>
+        </div>
+        <br></br>
+        <h5 style={{marginLeft: 65 + "%", marginTop: -25 + "px"}}>{this.state.tripData.destination} | {this.state.tripData.startDate} - {this.state.tripData.endDate}</h5>
+        <Divider />
         <GoogleMap
           tripId={this.props.match.params.tripId}
           toggleHandler={this.toggleHandler}
         />
-      
-      {editButton}
       <ConfirmedFriends 
         tripId={this.state.tripData.id}
         userId={this.props.userId}
@@ -146,6 +149,9 @@ class TripSummary extends Component {
         toggle={this.state.toggle}
         toggleHandler={this.toggleHandler}
       />
+      
+      {editButton}
+
       <ActivityList 
         tripId={this.state.tripData.id}
         userId={this.props.userId}
