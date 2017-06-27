@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PendingList from './PendingList'
 import {Grid, Row, Col, Image, Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap'
 import axiosRoutes from './TripSummaryAxiosRoutes'
 

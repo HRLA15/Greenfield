@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import NearbyHotelsEntry from './NearbyHotelsEntry'
 import axiosRoutes from './TripSummaryAxiosRoutes'
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
@@ -20,34 +19,6 @@ const styles = {
   },
 };
 
-const dummyData = [
-  {
-    name: 'Hoelton',
-    url: 'https://exp.cdn-hotels.com/hotels/1000000/150000/140600/140596/140596_275_z.jpg',
-    address: 'China'
-  },
-  {
-    name: 'Marriohoe',
-    url: 'http://www.litorehotel.com/web/en/images/placeholders/1920x1200-0.jpg',
-    address: 'China'
-  },
-  {
-    name: 'Jay Hoetel',
-    url: 'http://betterdailyhabits.com/wp-content/uploads/2015/06/hotel-generic.jpg',
-    address: 'China'
-  },
-  {
-  name: 'Hoelton',
-    url: 'https://exp.cdn-hotels.com/hotels/1000000/150000/140600/140596/140596_275_z.jpg',
-    address: 'China'
-  },
-  {
-  name: 'Hoelton',
-    url: 'https://exp.cdn-hotels.com/hotels/1000000/150000/140600/140596/140596_275_z.jpg',
-    address: 'China'
-  }
-]
-
 class NearbyHotels extends Component {
   
   constructor(props) {
@@ -58,9 +29,9 @@ class NearbyHotels extends Component {
 
     this.handleVoteClick = this.handleVoteClick.bind(this)
   }
-  
+  // lifecycle hook to update dom with most up to date info
   componentWillReceiveProps(nextProps) {
-
+        // same logic as ActivityList.js starting from line 16
         if(nextProps.toggle !== this.state.toggle) {
 
           this.setState({
@@ -93,19 +64,14 @@ class NearbyHotels extends Component {
             .catch(err => console.log(err))
         }
   }
-
+  // same logic as ActivityList.js starting at line 63
   componentDidMount() {
       this.setState({
         toggle: !this.props.toggle
       })
   }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.state.interval)
-  // }
-
   handleVoteClick(hotelId) {
-    console.log('you voted')
     axiosRoutes.addVoteToHotel(hotelId, this.props.userId)
       .then((res) => {
         alert('Thanks for Voting!')
@@ -132,25 +98,6 @@ class NearbyHotels extends Component {
         </GridTile>
       ))}
     </GridList>
-
-      {/*<table>
-        <thead>
-          <tr>
-            <td>Hotels:</td>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            this.state.hotels.map((hotel) => (
-              <NearbyHotelsEntry 
-                hotelObj={hotel} 
-                handleVoteClick={this.handleVoteClick}
-              />
-            ))
-          }
-        </tbody>
-      </table>*/}
-
     </div>
     )
   }

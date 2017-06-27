@@ -3,14 +3,7 @@ import UserProfilePic from './UserProfilePic'
 import UserProfileInfo from './UserProfileInfo'
 import axiosRoutes from './SettingsPageAxiosRoutes'
 
-// const dummyData = {
-//   id: 1,
-//   username: 'jayIsSexy1000',
-//   firstName: 'Jay',
-//   lastName: 'Sexy',
-//   email: 'wowjayishawt@trumpin.com',
-//   profilePic: []
-// }
+// this page is unfinshed please finish the user profile to work
 
 class UserProfile extends Component {
   constructor(props) {
@@ -29,7 +22,8 @@ class UserProfile extends Component {
     this.handleEditPicClick = this.handleEditPicClick.bind(this)
     this.handleCancelEditPicClick = this.handleCancelEditPicClick.bind(this)
   }
-
+  // before the component fires the render function do a axios call to get
+  // the users info stored in the database
   componentWillMount() {
     axiosRoutes.getOneUser(localStorage.userSub)
       .then((res) => {
@@ -41,6 +35,7 @@ class UserProfile extends Component {
       .catch(err => console.log(err))
   }
 
+  // toggles 
   handleEditClick() {
     this.setState({
       edit: true
@@ -62,17 +57,6 @@ class UserProfile extends Component {
         })
       })
       .catch(err => console.log(err))
-
-    //once server routes work uncomment above and delete lines below
-    // this.state.userInfo['username'] = stateObj.tempUsername
-    // this.state.userInfo['firstName'] = stateObj.tempFirstName
-    // this.state.userInfo['lastName'] = stateObj.tempLastName
-    // this.state.userInfo['email'] = stateObj.tempEmail
-    
-    // this.setState({
-    //   edit: false,
-    //   userInfo: this.state.userInfo
-    // })
   }
   
   handleEditPicClick() {

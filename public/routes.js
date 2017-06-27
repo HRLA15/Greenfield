@@ -22,23 +22,22 @@ const handleAuthentication = (nextState, replace) => {
   }
 }
 
-let handleCreateInputToEvent = ()=>{
-  
-}
-
 export const makeMainRoutes = () => {
+  // need to injectTapEventPlugin for material ui to work
   injectTapEventPlugin()
   let userId = null
 
   if(auth.isAuthenticated()) {
+    // sets the localStorage to the user sub
+    // so we can post the user sub to the database
+    // if they are not in the database
     auth.getUserInfo().client.userInfo(localStorage.access_token, function (err, user) {
+      // sets the userId 
       userId = user.sub
       postNewUser(user.sub)
       .then((res) => {
-        console.log('the new user?!', res.data)
         getOneUser(user.sub)
           .then((res) => {
-            console.log('get one user?!', res.data)
             localStorage.setItem('userId', res.data[0].id)
             localStorage.setItem('userSub', res.data[0].idToken)
           })
