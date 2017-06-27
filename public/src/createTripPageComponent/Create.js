@@ -31,34 +31,30 @@ class Create extends Component {
 
       fromDate: '',
       toDate: '',
-
       showInvite: true,
-
-      display: false,
-
-      //Store invited friends here to render onto create page
+      //Invited Friends storage
       friends: [],
-
-      //dummyData
-      friendsData: [{
-        name: 'Jon'
-      },{
-        name: 'Michael'
-      },{
-        name: 'Will'
-      }, {
-        name: 'Sho'
-      }],
+      display: false,
+      // displayEventPage: false,
 
       //Trip info
-
       tripName: '',
       location: '',
       description: '',
+
+      friendsData: '',
       longitude: '',
       latitude: '',
       accepted: [],
-      url: ''
+      url: '',
+
+      holderTripName: 'Trip Name',
+      holderDestination: 'Destination',
+      holderDescription: 'Description',
+      holderImg: 'ImageURL',
+      holderStartDate: '',
+      holderEndDate: ''
+
     }
     
     //binds
@@ -78,7 +74,35 @@ class Create extends Component {
     this.urlData = this.urlData.bind(this)
   }
 
-//get user friends from database, currently doesn't work
+componentWillMount() {
+
+  const urlArr = this.props.location.pathname.split('/')
+
+  if(urlArr[1] == "edit") {
+    const tripId = parseInt(urlArr[2])
+
+    axiosRoutes.getTripData(tripId)
+      .then((res) => {
+        let url = 'ImageURL'
+        if(res.data[0].url !== '') {
+          url = res.data[0].url
+        } 
+        this.setState ({
+          holderTripName: res.data[0].title,
+          holderDestination: res.data[0].destination,
+          holderDescription: res.data[0].description,
+          holderStartDate: res.data[0].startDate,
+          holderEndDate: res.data[0].endDate,
+          longitude: res.data[0].longitude,
+          latitude: res.data[0].latitude,
+          holderImg: url
+        })
+      })
+      .catch((err) => console.log(err))
+  }
+
+}
+
 componentDidMount() {
   // axiosRoutes.getUserFriends(localStorage.userId, tripId)
   //   .then((res)=>{
@@ -181,6 +205,7 @@ componentDidMount() {
   tripNameData(events) {
     this.setState({tripName: events.target.value})
     console.log('Trip Name: ',events.target.value)
+    console.log(this.state.description)
   };
   locationNameData(events) {
     this.setState({location: events.target.value})
@@ -283,10 +308,10 @@ const { isAuthenticated } = this.props.auth;
 
           <div className="input field" style={{marginLeft: 30 + "px", marginTop: 30 + "px", marginRight: 30 + "px"}}>
             <Row>
-                <Input defaultValue={this.state.tripName} style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder="Trip Name" s={12} onChange={this.tripNameData}/>
-                <Input defaultValue={this.state.location} id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder="Destination" s={12} onChange={this.handleFormSubmit}/>
-                <Input defaultValue={this.state.description} style={{fontSize: 15 + "px"}}placeholder="Description" s={12} onChange={this.descriptionData}/>
-                <Input defaultValue={this.state.url} style={{fontSize: 15 + "px"}}placeholder="ImageURL" s={12} onChange={this.urlData}/>
+                <Input defaultValue={this.state.tripName} style={{height: 70 + "px", fontSize: 30 + "px"}} placeholder={this.state.holderTripName} s={12} onChange={this.tripNameData}/>
+                <Input defaultValue={this.state.location} id="autocomplete" type="text" style={{height: 40 + "px", fontSize: 20 + "px"}} placeholder={this.state.holderDestination} s={12} onChange={this.handleFormSubmit}/>
+                <Input defaultValue={this.state.description} style={{fontSize: 15 + "px"}}placeholder={this.state.holderDescription} s={12} onChange={this.descriptionData}/>
+                <Input defaultValue={this.state.url} style={{fontSize: 15 + "px"}}placeholder={this.state.holderImg} s={12} onChange={this.urlData}/>
             </Row>
           </div>
 
@@ -298,6 +323,7 @@ const { isAuthenticated } = this.props.auth;
           <div id="bottomHalf" style={{marginLeft: 30 + "px", marginRight: 50 + "%"}}>
 
             <span style={{marginLeft: 2 + "%"}}>From:</span>
+
             <input defaultValue={this.state.fromDate} style={{marginLeft: 2 + "%", height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventFromDate}/>
             <span style={{marginLeft: 2 + "%"}}> To:</span>
             <input defaultValue={this.state.toDate} style={{marginLeft: 2 + "%",height: 50 + "px", fontSize: 15 + "px"}} type="date" onChange={this.eventToDate}/>
