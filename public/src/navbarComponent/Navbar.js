@@ -15,6 +15,7 @@ const iconStyles = {
 }
 
 const Login = ({login}) => (
+  // is using material ui to render the login in button on the nav bar
   <FlatButton onClick={login} label="Login" />
 )
 
@@ -47,25 +48,22 @@ class Navbar extends Component {
     super(props)
 
   }
-
+  //uses react router to take you to the url endpoint
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
-
+  //function that logs user in using auth0 which is getting passed in
   login() {
     this.props.auth.login();
   }
-
+  //function that logs user out using auth0 whicb is getting passed in as a prop
   logout() {
     this.props.auth.logout();
   }
 
-  goToNext(route) {
-    this.props.history.push(`/${route}`)
-  }
-
   render() {
-
+    // prop getting passed in which is a function of auth0 to check if the user
+    //logged in and authorized
     const { isAuthenticated } = this.props.auth
 
     return (

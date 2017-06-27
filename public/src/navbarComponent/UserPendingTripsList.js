@@ -8,33 +8,6 @@ import {blue500, red500, greenA200} from 'material-ui/styles/colors'
 import { Redirect } from 'react-router-dom'
 import axiosRoutes from './navbarAxiosRoutes'
 
-const dummyData = [
-  {
-    title: 'Maryland',
-    id: 1
-  },
-  {
-    title: 'New York',
-    id: 2
-  },
-  {
-    title: 'Washington D.C.',
-    id: 3
-  },
-  {
-    title: 'Chicago',
-    id: 4
-  },
-  {
-    title: 'Hawaii',
-    id: 5
-  }
-]
-//TODOS:
-//Add a confirm button click handler that will delete trip from pendingtrips and add to upcomingtrips
-//Add a unconfirm button click handler that will delete trip from pendingtrips
-//Finish handleEntryClick??
-
 class PendingTrips extends Component {
   constructor(props) {
     super(props)
@@ -44,7 +17,8 @@ class PendingTrips extends Component {
 
     this.handleEntryClick = this.handleEntryClick.bind(this)
   }
-
+  // when the user clicks the pending ringer bell button on the nav bar it updates
+  // component to render the most up to date list of pending trips of a user
   handleUpdate() {
     axiosRoutes.getUserPendingTrips(this.props.userId)
       .then((res) => {
@@ -56,7 +30,8 @@ class PendingTrips extends Component {
       })
       .catch(err => console.log(err))
   }
-
+  // is used to redirect the user to the event page of a pending trip when clicking
+  // on the pending trip entry on the navbar
   handleEntryClick(pendingTripId) {
     //add redirect to the upcoming trip info page
     this.props.router(`event/${pendingTripId}`)
@@ -67,7 +42,7 @@ class PendingTrips extends Component {
   }
 
   render() {
-
+    
     return (
     <IconMenu
       iconButtonElement={<IconButton><SocialNotificationActive onClick={() => this.handleUpdate.apply(this)} hoverColor={red500}/></IconButton>}
