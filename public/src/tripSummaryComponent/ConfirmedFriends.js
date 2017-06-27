@@ -80,7 +80,7 @@ class ConfirmedFriends extends Component {
       <div>
         {this.state.friends.map(friend => {
           console.log("!!!!!KJEFBEUH", friend)
-          return <li>{friend.participant.firstName} {friend.participant.lastName}</li>
+          return <RaisedButton disabled={true} style={{marginLeft: 20 + "px"}} label={friend.participant.firstName}/>
           
         })}
         <RaisedButton

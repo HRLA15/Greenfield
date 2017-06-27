@@ -29,28 +29,17 @@ class Create extends Component {
     super();
     this.state = {
 
-      // hideInvite: false,
-
       fromDate: '',
-
       toDate: '',
 
       showInvite: true,
-      //Invited Friends storage
-      friends: [],
 
       display: false,
 
-      // displayEventPage: false,
+      //Store invited friends here to render onto create page
+      friends: [],
 
-      //Trip info
-
-      tripName: '',
-
-      location: '',
-
-      description: '',
-
+      //dummyData
       friendsData: [{
         name: 'Jon'
       },{
@@ -61,15 +50,18 @@ class Create extends Component {
         name: 'Sho'
       }],
 
+      //Trip info
+
+      tripName: '',
+      location: '',
+      description: '',
       longitude: '',
-
       latitude: '',
-
       accepted: [],
-
       url: ''
     }
     
+    //binds
     this.inviteFriends = this.inviteFriends.bind(this)
     this.uninviteFriend = this.uninviteFriend.bind(this)
     this.invite = this.invite.bind(this)
@@ -84,23 +76,9 @@ class Create extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.onDrop = this.onDrop.bind(this)
     this.urlData = this.urlData.bind(this)
-    // this.hideInvite = this.hideInvite.bind(this)
   }
 
-  // hideInvite(){
-  //   if(this.state.hideInvite === false){
-  //   this.setState({hideInvite: true})
-  //   console.log('hideInvite')
-  //   } else {
-  //   this.setState({hideInvite: false})
-  //   }
-  // }
-componentWillMount() {
-  console.log('user id is', this.props.userId)
-  console.log(this.props.location.pathname)
-
-}
-
+//get user friends from database, currently doesn't work
 componentDidMount() {
   // axiosRoutes.getUserFriends(localStorage.userId, tripId)
   //   .then((res)=>{
@@ -134,7 +112,6 @@ componentDidMount() {
         this.setState({friends: this.state.friends})
       }
     }
-    console.log(this.state.friends)
     console.log(friend + ' was uninvited')
   }
 
@@ -145,8 +122,6 @@ componentDidMount() {
         return alert('Friend already invited')
       }
     }
-    console.log('Clicked on friend')
-    console.log(friend)
     this.state.friends.push(friend)
     this.setState({
       friends: this.state.friends
@@ -158,7 +133,6 @@ componentDidMount() {
     this.setState({display: false})
     console.log(this.state.friends)
   }
-
 
  onDrop(accepted) {
     this.setState({
@@ -179,6 +153,7 @@ componentDidMount() {
       latitude: this.state.latitude,
       url: this.state.url
     }
+
     //post request to database
     axiosRoutes.postTripInfo(tripInfo)
       .then((res) => {
@@ -195,13 +170,9 @@ componentDidMount() {
             this.goTo.call(this, `event/${res.data.tripId}`)
           })
           .catch(err => console.log(err))
-          console.log(tripInfo)
       })
       .catch((err)=> {
-        //take this out once we get servers linked
-        // this.goTo.call(this, 'event/1')
         console.log(err)
-        console.log(tripInfo)
       })
 
   }
@@ -231,10 +202,10 @@ componentDidMount() {
     this.setState({url: events.target.value})
   }
 
+//AutoComplete
 handleFormSubmit(){
     this.initAutocomplete();
   }
-
  initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
     // location types.
@@ -255,14 +226,13 @@ handleFormSubmit(){
     // When the user selects an address from the dropdown, populate the address
     // fields in the form.
     autocomplete.addListener('place_changed', ()=>{
-      console.log("is it in autocomplete?",autocomplete.getPlace().geometry.location);
+      //set address, longitude and latitude
       this.setState({
         searchedLocation : autocomplete.getPlace().geometry.location,
         location: autocomplete.getPlace().formatted_address,
         longitude: autocomplete.getPlace().geometry.location.lng(),
         latitude: autocomplete.getPlace().geometry.location.lat()
       })
-
     });
     
  }
@@ -275,9 +245,7 @@ handleFormSubmit(){
       previewPic = this.state.accepted[0].preview
     }
 
-    // console.log(this.props.location)
   //Invite Friends List on "Invite Friends" click
-  //Popup friends list/invite list
     if (this.state.display === true) {
       return (
       <div>
@@ -294,7 +262,6 @@ handleFormSubmit(){
   }
 
 const { isAuthenticated } = this.props.auth;
-        
         if (!isAuthenticated()) {
           return (
           <Redirect to ={{
@@ -305,7 +272,7 @@ const { isAuthenticated } = this.props.auth;
 
     return (
       <div> 
-        
+        {/*drag and drop dropzone*/}
         <Dropzone
           accept="image/jpeg, image/png"
           onDrop={this.onDrop.bind(this)}
@@ -359,7 +326,6 @@ const { isAuthenticated } = this.props.auth;
 } //end Create component bracket
 
 //Render invited friends onto Create Page
-
 const Friends = ({friends, uninviteFriend}) => (
   <div>
   {friends.map((friend, key) => (

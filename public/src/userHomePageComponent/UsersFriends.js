@@ -18,22 +18,18 @@ const styles = {
 };
 
 const UsersFriends = ({friends, done, handleClick}) => (
-  
   <div>
   {friends.map((friend, key) => {
     return <div>
       <span key={key}>
-      <Chip
-          style={styles.chip}
-        >
-          <Avatar src="http://orig12.deviantart.net/e40f/f/2012/239/a/d/aang_facebook_default_profile_picture_by_redjanuary-d5cm82l.png" />
-          {friend.firstName} {friend.lastName}
+        <Chip
+        style={styles.chip}
+      >
+      <Avatar src="http://orig12.deviantart.net/e40f/f/2012/239/a/d/aang_facebook_default_profile_picture_by_redjanuary-d5cm82l.png" />
+        {friend.firstName} {friend.lastName}
         </Chip>
-      
       </span>
-
   </div>
-
   })}
   <FlatButton label="Close" primary={true} onClick={handleClick}/>
   </div>

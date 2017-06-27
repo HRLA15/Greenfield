@@ -7,6 +7,8 @@ import FontIcon from 'material-ui/FontIcon';
 import SvgIconFace from 'material-ui/svg-icons/action/face';
 import {blue300, indigo900} from 'material-ui/styles/colors';
 
+//This file is meant to render friends list onto create page
+
 const styles = {
   chip: {
     margin: 4,

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import CreateTripButton from './CreateTripButton'
 import axiosRoutes from './UserHomeAxiosRoutes'
 import { Redirect, Link } from 'react-router-dom'
 import {List, ListItem} from 'material-ui/List'
