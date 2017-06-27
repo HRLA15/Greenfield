@@ -10,23 +10,7 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 
-const dummyData = [
-  {
-    name: 'Jon'
-  },
-  {
-    name: 'Will'
-  },
-  {
-    name: 'Mike'
-  },
-  {
-    name: 'Jay'
-  }
-]
-// will have tripId passed into props
-// and has top hotel obj and top activities array passed in
-class ConfirmedFriends extends Component {
+class TripSummarySideDrawer extends Component {
 
   constructor(props) {
     super(props)
@@ -38,8 +22,8 @@ class ConfirmedFriends extends Component {
     this.handleToggle = this.handleToggle.bind(this)
     this.handleClose = this.handleClose.bind(this)
   }
-
   componentWillMount() {
+    // gets the friends data as an array and sets the state
     axiosRoutes.getTripFriendsList(this.props.tripId)
       .then((res) => {
         console.log('friends data?', res.data)
@@ -52,22 +36,11 @@ class ConfirmedFriends extends Component {
       .catch(err => console.log(err))
   }
 
-  componentDidMount() {
-    // setTimeout(
-    //   axiosRoutes.getTripFriendsList(this.props.tripId)
-    //     .then((res) => {
-    //       if(Array.isArray(res.data)) {
-    //         this.setState({
-    //           friends: res.data
-    //         })
-    //       }
-    //     })
-    //     .catch(err => console.log(err)),
-    //   5000)
-  }
-
+  // handles the toggling of the drawer when the trip summary button gets clicked
   handleToggle() {
     this.setState({open: !this.state.open})
+    // calls the toggleHandler function in TripSummary.js which is used to keep the
+    // side drawer with the most up to date data
     this.props.toggleHandler()
   }
 
@@ -107,4 +80,4 @@ class ConfirmedFriends extends Component {
 
 }
 
-export default ConfirmedFriends
+export default TripSummarySideDrawer
