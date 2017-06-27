@@ -132,25 +132,6 @@ class NearbyHotels extends Component {
         </GridTile>
       ))}
     </GridList>
-
-      {/*<table>
-        <thead>
-          <tr>
-            <td>Hotels:</td>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            this.state.hotels.map((hotel) => (
-              <NearbyHotelsEntry 
-                hotelObj={hotel} 
-                handleVoteClick={this.handleVoteClick}
-              />
-            ))
-          }
-        </tbody>
-      </table>*/}
-
     </div>
     )
   }

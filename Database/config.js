@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 require('dotenv').config();
-const db = new Sequelize("postgres://nihauxdn:IrDRLy_6OINH_e87Pn7DD5j5O5tigHtk@stampy.db.elephantsql.com:5432/nihauxdn", {
+const db = new Sequelize("postgres://hcpplyat:3O3z-F8Q1hWyrdNTZnVX5JPVOXamGg9l@stampy.db.elephantsql.com:5432/hcpplyat", {
   pool: {
     min: 0,
     max: 3,

@@ -3,6 +3,8 @@ import PendingList from './PendingList'
 import {Grid, Row, Col, Image, Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap'
 import axiosRoutes from './TripSummaryAxiosRoutes'
 
+//the google map is rendered 
+//Note: map must be initizlized in componentDidMount to avoid async issue
 class GoogleMap extends Component{
   constructor(props){
     super(props)
@@ -16,37 +18,32 @@ class GoogleMap extends Component{
     this.initialize = this.initialize.bind(this);
     this.createMarker = this.createMarker.bind(this);
     this.handleMarkerClicked = this.handleMarkerClicked.bind(this);
-    // this.initAutocomplete = this.initAutocomplete.bind(this);
-    // this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleSelectionClick = this.handleSelectionClick.bind(this);
-    // this.addToPending = this.addToPending.bind(this)
     this.handleAddToConfirmList=this.handleAddToConfirmList.bind(this)
   }
 
+
+  
   componentDidMount(){
     console.log('these are the props ', this.props)
     axiosRoutes.getTripData(this.props.tripId)
       .then(({ data }) => {
         this.setState({ searchedLocation: data[0] }, () => {
+          //searchedLocation is in tripsummary.js passed in there
           this.initialize();
         })
       })
   }
-  // componentWillReceiveProps(){
-  //   console.log('these are the props ', this.prop)
-  //   this.initialize();
-  // }
-  // componentWillMount() {
-  // }
 
+  //here you can get the marker that is clicked and their information 
   handleMarkerClicked(place){
     this.setState({
         markerClicked:place
       })
   }
 
+  //add markers in the google place 
   createMarker(place, map) {
-    // console.log("place in createMarker", place)
     var currentContext = this;
     var placeLoc = place.geometry.location;
     var photos = place.photos;
@@ -74,26 +71,14 @@ class GoogleMap extends Component{
   }
 
   initialize() {
-    // const {tripLat, tripLng} = this.props;
-    console.log('these are the prroppposss in intitialize ', this.props)
+   
     var queryLocation = new google.maps.LatLng(this.state.searchedLocation.latitude, this.state.searchedLocation.longitude);
-    // console.log("what is pyrmont", losAngeles);
-    // console.log("searchedLocation in initilize locations:", this.state.searchedLocation);
-    // console.log("type of this.state.searchedLocation", typeof this.state.searchedLocation);
     var losAngeles = new google.maps.LatLng(46.471979, -90.247285);
-
-    // if (typeof this.state.searchedLocation.lat === "function"){
-    //   queryLocation = queryLocation
-    // }else{
-    //   queryLocation = losAngeles;
-    // }
-
     var map = new google.maps.Map(document.getElementById('map2'), {
       center: queryLocation,
       zoom: 15
     });
-    // console.log("what is this.state.querySelection",this.state.querySelection);
-
+    
     var request = {
       location: queryLocation,
       radius: '500',
@@ -103,10 +88,8 @@ class GoogleMap extends Component{
 
     var service = new google.maps.places.PlacesService(map);
     service.textSearch(request, (result, status) => {
-      // console.log("service in callback is: ", service)
-      // console.log("nearyby search status: ",status)
       if(status == google.maps.places.PlacesServiceStatus.OK){
-        // console.log("result of nearbySearch", result)
+       
         this.setState({
           googlePlaceResults: result
         })
@@ -125,17 +108,8 @@ class GoogleMap extends Component{
     this.initialize();
   }
 
-  // addToPending(){
-  //   var tempArray = this.state.pendingList;
-  //   tempArray.push(this.state.markerClicked);
 
-  //   this.setState({
-  //     pendingList:tempArray
-  //   })
-  //   // console.log('this is the pendingList after click', this.state.pendingList)
-  // }
-
-
+  //this add the the markerClicked items to the confirmed list
   handleAddToConfirmList(type, markerClicked){
     if(type =="hotel"){
       //post request to
@@ -158,12 +132,9 @@ class GoogleMap extends Component{
   }
 
 
-
-
+  //render the google map at map2, preview on the right of the map, and the search bar
+  
   render(){
-    // this.initialize();
-    // var obj = {lat: this.props.tripLat, lng: this.props.tripLng}
-    // this.setState({ searchedLocation: Object.assign(this.state.searchedLocation, obj )})
     return(
       <div>
             <Col xs={12} id="map2" style={{width:500+"px", height:500+"px"}}></Col>

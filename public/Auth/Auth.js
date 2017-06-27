@@ -6,6 +6,8 @@ import { AUTH_CONFIG } from './auth0-variables';
   
 export default class Auth {
 
+
+  //first, create a new service object with parameters to verify the user
   constructor() {
     this.service = new auth0.WebAuth({
       domain: AUTH_CONFIG.domain,
@@ -25,11 +27,14 @@ export default class Auth {
     this.getUserInfo = this.getUserInfo.bind(this)
   }
 
+
+  //once the user is authorized by the service via the authorize built-in function in 
+  //auth0, the user is authenticated
   login() {
-    console.log("in login", this.service);
     this.service.authorize();
   }
 
+  //the encoded the login info and return an authResult 
   handleAuthentication() {
     this.service.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
@@ -42,10 +47,15 @@ export default class Auth {
     });
   }
 
+
   getUserInfo() {
     return this.service
   }
   
+
+  //this part is important based on what parameter you set for your servic, 
+  //you can have different properties set for the service set here, and depending on 
+  //what you are getting back, you can also use the returned value as you wish
   setSession(authResult) {
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
@@ -57,6 +67,8 @@ export default class Auth {
     history.replace('/home');
   }
 
+
+
   logout() {
     // Clear access token and ID token from local storage
     localStorage.removeItem('access_token');
@@ -67,12 +79,12 @@ export default class Auth {
     alert("you are logged out ")
   }
 
+
+  //if the user is authenticated, you can set time out for the idtoken 
   isAuthenticated() {
     // Check whether the current time is past the 
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    // console.log("in setSession id_token:", localStorage.id_token, "access_token:", localStorage.access_token)
-    // console.log("token expiration time", expiresAt)
     return new Date().getTime() < expiresAt;
   }
 }
