@@ -1,29 +1,13 @@
 import React, { Component } from 'react'
 
-
+//query hotel, restaurants and store selection
 class GMapQuerySelect extends Component{
   constructor(props){
     super(props)
     this.state = {
       value : '',
     }
-
-    // this.handleSubmit = this.handleSubmit.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
   }
-
-  // handleChange(event) {
-  //   this.setState({value: event.target.value});
-  // }
-
-  // handleSubmit(event) {
-  //   console.log('You chose to search for: ' + event.target.value);
-  //   this.setState({
-      
-  //   })
-  //   event.preventDefault();
-  // }
-
   render(){
     return(
       <div>

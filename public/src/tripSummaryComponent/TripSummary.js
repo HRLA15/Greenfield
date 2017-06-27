@@ -18,8 +18,6 @@ const trip = {
   userId: 1
 }
 
-//TODOS:
-//Make the edit button redirect to the createTripPage given the tripId
 
 
 // trip summary will have tripid and userid passed in
@@ -177,8 +175,4 @@ class TripSummary extends Component {
 }
 
 export default TripSummary
-            {/*tripId={this.state.tripData.id}
-            tripLat={this.state.tripData.latitude}
-            tripLng={this.state.tripData.longitude}
-            handleSelectionClick={this.handleSelectionClick}
-            querySelection={this.state.querySelection ? this.state.querySelection : "hotel"}*/}
+           
