@@ -4,6 +4,11 @@ import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Avatar from 'material-ui/Avatar';
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
 
 const dummyData = [
   {
@@ -37,6 +42,7 @@ class ConfirmedFriends extends Component {
   componentWillMount() {
     axiosRoutes.getTripFriendsList(this.props.tripId)
       .then((res) => {
+        console.log('friends data?', res.data)
         if(Array.isArray(res.data)) {
           this.setState({
             friends: res.data
@@ -72,7 +78,13 @@ class ConfirmedFriends extends Component {
   render() {
     return (
       <div>
+        {this.state.friends.map(friend => {
+          console.log("!!!!!KJEFBEUH", friend)
+          return <RaisedButton disabled={true} style={{marginLeft: 20 + "px"}} label={friend.participant.firstName}/>
+          
+        })}
         <RaisedButton
+          style={{marginLeft: 20 + "px"}}
           label="Trip Summary"
           onTouchTap={this.handleToggle}
         />

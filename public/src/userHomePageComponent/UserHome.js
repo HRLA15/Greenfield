@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Create from '../createTripPageComponent/Create'
-import CreateTripButton from './CreateTripButton'
 import UserUpcomingTripsList from './UserUpcomingTripsList'
 import UserPreviousTripsList from './UserPreviousTripsList'
 import TripSummary from '../tripSummaryComponent/TripSummary'
@@ -9,8 +8,8 @@ import { Redirect, Link } from 'react-router-dom'
 import UserSideBar from './UserSideBar'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import UsersFriends from './UsersFriends'
-//TODOS:
 
+//Style for Tabs
 const styles = {
   headline: {
     fontSize: 24,
@@ -31,12 +30,9 @@ class UserHome extends Component {
       display: false,
       myTrips: []
     }
-
-
     this.handleCreateTripButtonClick = this.handleCreateTripButtonClick.bind(this)
   }
 
-  //once servers are working and auth0token is given uncomment below
   componentWillMount() {
 
     axiosRoutes.getAllUserCreatedTrips(localStorage.userId)
@@ -84,13 +80,6 @@ class UserHome extends Component {
   render() {
     let clicked = this.state.redirect
     console.log('user id', this.props.userId)
-    // if(clicked) {
-    //   return (
-    //     <Redirect to={{
-    //     pathname: '/create'
-    //     }}/>
-    //   )
-    // }
 
     if(this.state.display === true) {
       return <div>
@@ -100,9 +89,6 @@ class UserHome extends Component {
 
     return (
       <div>
-        {/*<UserUpcomingTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
-        <UserPreviousTripsList redirect={this.goTo.bind(this)} userId={this.props.userId}/>
-        <UserUpcomingTripsList redirect={this.goTo.bind(this)}/>*/}
         <div style={{display: 'flex', flexDirection: 'row'}}>
           <div style={{flexGrow: 2, flexShrink: 3}}>
             <Tabs style ={{marginLeft: -10 + "%"}}>

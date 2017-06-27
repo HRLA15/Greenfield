@@ -54,7 +54,8 @@ module.exports = {
       include: [{
         model: UserTrip.Trip,
         where: {endDate: {$lt: Sequelize.col('currentDate')}}
-      }]
+      }],
+      order: [[Sequelize.literal('"trip.endDate"'), 'DESC']]
     })
       .then(completedtrip => {
         res.status(202).send(completedtrip);
@@ -69,7 +70,8 @@ module.exports = {
       include: [{
         model: UserTrip.Trip,
         where: {endDate: {$lt: Sequelize.col('currentDate'), endDate: {$gt: Sequelize.fn('NOW')}}}
-      }]
+      }],
+      order: [[Sequelize.literal('"trip.endDate"'), 'DESC']]
     })
       .then(completedtrip => {
         res.status(202).send(completedtrip);
@@ -84,8 +86,8 @@ module.exports = {
       include: [{
         model: UserTrip.Trip,
         where: {endDate: {$gt: Sequelize.col('currentDate')}},
-        order: [Sequelize.literal('startDate ASC')]
-      }]
+      }],
+      order: [[Sequelize.literal('"trip.startDate"'), 'ASC']]
     })
       .then(upcoming => {
         res.status(202).send(upcoming);
@@ -101,7 +103,8 @@ module.exports = {
       include: [{
         model: UserTrip.Trip,
         where: {endDate: {$gt: Sequelize.col('currentDate')}}
-      }]
+      }],
+      order: [[Sequelize.literal('"trip.startDate"'), 'ASC']]
     })
       .then(upcomingtrip => {
         res.status(202).send(upcomingtrip);
@@ -116,7 +119,8 @@ module.exports = {
       include: [{
         model: UserTrip.Trip,
         where: {endDate: {$gt: Sequelize.col('currentDate')}}
-      }]
+      }],
+      order: [[Sequelize.literal('"trip.startDate"'), 'ASC']]
     })
       .then(pending => {
         res.status(202).send(pending);
